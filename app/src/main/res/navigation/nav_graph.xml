@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.avit.apnamzp.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_pickUpAndDropFragment"
+            app:destination="@id/pickUpAndDropFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.avit.apnamzp.ui.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.avit.apnamzp.ui.orders.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/offersFragment"
+        android:name="com.avit.apnamzp.ui.offers.OffersFragment"
+        android:label="fragment_offers"
+        tools:layout="@layout/fragment_offers" />
+    <fragment
+        android:id="@+id/pickUpAndDropFragment"
+        android:name="com.avit.apnamzp.ui.pickupanddrop.PickUpAndDropFragment"
+        android:label="fragment_pick_up_and_drop"
+        tools:layout="@layout/fragment_pick_up_and_drop" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.avit.apnamzp.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.avit.apnamzp.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+</navigation>

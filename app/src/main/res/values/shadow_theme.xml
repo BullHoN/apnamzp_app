@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="shadow_theme">
+        <item name="android:ambientShadowAlpha">0.8</item>
+        <item name="android:spotShadowAlpha">0.8</item>
+    </style>
+
+</resources>
