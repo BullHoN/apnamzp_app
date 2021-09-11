@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/apna_sathi_back.xml" value="0.2064814814814815" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/closed_back.xml" value="0.19166666666666668" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/reviews_back.xml" value="0.19166666666666668" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/search_back.xml" value="0.19907407407407407" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/seprator_ic.xml" value="0.19166666666666668" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_home.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_main.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_cart.xml" value="0.21195652173913043" />
@@ -12,8 +16,9 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_orders.xml" value="0.21195652173913043" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_pick_up_and_drop.xml" value="0.21195652173913043" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_profile.xml" value="0.11499493414387031" />
-        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_search.xml" value="0.11499493414387031" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_search.xml" value="0.16799999999999998" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/image_carousel_item.xml" value="0.20108695652173914" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_shopdetails.xml" value="0.18931159420289856" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.14722222222222223" />
       </map>
     </option>

@@ -57,7 +57,100 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        setUpCategories();
+
+        binding.helpline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        binding.shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        binding.viewAllStores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return root;
+    }
+
+    private void setUpCategories(){
+
+        // Backery
+        binding.bakery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Backery & Snacks");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        // Pure veg
+        binding.vegFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Pure Veg Resturants");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        // Non Veg
+        binding.nonveg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Non veg Resturants");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        // Fruits
+        binding.fruitsandvegetables.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Fruits & Vegatables");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        // Dairy Products
+        binding.dairyproducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Dairy Products");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        // Grocieries
+        binding.groceries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Groceries");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
     }
 
     private void setUpBannerImages(){
