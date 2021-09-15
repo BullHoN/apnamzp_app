@@ -3,6 +3,7 @@ package com.avit.apnamzp.ui.shopdetails;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -27,6 +28,13 @@ public class ShopDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentShopDetailsBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(root).popBackStack();
+            }
+        });
 
         List<ShopCategoryData> shopCategoryDataList = new ArrayList<>();
         List<ShopItemData> shopItemData = new ArrayList<>();

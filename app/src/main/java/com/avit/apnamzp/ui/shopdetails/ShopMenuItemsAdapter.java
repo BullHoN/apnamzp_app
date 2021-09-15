@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,7 @@ import com.avit.apnamzp.models.shop.ShopItemData;
 
 import java.util.List;
 
-public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsViewHolder>{
+public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdapter.ShopMenuItemsViewHolder>{
 
     private Context context;
     private List<ShopItemData> shopItemDataList;
@@ -32,6 +33,10 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsView
 
     @Override
     public void onBindViewHolder(@NonNull ShopMenuItemsViewHolder holder, int position) {
+        ShopItemData curr = shopItemDataList.get(position);
+
+        holder.itemNameView.setText(curr.getName());
+        holder.itemPriceView.setText("₹" + curr.getPrice());
 
     }
 
@@ -39,11 +44,17 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsView
     public int getItemCount() {
         return shopItemDataList.size();
     }
-}
 
-class ShopMenuItemsViewHolder extends RecyclerView.ViewHolder{
+    class ShopMenuItemsViewHolder extends RecyclerView.ViewHolder{
 
-    public ShopMenuItemsViewHolder(@NonNull View itemView) {
-        super(itemView);
+        public TextView itemNameView,itemPriceView;
+
+        public ShopMenuItemsViewHolder(@NonNull View itemView) {
+            super(itemView);
+            itemNameView = itemView.findViewById(R.id.itemName);
+            itemPriceView = itemView.findViewById(R.id.itemPrice);
+        }
     }
 }
+
+

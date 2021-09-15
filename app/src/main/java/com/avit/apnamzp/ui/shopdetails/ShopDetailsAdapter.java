@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,6 +38,8 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
 
         ShopCategoryData curr = shopCategoryDataList.get(position);
 
+        holder.categoryNameView.setText(curr.getCategoryName());
+
         holder.menuItemsListView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         ShopMenuItemsAdapter adapter = new ShopMenuItemsAdapter(context,shopCategoryDataList.get(position).getShopItemDataList());
         holder.menuItemsListView.setAdapter(adapter);
@@ -54,11 +57,14 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
 
         public RecyclerView menuItemsListView;
         public LinearLayout headerTitleView;
+        public TextView categoryNameView;
 
         public ShopDetailsViewHolder(@NonNull View itemView) {
             super(itemView);
+
             menuItemsListView = itemView.findViewById(R.id.menuItemsList);
             headerTitleView = itemView.findViewById(R.id.header_title);
+            categoryNameView = itemView.findViewById(R.id.categoryName);
 
             headerTitleView.setOnClickListener(new View.OnClickListener() {
                 @Override
