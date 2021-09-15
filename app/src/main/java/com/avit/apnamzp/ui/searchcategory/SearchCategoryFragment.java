@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentSearchBinding;
 import com.avit.apnamzp.models.shop.ShopData;
 
@@ -52,7 +53,16 @@ public class SearchCategoryFragment extends Fragment {
 
 
         binding.shopsList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
-        SearchCategoryAdapter adapter = new SearchCategoryAdapter(getContext(),new ArrayList<>());
+        SearchCategoryAdapter adapter = new SearchCategoryAdapter(getContext(), new ArrayList<>(), new SearchCategoryAdapter.openShopDetails() {
+            @Override
+            public void openShopDetails(String shopName, String shopCategory) {
+                Bundle shopDetailsBundle = new Bundle();
+                shopDetailsBundle.putString(shopName,shopCategory);
+
+                Navigation.findNavController(root).navigate(R.id.action_searchFragment_to_shopDetailsFragment,shopDetailsBundle);
+
+            }
+        });
         binding.shopsList.setAdapter(adapter);
 
         // TODO: Load Initial Data

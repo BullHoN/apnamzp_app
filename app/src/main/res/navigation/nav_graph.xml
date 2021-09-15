@@ -19,7 +19,9 @@
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -50,5 +52,18 @@
         android:id="@+id/searchFragment"
         android:name="com.avit.apnamzp.ui.searchcategory.SearchCategoryFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_shopDetailsFragment"
+            app:destination="@id/shopDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopDetailsFragment"
+        android:name="com.avit.apnamzp.ui.shopdetails.ShopDetailsFragment"
+        android:label="fragment_shop_details"
+        tools:layout="@layout/fragment_shop_details" />
 </navigation>

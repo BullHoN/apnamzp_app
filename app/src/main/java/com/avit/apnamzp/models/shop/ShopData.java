@@ -12,6 +12,7 @@ public class ShopData {
     private String averageDeliveryTime;
     private String mainImageURL;
     private String averageRatings;
+    private String shopCategory;
 
     public ShopData(String shopName,Boolean isOpen) {
         this.shopName = shopName;

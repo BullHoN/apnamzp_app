@@ -13,17 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.models.shop.ShopData;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
 public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryViewHolder>{
 
+    public interface openShopDetails{
+        void openShopDetails(String shopName,String shopCategory);
+    }
+
     private List<ShopData> shopDataList;
     private Context context;
+    private openShopDetails openShopDetailsInterface;
 
-    public SearchCategoryAdapter(Context context,List<ShopData> shopDataList) {
+    public SearchCategoryAdapter(Context context,List<ShopData> shopDataList,openShopDetails openShopDetailsInterface) {
         this.shopDataList = shopDataList;
         this.context = context;
+        this.openShopDetailsInterface = openShopDetailsInterface;
     }
 
     @NonNull
@@ -44,6 +51,13 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             holder.closedBackView.setVisibility(View.VISIBLE);
             holder.closedTextView.setVisibility(View.VISIBLE);
         }
+
+        holder.shopCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openShopDetailsInterface.openShopDetails(curr.getShopName(),"Zeher");
+            }
+        });
 
     }
 
@@ -68,11 +82,13 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
     public TextView nameView,closedTextView;
     public ImageView closedBackView;
+    public MaterialCardView shopCardView;
 
     public SearchCategoryViewHolder(@NonNull View itemView) {
         super(itemView);
         nameView = itemView.findViewById(R.id.shopName);
         closedBackView = itemView.findViewById(R.id.closed_back);
         closedTextView = itemView.findViewById(R.id.closed_text);
+        shopCardView = itemView.findViewById(R.id.shop_card);
     }
 }
