@@ -41,6 +41,14 @@ public class HomeFragment extends Fragment {
 
         setUpBannerImages();
 
+        // Location Button
+        binding.changeLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(root).navigate(R.id.action_homeFragment_to_getLocationFragment);
+            }
+        });
+
         // Search Button
         binding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -22,6 +22,9 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_getLocationFragment"
+            app:destination="@id/getLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -66,4 +69,9 @@
         android:name="com.avit.apnamzp.ui.shopdetails.ShopDetailsFragment"
         android:label="fragment_shop_details"
         tools:layout="@layout/fragment_shop_details" />
+    <fragment
+        android:id="@+id/getLocationFragment"
+        android:name="com.avit.apnamzp.ui.location.GetLocationFragment"
+        android:label="fragment_get_location"
+        tools:layout="@layout/fragment_get_location" />
 </navigation>
