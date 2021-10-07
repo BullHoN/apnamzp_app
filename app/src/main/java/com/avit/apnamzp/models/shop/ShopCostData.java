@@ -1,19 +1,19 @@
 package com.avit.apnamzp.models.shop;
 
 public class ShopCostData {
-    private int minOrderPrice;
-    private int minFreeDeliveryPrice;
+    private String minOrderPrice;
+    private String minFreeDeliveryPrice;
 
-    public ShopCostData(int minOrderPrice, int minFreeDeliveryPrice) {
+    public ShopCostData(String minOrderPrice, String minFreeDeliveryPrice) {
         this.minOrderPrice = minOrderPrice;
         this.minFreeDeliveryPrice = minFreeDeliveryPrice;
     }
 
-    public int getMinOrderPrice() {
+    public String getMinOrderPrice() {
         return minOrderPrice;
     }
 
-    public int getMinFreeDeliveryPrice() {
+    public String getMinFreeDeliveryPrice() {
         return minFreeDeliveryPrice;
     }
 }

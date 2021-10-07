@@ -110,6 +110,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryName","Pure Veg Resturants");
+                bundle.putString("shopType","Pure Vegetarian Resturants");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }

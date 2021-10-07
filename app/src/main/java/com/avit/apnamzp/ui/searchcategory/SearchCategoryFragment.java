@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentSearchBinding;
 import com.avit.apnamzp.models.shop.ShopData;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class SearchCategoryFragment extends Fragment {
     private String TAG = "SearchCategoryFragment";
     private FragmentSearchBinding binding;
     private SearchCategoryViewModel viewModel;
+    private Gson gson;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,9 +38,13 @@ public class SearchCategoryFragment extends Fragment {
         View root = binding.getRoot();
 
         viewModel = new ViewModelProvider(this).get(SearchCategoryViewModel.class);
+        gson = new Gson();
 
         Bundle bundle = getArguments();
         String categoryName = bundle.getString("categoryName",null);
+        String shopType = bundle.getString("shopType",null);
+
+        viewModel.getDataFromServer(shopType);
 
         binding.categoryName.setText(categoryName + " Near You");
 
@@ -55,9 +61,10 @@ public class SearchCategoryFragment extends Fragment {
         binding.shopsList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         SearchCategoryAdapter adapter = new SearchCategoryAdapter(getContext(), new ArrayList<>(), new SearchCategoryAdapter.openShopDetails() {
             @Override
-            public void openShopDetails(String shopName, String shopCategory) {
+            public void openShopDetails(ShopData shopData) {
                 Bundle shopDetailsBundle = new Bundle();
-                shopDetailsBundle.putString(shopName,shopCategory);
+                String jsonString  = gson.toJson(shopData,ShopData.class);
+                shopDetailsBundle.putString("shopData",jsonString);
 
                 Navigation.findNavController(root).navigate(R.id.action_searchFragment_to_shopDetailsFragment,shopDetailsBundle);
 
@@ -72,6 +79,9 @@ public class SearchCategoryFragment extends Fragment {
             @Override
             public void onChanged(List<ShopData> shopData) {
                 // Initial Load, Search
+                if(shopData.size() > 0){
+                    binding.progessBar.setVisibility(View.GONE);
+                }
                 adapter.replaceList(shopData);
             }
         });

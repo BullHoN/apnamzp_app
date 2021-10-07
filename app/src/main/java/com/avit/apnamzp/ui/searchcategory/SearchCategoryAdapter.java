@@ -2,10 +2,12 @@ package com.avit.apnamzp.ui.searchcategory;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.models.shop.ShopData;
+import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.List;
 public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryViewHolder>{
 
     public interface openShopDetails{
-        void openShopDetails(String shopName,String shopCategory);
+        void openShopDetails(ShopData shopData);
     }
 
     private List<ShopData> shopDataList;
@@ -45,6 +48,21 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
         ShopData curr = shopDataList.get(position);
 
         holder.nameView.setText(curr.getShopName());
+        holder.tagLineView.setText(curr.getTagLine());
+        holder.averageDeliveryTimeView.setText(curr.getAverageDeliveryTime());
+        holder.minOrderView.setText("₹" + curr.getPricingDetails().getMinOrderPrice());
+
+        Glide.with(context)
+                .load(curr.getBannerImage())
+                .into(holder.shopImageView);
+
+        float rating = Float.parseFloat(curr.getAverageRatings());
+        holder.noOfRatingView.setText(curr.getAverageRatings());
+        if(rating < 2){
+            holder.ratingBackground.setBackgroundColor(context.getResources().getColor(R.color.quantum_googred));
+        }
+
+        holder.reviewsView.setText(curr.getReviews());
 
         if(!curr.getOpen()){
             holder.nameView.setTextColor(context.getResources().getColor(R.color.secondaryTextColor));
@@ -55,7 +73,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
         holder.shopCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openShopDetailsInterface.openShopDetails(curr.getShopName(),"Zeher");
+                openShopDetailsInterface.openShopDetails(curr);
             }
         });
 
@@ -80,9 +98,10 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 
 class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView nameView,closedTextView;
-    public ImageView closedBackView;
+    public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,minOrderView,noOfRatingView,reviewsView;
+    public ImageView closedBackView,shopImageView;
     public MaterialCardView shopCardView;
+    public LinearLayout ratingBackground,reviewsBackground;
 
     public SearchCategoryViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -90,5 +109,13 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         closedBackView = itemView.findViewById(R.id.closed_back);
         closedTextView = itemView.findViewById(R.id.closed_text);
         shopCardView = itemView.findViewById(R.id.shop_card);
+        tagLineView = itemView.findViewById(R.id.tagLine);
+        averageDeliveryTimeView = itemView.findViewById(R.id.averageDeliveryTime);
+        minOrderView = itemView.findViewById(R.id.minOrder);
+        noOfRatingView = itemView.findViewById(R.id.rating);
+        reviewsView = itemView.findViewById(R.id.reviews);
+        ratingBackground = itemView.findViewById(R.id.ratingBackground);
+        reviewsBackground = itemView.findViewById(R.id.reviewsBackground);
+        shopImageView = itemView.findViewById(R.id.shopImage);
     }
 }

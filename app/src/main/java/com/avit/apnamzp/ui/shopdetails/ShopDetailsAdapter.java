@@ -1,6 +1,7 @@
 package com.avit.apnamzp.ui.shopdetails;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.ShopDetailsViewHolder>{
 
     List<ShopCategoryData> shopCategoryDataList;
     Context context;
+    private String TAG = "ShopDetailsAdapter";
 
     public ShopDetailsAdapter(List<ShopCategoryData> shopCategoryDataList, Context context) {
         this.shopCategoryDataList = shopCategoryDataList;
@@ -38,6 +41,10 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
 
         ShopCategoryData curr = shopCategoryDataList.get(position);
 
+        if(curr.expanded == null){
+            curr.setExpanded(true);
+        }
+
         holder.categoryNameView.setText(curr.getCategoryName());
 
         holder.menuItemsListView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
@@ -51,6 +58,11 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
     @Override
     public int getItemCount() {
         return shopCategoryDataList.size();
+    }
+
+    public void setItems(ArrayList<ShopCategoryData> list){
+        shopCategoryDataList = list;
+        notifyDataSetChanged();
     }
 
     class ShopDetailsViewHolder extends RecyclerView.ViewHolder{
