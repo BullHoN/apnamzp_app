@@ -16,8 +16,11 @@ import android.widget.ImageView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentHomeBinding;
+import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.BannerData;
 import com.bumptech.glide.Glide;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jama.carouselview.CarouselView;
 import com.jama.carouselview.CarouselViewListener;
 

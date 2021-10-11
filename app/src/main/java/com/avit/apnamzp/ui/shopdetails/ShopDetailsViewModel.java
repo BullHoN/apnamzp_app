@@ -18,7 +18,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class ShopDetailsViewModel extends ViewModel {
-    private ArrayList<ShopCategoryData> shopCategoryDataArrayList;
+    public ArrayList<ShopCategoryData> shopCategoryDataArrayList;
     private MutableLiveData<ArrayList<ShopCategoryData>> mutableLiveData;
     private String TAG = "ShopDetailsViewModel";
 

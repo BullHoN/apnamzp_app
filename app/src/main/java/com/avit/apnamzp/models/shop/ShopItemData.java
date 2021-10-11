@@ -4,13 +4,31 @@ import java.util.List;
 
 public class ShopItemData {
     private String name;
+    private String _id;
     private List<ShopPricingData> pricings;
     private String imageURL;
+    public int quantity;
 
     public ShopItemData(String name, List<ShopPricingData> pricings, String imageURL) {
         this.name = name;
         this.pricings = pricings;
         this.imageURL = imageURL;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPricings(List<ShopPricingData> pricings) {
+        this.pricings = pricings;
     }
 
     public String getImageURL() {

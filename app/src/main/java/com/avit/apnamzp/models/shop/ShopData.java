@@ -15,6 +15,7 @@ public class ShopData {
     private String shopType;
     private String reviews;
     private String menuItemsID;
+    private String _id;
 
     public ShopData(String shopName,Boolean isOpen) {
         this.name = shopName;
@@ -42,6 +43,10 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public String get_id() {
+        return _id;
     }
 
     public String getMenuItemsID() {

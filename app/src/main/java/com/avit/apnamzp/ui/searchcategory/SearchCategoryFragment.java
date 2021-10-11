@@ -1,7 +1,9 @@
 package com.avit.apnamzp.ui.searchcategory;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -22,6 +24,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchCategoryFragment extends Fragment {
 
@@ -29,6 +32,7 @@ public class SearchCategoryFragment extends Fragment {
     private FragmentSearchBinding binding;
     private SearchCategoryViewModel viewModel;
     private Gson gson;
+    private SearchCategoryAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +63,7 @@ public class SearchCategoryFragment extends Fragment {
 
 
         binding.shopsList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
-        SearchCategoryAdapter adapter = new SearchCategoryAdapter(getContext(), new ArrayList<>(), new SearchCategoryAdapter.openShopDetails() {
+        adapter = new SearchCategoryAdapter(getContext(), new ArrayList<>(), new SearchCategoryAdapter.openShopDetails() {
             @Override
             public void openShopDetails(ShopData shopData) {
                 Bundle shopDetailsBundle = new Bundle();
@@ -89,18 +93,31 @@ public class SearchCategoryFragment extends Fragment {
 
         // SearchBar
         binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.i(TAG, "onQueryTextSubmit: " + query);
                 return false;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public boolean onQueryTextChange(String newText) {
+                filterTheShopsByName(newText);
                 return false;
             }
         });
 
         return root;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void filterTheShopsByName(String query){
+        if(query.length() == 0){
+            adapter.replaceList(viewModel.shopDataList);
+            return;
+        }
+        List<ShopData> filetredList =  viewModel.shopDataList.stream().filter(shopData -> shopData.getName().toLowerCase().contains(query.toLowerCase())).collect(Collectors.toList());
+        adapter.replaceList(filetredList);
+    }
+
 }

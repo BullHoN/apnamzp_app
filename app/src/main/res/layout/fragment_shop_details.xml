@@ -7,6 +7,7 @@
     android:fillViewport="true"
     android:isScrollContainer="true"
     app:stickyHeader="@id/search_bar_view"
+    app:stickyFooter="@id/cartView"
     tools:context=".ui.shopdetails.ShopDetailsFragment">
 
     <RelativeLayout
@@ -95,6 +96,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -104,6 +106,7 @@
                     android:textSize="24sp" />
 
                 <TextView
+                    android:id="@+id/tagLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -112,6 +115,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/minOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
@@ -158,10 +162,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/search_bar_view"
-            android:isScrollContainer="false"
             android:layout_marginTop="5dp"
-            tools:itemCount="3"
+            android:isScrollContainer="false"
+            tools:itemCount="0"
             tools:listitem="@layout/item_menu_list" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:padding="12dp"
+            android:id="@+id/cartView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/cartItems"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="2 Items In Cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/goToCart"
+                android:text="GO TO Cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <View
             android:layout_below="@id/menuList"

@@ -1,29 +1,43 @@
 package com.avit.apnamzp.ui.shopdetails;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzp.R;
+import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
 public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdapter.ShopMenuItemsViewHolder>{
 
+    public interface onAddButtonInterface{
+      Boolean addButtonPressed(ShopItemData shopItemData,int position);
+      void removeTheBatch();
+    };
+
     private Context context;
     private List<ShopItemData> shopItemDataList;
+    private onAddButtonInterface onAddButtonInterface;
+    private String TAG = "ShopDetailsFragment";
 
-    public ShopMenuItemsAdapter(Context context, List<ShopItemData> shopItemDataList) {
+    public ShopMenuItemsAdapter(Context context, List<ShopItemData> shopItemDataList,onAddButtonInterface onAddButtonInterface) {
         this.context = context;
         this.shopItemDataList = shopItemDataList;
+        this.onAddButtonInterface = onAddButtonInterface;
     }
 
     @NonNull
@@ -34,7 +48,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShopMenuItemsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ShopMenuItemsViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ShopItemData curr = shopItemDataList.get(position);
 
         holder.itemNameView.setText(curr.getName() + "(" + curr.getPricings().get(0).getType() + ")");
@@ -49,6 +63,60 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
             holder.itemImageView.setVisibility(View.GONE);
         }
 
+
+        Cart cart = Cart.getInstance(context);
+        if(cart != null){
+            ShopItemData cartItem =  cart.isPresentInCart(curr.get_id());
+            if(cartItem != null){
+                holder.addButtonView.setVisibility(View.GONE);
+                holder.quantityView.setVisibility(View.VISIBLE);
+                holder.quantityTextView.setText(String.valueOf(cartItem.getQuantity()));
+
+                holder.itemNameView.setText(curr.getName() + "(" + curr.getPricings().get(0).getType() + ")");
+                holder.itemPriceView.setText("₹" + curr.getPricings().get(0).getPrice());
+
+            }
+            else {
+                holder.addButtonView.setVisibility(View.VISIBLE);
+                holder.quantityView.setVisibility(View.GONE);
+            }
+        }
+        else {
+            holder.addButtonView.setVisibility(View.VISIBLE);
+            holder.quantityView.setVisibility(View.GONE);
+        }
+
+
+        holder.increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cart.updateAnItem(context,curr.get_id(),1);
+                notifyItemChanged(position);
+            }
+        });
+
+        holder.decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cart.updateAnItem(context,curr.get_id(),-1);
+                onAddButtonInterface.removeTheBatch();
+                notifyItemChanged(position);
+            }
+        });
+        
+        holder.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onAddButtonInterface.addButtonPressed(curr, holder.getAdapterPosition())){
+                    
+                }
+            }
+        });
+
+    }
+
+    public void updateTheUI(int posi){
+        notifyItemChanged(posi);
     }
 
     @Override
@@ -58,14 +126,24 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
 
     class ShopMenuItemsViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView itemNameView,itemPriceView;
+        public TextView itemNameView,itemPriceView,quantityTextView;
         public ImageView itemImageView;
+        public MaterialButton addButton;
+        public LinearLayout addButtonView,quantityView, increaseQuantityButton, decreaseQuantityButton;
 
         public ShopMenuItemsViewHolder(@NonNull View itemView) {
             super(itemView);
             itemNameView = itemView.findViewById(R.id.itemName);
             itemPriceView = itemView.findViewById(R.id.itemPrice);
             itemImageView = itemView.findViewById(R.id.itemImage);
+            addButton = itemView.findViewById(R.id.addButton);
+
+            addButtonView = itemView.findViewById(R.id.addButtonView);
+            quantityView = itemView.findViewById(R.id.quantityView);
+            increaseQuantityButton = itemView.findViewById(R.id.increaseQuantity);
+            decreaseQuantityButton = itemView.findViewById(R.id.decreaseQuantity);
+            quantityTextView = itemView.findViewById(R.id.quantityText);
+
         }
     }
 }
