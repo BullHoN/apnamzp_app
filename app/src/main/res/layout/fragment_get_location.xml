@@ -175,19 +175,24 @@
 
         </LinearLayout>
 
-
-
         <EditText
+            android:inputType="text"
+            android:id="@+id/houseNo"
+            android:imeOptions="actionSend"
             android:hint="Flat No/Floor/Building Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <EditText
+            android:inputType="text"
+            android:id="@+id/landMark"
+            android:imeOptions="actionSend"
             android:hint="Nearby Landmark (Optional)"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveAddressButton"
             android:text="Save Address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

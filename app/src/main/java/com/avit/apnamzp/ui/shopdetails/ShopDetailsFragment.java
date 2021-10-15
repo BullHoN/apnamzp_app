@@ -3,6 +3,8 @@ package com.avit.apnamzp.ui.shopdetails;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -176,12 +178,41 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 if(cart == null){
                     List<ShopItemData> cartItems = new ArrayList<>();
                     cartItems.add(cartItem);
-                    cart = new Cart(getContext(),shopData.getShopName(), shopData.get_id(),cartItems);
+                    cart = new Cart(getContext(),shopData.getShopName(),shopData.get_id(),shopData,cartItems);
+                    Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
+                            .show();
                 }
 
                 if(!cart.insertToCart(getContext(), shopData.get_id(), cartItem)){
-                    // TODO: ADD A DIALOG BOX TO REPLACE THE ITEMS
-                    Toasty.error(getContext(),"Please Add Items Of Same Shop Or Clear Cart",Toasty.LENGTH_SHORT)
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                    builder.setTitle("You Cannot Add Items Of Different Shops In The Same Cart");
+                    Cart finalCart = cart;
+                    builder.setPositiveButton("Replace Cart", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            List<ShopItemData> cartItems = new ArrayList<>();
+                            cartItems.add(cartItem);
+                            finalCart.replaceCart(getContext(),shopData.getShopName(),shopData.get_id(),cartItems);
+                            updateTheBatch(finalCart.getCartSize());
+                            shopDetailsAdapter.notifyItemChanged(posOfShopItem);
+
+                            Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
+                                    .show();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+
+                    builder.show();
+                }
+                else {
+                    Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
                             .show();
                 }
 

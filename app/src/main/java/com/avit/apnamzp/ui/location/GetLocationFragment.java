@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import com.avit.apnamzp.MainActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentGetLocationBinding;
+import com.avit.apnamzp.localdb.User;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Result;
@@ -131,6 +132,27 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+        // Save Address Button
+        binding.saveAddressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String houseNo = binding.houseNo.getText().toString();
+                String landMark = binding.landMark.getText().toString();
+
+                if(houseNo.length() == 0) {
+                    Toasty.warning(getContext(),"Please Enter Your House No/Buiding Name",Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                User.setHomeDetails(getContext(),houseNo);
+                User.setLandMark(getContext(),landMark);
+
+                Toasty.success(getContext(),"Address Saved Successfully",Toasty.LENGTH_SHORT).show();
+                Navigation.findNavController(root).popBackStack();
+            }
+        });
+
         return root;
     }
 
@@ -157,6 +179,11 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
+
+                // Save The Location
+                User.setGoogleMapStreetAddress(getContext(),place.getAddress());
+                User.setLatLang(getContext(),place.getLatLng());
+
                 updateTheLocation(place.getAddress());
                 changeTheLocationOfMarker(place.getLatLng(),place.getAddress());
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
@@ -194,6 +221,11 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                     binding.rawAddress.setVisibility(View.GONE);
 
                     Address address = getStreetAddressFromLatlan(latlng);
+
+                    // Save The Location
+                    User.setGoogleMapStreetAddress(getContext(),address.getAddressLine(0));
+                    User.setLatLang(getContext(),latlng);
+
                     updateTheLocation(address.getAddressLine(0));
 
                 } catch (IOException e) {
@@ -202,7 +234,12 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
-        LatLng mirzapur = new LatLng(25.1337,82.5644);
+
+        LatLng mirzapur = User.getLatLng(getContext());
+
+        if(mirzapur == null){
+            mirzapur =  new LatLng(25.1337,82.5644);
+        }
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(mirzapur,15);
         mMap.animateCamera(cameraUpdate);
@@ -227,6 +264,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                 }
 
                 Location location =  locationResult.getLocations().get(0);
+                // SAVE THE Location
                 changeTheLocationOfMarker(new LatLng(location.getLatitude(),location.getLongitude()),"");
                 fusedLocationProviderClient.removeLocationUpdates(this);
 

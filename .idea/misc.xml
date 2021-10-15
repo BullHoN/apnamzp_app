@@ -7,24 +7,29 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/circle_back.xml" value="0.2324074074074074" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/closed_back.xml" value="0.19166666666666668" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/map_marker_ripple.xml" value="0.24166666666666667" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/offercode_back.xml" value="0.20833333333333334" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/reviews_back.xml" value="0.19166666666666668" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/search_back.xml" value="0.19907407407407407" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/seleted_back.xml" value="0.22592592592592592" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/seprator_ic.xml" value="0.19166666666666668" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/unselected_back.xml" value="0.22592592592592592" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_home.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_main.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/bottom_sheet_choosedishtype.xml" value="0.23645833333333333" />
-        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_cart.xml" value="0.21195652173913043" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_cart.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_get_location.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_home.xml" value="0.11499493414387031" />
-        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_offers.xml" value="0.11499493414387031" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_offers.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_orders.xml" value="0.21195652173913043" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_pick_up_and_drop.xml" value="0.21195652173913043" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_profile.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_search.xml" value="0.16799999999999998" />
-        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_shop_details.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_shop_details.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/image_carousel_item.xml" value="0.20108695652173914" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_cart.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_menu.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_menu_list.xml" value="0.23645833333333333" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_offer.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_pickanddroplistitem.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_shopdetails.xml" value="0.18931159420289856" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_shopipringitem.xml" value="0.23645833333333333" />

@@ -30,7 +30,11 @@
         android:id="@+id/cartFragment"
         android:name="com.avit.apnamzp.ui.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_getLocationFragment"
+            app:destination="@id/getLocationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ordersFragment"
         android:name="com.avit.apnamzp.ui.orders.OrdersFragment"

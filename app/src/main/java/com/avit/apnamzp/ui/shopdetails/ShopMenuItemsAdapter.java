@@ -51,6 +51,8 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
     public void onBindViewHolder(@NonNull ShopMenuItemsViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ShopItemData curr = shopItemDataList.get(position);
 
+        Log.i(TAG, "onBindViewHolder: " + curr.getTaxOrPackigingPrice());
+
         holder.itemNameView.setText(curr.getName() + "(" + curr.getPricings().get(0).getType() + ")");
         holder.itemPriceView.setText("₹" + curr.getPricings().get(0).getPrice());
 

@@ -8,11 +8,21 @@ public class ShopItemData {
     private List<ShopPricingData> pricings;
     private String imageURL;
     public int quantity;
+    public String taxOrPackigingPrice;
+    public String discount;
 
     public ShopItemData(String name, List<ShopPricingData> pricings, String imageURL) {
         this.name = name;
         this.pricings = pricings;
         this.imageURL = imageURL;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public String getTaxOrPackigingPrice() {
+        return taxOrPackigingPrice;
     }
 
     public String get_id() {

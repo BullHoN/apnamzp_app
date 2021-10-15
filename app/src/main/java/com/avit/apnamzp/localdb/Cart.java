@@ -3,6 +3,9 @@ package com.avit.apnamzp.localdb;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
+import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.google.gson.Gson;
 
@@ -13,9 +16,18 @@ public class Cart {
 
     private String shopName;
     private String shopID;
+    private ShopData shopData;
     private List<ShopItemData> cartItems;
 
-    public Cart(Context context,String shopName,String shopID,List<ShopItemData> shopItemDataList){
+    public Cart(Context context,String shopName, String shopID, ShopData shopData, List<ShopItemData> cartItems) {
+        this.shopName = shopName;
+        this.shopID = shopID;
+        this.shopData = shopData;
+        this.cartItems = cartItems;
+        saveToSharedPref(context);
+    }
+
+    public void replaceCart(Context context, String shopName, String shopID, List<ShopItemData> shopItemDataList){
         this.shopName = shopName;
         this.shopID = shopID;
         this.cartItems = shopItemDataList;
@@ -53,6 +65,19 @@ public class Cart {
         saveToSharedPref(context);
     }
 
+    public void justUpdate(Context context,String itemId,int val){
+        for(ShopItemData shopItemData : cartItems){
+            if(shopItemData.get_id().equals(itemId)){
+                if(shopItemData.quantity == 1 && val == -1){
+                    return;
+                }
+                shopItemData.quantity += val;
+                break;
+            }
+        }
+        saveToSharedPref(context);
+    }
+
     public ShopItemData isPresentInCart(String itemID){
         for(ShopItemData shopItemData : cartItems){
             if(shopItemData.get_id().equals(itemID)){
@@ -60,6 +85,14 @@ public class Cart {
             }
         }
         return null;
+    }
+
+    public ShopData getShopData(){
+        return shopData;
+    }
+
+    public void clearCart(){
+        cartItems.clear();
     }
 
     public int getTotalOfItems(){
@@ -71,11 +104,30 @@ public class Cart {
         return total;
     }
 
+    public int getTotalPackingCharge(){
+        int total = 0;
+        for(ShopItemData shopItemData : cartItems){
+            total += shopItemData.getQuantity() * Integer.parseInt(shopItemData.getTaxOrPackigingPrice());
+        }
+
+        return total;
+    }
+
+    public int getTotalDiscount(){
+        int total = 0;
+        for(ShopItemData shopItemData : cartItems){
+            total += shopItemData.getQuantity() * Integer.parseInt(shopItemData.getTaxOrPackigingPrice());
+        }
+
+        return total;
+    }
+
     public int getCartSize(){
         return cartItems.size();
     }
 
-    public void saveToSharedPref(Context context){
+
+    public void saveToSharedPref(@NonNull Context context){
         Gson gson = new Gson();
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor  editor = sharedPreferences.edit();

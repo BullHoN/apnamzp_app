@@ -1,7 +1,9 @@
 package com.avit.apnamzp.ui.home;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentHomeBinding;
 import com.avit.apnamzp.localdb.Cart;
+import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.BannerData;
 import com.bumptech.glide.Glide;
 import com.google.android.material.badge.BadgeDrawable;
@@ -25,6 +28,7 @@ import com.jama.carouselview.CarouselView;
 import com.jama.carouselview.CarouselViewListener;
 
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -196,4 +200,40 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void showTheLocationDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+
+        builder.setTitle("Please Select Your Location In Order To Use This App");
+        builder.setPositiveButton("Select Location", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_getLocationFragment);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getActivity().finish();
+            }
+        });
+
+        builder.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String address = User.getGoogleMapStreetAddress(getContext());
+        String houseNo = User.getHomeDetails(getContext());
+
+        if(address.length() == 0 || houseNo.length() == 0){
+            showTheLocationDialog();
+        }
+        else {
+            binding.addressText.setText(address);
+        }
+    }
 }
