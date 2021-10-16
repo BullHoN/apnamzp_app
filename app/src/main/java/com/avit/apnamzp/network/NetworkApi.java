@@ -1,10 +1,12 @@
 package com.avit.apnamzp.network;
 
+import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.ui.cart.GetDistanceResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 import okhttp3.ResponseBody;
@@ -25,5 +27,7 @@ public interface NetworkApi {
      @GET("/getDistance")
      Call<GetDistanceResponse> getDistance(@Query("destinations") String destinations, @Query("origins") String origins, @Query("key") String key);
 
+     @GET("/getOffers")
+     Call<List<OfferItem>> getOffers(@Query("onlyAdmin") Boolean onlyAdmin,@Query("shopName") String shopName);
 
 }

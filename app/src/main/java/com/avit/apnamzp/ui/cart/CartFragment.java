@@ -161,6 +161,23 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             }
         });
 
+        binding.openCouponFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("shopName", cart.getShopName());
+
+                Navigation.findNavController(root).navigate(R.id.action_cartFragment_to_offersFragment,bundle);
+            }
+        });
+
+        binding.removeOfferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         return root;
     }
 
@@ -226,6 +243,18 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             return;
         }
 
+        if(cart.getAppliedOffer() == null){
+            binding.addCouponView.setVisibility(View.VISIBLE);
+            binding.offerBodyView.setVisibility(View.GONE);
+        }
+        else {
+            binding.addCouponView.setVisibility(View.GONE);
+            binding.offerBodyView.setVisibility(View.VISIBLE);
+
+            binding.code.setText(cart.getAppliedOffer().getCode());
+            // TODO: LOGIC FOR  ADDING THE DISCOUNT
+        }
+        
         if(isServiceTypeDelivery) {
             // Distance API
             String originAddress = cart.getShopData().getAddressData().getLatitude() + "%2C" + cart.getShopData().getAddressData().getLongitude();

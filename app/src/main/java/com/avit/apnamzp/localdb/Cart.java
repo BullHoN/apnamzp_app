@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
+import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ public class Cart {
     private String shopID;
     private ShopData shopData;
     private List<ShopItemData> cartItems;
+    private OfferItem appliedOffer;
 
     public Cart(Context context,String shopName, String shopID, ShopData shopData, List<ShopItemData> cartItems) {
         this.shopName = shopName;
@@ -120,6 +122,15 @@ public class Cart {
         }
 
         return total;
+    }
+
+    public OfferItem getAppliedOffer(){
+        return appliedOffer;
+    }
+
+    public void setAppliedOffer(Context context,OfferItem offer){
+        this.appliedOffer = offer;
+        saveToSharedPref(context);
     }
 
     public int getCartSize(){

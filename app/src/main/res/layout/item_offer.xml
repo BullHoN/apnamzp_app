@@ -13,6 +13,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/offerImage"
             android:src="@drawable/offer5"
             android:layout_width="100dp"
             android:layout_height="100dp"/>
@@ -24,6 +25,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/discountType"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:text="5% Discount"
@@ -31,6 +33,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/offerConditions"
                 android:layout_marginTop="5dp"
                 android:textSize="12sp"
                 android:text="Get 5% Flat Discount on your orders above Rs.150. &#10;Maximum Discount cap:Rs15&#10;Not applicable for Grocery orders.&#10;Not applicable on Saturday &amp; Sunday"
@@ -60,6 +63,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/code"
                         android:textColor="@color/primaryColor"
                         android:text="APNAMZP1310"
                         android:layout_width="wrap_content"
@@ -70,6 +74,8 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/applyButton"
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:text="Apply"
                 android:layout_width="match_parent"

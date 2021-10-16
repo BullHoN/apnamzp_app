@@ -58,6 +58,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/emptyCartView"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
@@ -80,7 +81,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/cartBody"
             android:padding="12dp"
             android:layout_below="@id/header"
@@ -140,18 +140,72 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:src="@drawable/ic_discount"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-
-                    <TextView
-                        android:fontFamily="@font/roboto_bold"
-                        android:textColor="@color/primaryColor"
-                        android:gravity="center"
-                        android:text="Apply Coupon"
+                    <LinearLayout
+                        android:id="@+id/addCouponView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:src="@drawable/ic_discount"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+
+                        <TextView
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/primaryColor"
+                            android:gravity="center"
+                            android:text="Apply Coupon"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/offerBodyView"
+                        android:weightSum="1"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:src="@drawable/ic_discount"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:layout_marginLeft="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/code"
+                                android:textSize="18sp"
+                                android:textColor="@color/primaryColor"
+                                android:text="ZAAROZ5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:text="Offer applied on the bill"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/removeOfferButton"
+                            android:text="Remove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

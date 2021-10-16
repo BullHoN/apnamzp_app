@@ -10,11 +10,16 @@ public class ShopItemData {
     public int quantity;
     public String taxOrPackigingPrice;
     public String discount;
+    public Boolean available;
 
     public ShopItemData(String name, List<ShopPricingData> pricings, String imageURL) {
         this.name = name;
         this.pricings = pricings;
         this.imageURL = imageURL;
+    }
+
+    public Boolean getAvailable() {
+        return available;
     }
 
     public String getDiscount() {

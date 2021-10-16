@@ -5,23 +5,22 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOffersBinding;
+import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.offer.OfferItem;
-import com.avit.apnamzp.models.offer.OfferViewModel;
-import com.avit.apnamzp.models.offer.OffersAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OffersFragment extends Fragment {
+public class OffersFragment extends Fragment implements OffersAdapter.applyOfferInterface{
 
     private FragmentOffersBinding binding;
     private OffersAdapter offersAdapter;
@@ -36,8 +35,19 @@ public class OffersFragment extends Fragment {
         View root = binding.getRoot();
 
         binding.offersList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        offersAdapter = new OffersAdapter(getContext(),new ArrayList<>());
-        binding.offersList.setAdapter(offersAdapter);
+
+        Bundle bundle = getArguments();
+        if(bundle == null){
+            viewModel.getDataFromServer(getContext(),true,"");
+            offersAdapter = new OffersAdapter(getContext(),false,new ArrayList<>(),this);
+            binding.offersList.setAdapter(offersAdapter);
+        }
+        else {
+            viewModel.getDataFromServer(getContext(),false,bundle.getString("shopName"));
+            offersAdapter = new OffersAdapter(getContext(),true,new ArrayList<>(),this);
+            binding.offersList.setAdapter(offersAdapter);
+        }
+
 
         viewModel.getOffersListMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<OfferItem>>() {
             @Override
@@ -47,5 +57,12 @@ public class OffersFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void applyOffer(OfferItem offerItem) {
+        Cart cart = Cart.getInstance(getContext());
+        cart.setAppliedOffer(getContext(),offerItem);
+        Navigation.findNavController(binding.getRoot()).popBackStack();
     }
 }
