@@ -29,15 +29,23 @@ public class Cart {
         saveToSharedPref(context);
     }
 
-    public void replaceCart(Context context, String shopName, String shopID, List<ShopItemData> shopItemDataList){
+    public void replaceCart(Context context, String shopName, String shopID,ShopData shopData ,List<ShopItemData> shopItemDataList){
         this.shopName = shopName;
         this.shopID = shopID;
         this.cartItems = shopItemDataList;
+        this.shopData = shopData;
+        saveToSharedPref(context);
+    }
+
+    public void replaceCart(Context context, String shopName, String shopID,ShopData shopData ){
+        this.shopName = shopName;
+        this.shopID = shopID;
+        this.shopData = shopData;
         saveToSharedPref(context);
     }
 
     public Boolean insertToCart(Context context,String itemID,ShopItemData newCartItem){
-        if(!itemID.equals(this.shopID)) return false;
+        if(this.shopID != null && !itemID.equals(this.shopID)) return false;
         cartItems.add(newCartItem);
         saveToSharedPref(context);
         return true;
@@ -93,8 +101,16 @@ public class Cart {
         return shopData;
     }
 
-    public void clearCart(){
+    public void clearCart(Context context){
         cartItems.clear();
+        shopID = null;
+        appliedOffer = null;
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.CART_NAME,null);
+        editor.apply();
     }
 
     public int getTotalOfItems(){
@@ -118,10 +134,15 @@ public class Cart {
     public int getTotalDiscount(){
         int total = 0;
         for(ShopItemData shopItemData : cartItems){
-            total += shopItemData.getQuantity() * Integer.parseInt(shopItemData.getTaxOrPackigingPrice());
+            total += shopItemData.getQuantity() * Integer.parseInt(shopItemData.getDiscount());
         }
 
         return total;
+    }
+
+    public void removeAppliedOffer(Context context){
+        appliedOffer = null;
+        saveToSharedPref(context);
     }
 
     public OfferItem getAppliedOffer(){

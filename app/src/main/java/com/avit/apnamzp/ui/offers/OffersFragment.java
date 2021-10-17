@@ -19,6 +19,8 @@ import com.avit.apnamzp.models.offer.OfferItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class OffersFragment extends Fragment implements OffersAdapter.applyOfferInterface{
 
@@ -35,6 +37,13 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
         View root = binding.getRoot();
 
         binding.offersList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(root).popBackStack();
+            }
+        });
 
         Bundle bundle = getArguments();
         if(bundle == null){
@@ -62,6 +71,13 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
     @Override
     public void applyOffer(OfferItem offerItem) {
         Cart cart = Cart.getInstance(getContext());
+
+        // TODO: Check For The Offer Condition
+        if(cart.getTotalOfItems() - cart.getTotalDiscount() <= Integer.parseInt(offerItem.getDiscountAbove())){
+            Toasty.warning(getContext(),"Items Total Must Be Greater Than Rs." + (cart.getTotalOfItems() - cart.getTotalDiscount())).show();
+            return;
+        }
+
         cart.setAppliedOffer(getContext(),offerItem);
         Navigation.findNavController(binding.getRoot()).popBackStack();
     }

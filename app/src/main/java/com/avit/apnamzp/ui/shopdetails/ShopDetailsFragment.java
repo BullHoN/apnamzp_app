@@ -182,20 +182,19 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                     Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
                             .show();
                 }
-
-                if(!cart.insertToCart(getContext(), shopData.get_id(), cartItem)){
+                else if(!cart.insertToCart(getContext(), shopData.get_id(), cartItem)){
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                     builder.setTitle("You Cannot Add Items Of Different Shops In The Same Cart");
-                    Cart finalCart = cart;
                     builder.setPositiveButton("Replace Cart", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+                            Cart cart1 = Cart.getInstance(getContext());
                             List<ShopItemData> cartItems = new ArrayList<>();
                             cartItems.add(cartItem);
-                            finalCart.replaceCart(getContext(),shopData.getShopName(),shopData.get_id(),cartItems);
-                            updateTheBatch(finalCart.getCartSize());
+                            cart1.replaceCart(getContext(),shopData.getShopName(),shopData.get_id(),shopData,cartItems);
+                            updateTheBatch(cart1.getCartSize());
                             shopDetailsAdapter.notifyItemChanged(posOfShopItem);
 
                             Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
@@ -212,6 +211,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                     builder.show();
                 }
                 else {
+                    cart.replaceCart(getContext(), shopData.getShopName(),shopData.get_id(),shopData);
                     Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
                             .show();
                 }

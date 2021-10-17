@@ -21,13 +21,32 @@ public class OrderItem {
     private String userId;
     private DeliveryAddress deliveryAddress;
 
+    private int offerDiscountedAmount;
+    private String offerCode;
+
     public int calculateTotalPrice(){
         if(isDeliveryService){
-            totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge - totalDiscount;
+            totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge - totalDiscount - offerDiscountedAmount;
             return totalPay;
         }
-        totalPay = itemTotal + totalTaxesAndPackingCharge - totalDiscount;
+        totalPay = itemTotal + totalTaxesAndPackingCharge - totalDiscount - offerDiscountedAmount;
         return totalPay;
+    }
+
+    public void setOfferDiscountedAmount(int offerDiscountedAmount) {
+        this.offerDiscountedAmount = offerDiscountedAmount;
+    }
+
+    public void setOfferCode(String offerCode) {
+        this.offerCode = offerCode;
+    }
+
+    public int getOfferDiscountedAmount() {
+        return offerDiscountedAmount;
+    }
+
+    public String getOfferCode() {
+        return offerCode;
     }
 
     public void setItemTotal(int itemTotal) {
@@ -36,6 +55,10 @@ public class OrderItem {
 
     public void setTotalTaxesAndPackingCharge(int totalTaxesAndPackingCharge) {
         this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
+    }
+
+    public int getDiscountWithOffer(){
+        return offerDiscountedAmount + totalDiscount;
     }
 
     public void setDeliveryCharge(int deliveryCharge) {

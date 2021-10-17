@@ -60,7 +60,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.emptyCartView.setVisibility(View.GONE);
         binding.cartBody.setVisibility(View.VISIBLE);
 
-
+        Log.i(TAG, "onCreateView: " + cart.getShopName());
 
         binding.cartItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         cartItemsAdapter = new CartItemsAdapter(getContext(),cart.getCartItems(),this);
@@ -154,7 +154,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.clearCartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cart.clearCart();
+                cart.clearCart(getContext());
                 binding.cartBody.setVisibility(View.GONE);
                 binding.emptyCartView.setVisibility(View.VISIBLE);
                 updateBadge(0);
@@ -174,6 +174,17 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.removeOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                cart.removeAppliedOffer(getContext());
+                orderItem.setOfferDiscountedAmount(0);
+                orderItem.setOfferCode(null);
+
+                binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
+
+                binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
+                binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+
+                binding.offerBodyView.setVisibility(View.GONE);
+                binding.addCouponView.setVisibility(View.VISIBLE);
 
             }
         });
@@ -224,11 +235,50 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     public void updateBadge(int value) {
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
         BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
+
+        Cart cart = Cart.getInstance(getContext());
+
         if(value != 0) {
             badge.setVisible(true);
             badge.setNumber(value);
+
+            int itemTotal = cart.getTotalOfItems();
+            binding.itemsTotal.setText("₹" + itemTotal + ".00");
+            orderItem.setItemTotal(itemTotal);
+
+            int totalDiscount = cart.getTotalDiscount();
+            orderItem.setTotalDiscount(totalDiscount);
+
+
+            int totalTaxesAndPackingCharge = cart.getTotalPackingCharge();
+            binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
+            orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
+
+            binding.totalPriceToPay.setText("₹" + orderItem.getTotalPay() + ".00");
+            binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+
+
+            if(cart.getAppliedOffer() != null) {
+                String offerType = cart.getAppliedOffer().getOfferType();
+                if (offerType.equals("percent")) {
+                    int discountAmountOn = orderItem.getItemTotal();
+                    int discountedAmount = (discountAmountOn * Integer.parseInt(cart.getAppliedOffer().getDiscountPercentage())) / 100;
+
+                    orderItem.setOfferDiscountedAmount(Math.max(Math.min(Integer.parseInt(cart.getAppliedOffer().getMaxDiscount()), discountedAmount), 0));
+                    orderItem.setOfferCode(cart.getAppliedOffer().getCode());
+                } else if (offerType.equals("flat")) {
+                    orderItem.setOfferDiscountedAmount(Integer.parseInt(cart.getAppliedOffer().getDiscountAmount()));
+                    orderItem.setOfferCode(cart.getAppliedOffer().getCode());
+                }
+            }
+
+            binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
+
         }
         else {
+            cart.clearCart(getContext());
+            binding.cartBody.setVisibility(View.GONE);
+            binding.emptyCartView.setVisibility(View.VISIBLE);
             badge.setVisible(false);
         }
     }
@@ -252,9 +302,23 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             binding.offerBodyView.setVisibility(View.VISIBLE);
 
             binding.code.setText(cart.getAppliedOffer().getCode());
-            // TODO: LOGIC FOR  ADDING THE DISCOUNT
+            String offerType = cart.getAppliedOffer().getOfferType();
+            if(offerType.equals("percent")){
+                int discountAmountOn = orderItem.getItemTotal();
+                int discountedAmount = (discountAmountOn * Integer.parseInt(cart.getAppliedOffer().getDiscountPercentage()))/100;
+
+                orderItem.setOfferDiscountedAmount(Math.max(Math.min(Integer.parseInt(cart.getAppliedOffer().getMaxDiscount()),discountedAmount),0));
+                orderItem.setOfferCode(cart.getAppliedOffer().getCode());
+            }
+            else if(offerType.equals("flat")){
+                orderItem.setOfferDiscountedAmount(Integer.parseInt(cart.getAppliedOffer().getDiscountAmount()));
+                orderItem.setOfferCode(cart.getAppliedOffer().getCode());
+            }
+
         }
-        
+
+        binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
+
         if(isServiceTypeDelivery) {
             // Distance API
             String originAddress = cart.getShopData().getAddressData().getLatitude() + "%2C" + cart.getShopData().getAddressData().getLongitude();

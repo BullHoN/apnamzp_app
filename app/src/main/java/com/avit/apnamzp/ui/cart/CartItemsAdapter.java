@@ -19,6 +19,8 @@ import com.avit.apnamzp.ui.shopdetails.ShopMenuItemsAdapter;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.CartItemsViewHolder>{
 
     public interface updateBadge{
@@ -56,6 +58,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
             @Override
             public void onClick(View view) {
                 cart.updateAnItem(context,curr.get_id(),1);
+                updateBadgeInterface.updateBadge(cart.getCartSize());
                 notifyItemChanged(position);
             }
         });
@@ -63,7 +66,21 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
         holder.decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int priceAboveOnOffer = 0;
+                if(cart.getAppliedOffer() != null){
+                    priceAboveOnOffer = Integer.parseInt(cart.getAppliedOffer().getDiscountAbove());
+                }
+
                 cart.justUpdate(context,curr.get_id(),-1);
+
+                if(cart.getTotalOfItems() <= priceAboveOnOffer){
+                    Toasty.warning(context,"Remove The Offer To Decrease Quantity",Toasty.LENGTH_SHORT)
+                            .show();
+                    cart.justUpdate(context,curr.get_id(),1);
+                    return;
+                }
+
                 updateBadgeInterface.updateBadge(cart.getCartSize());
                 notifyItemChanged(position);
             }
