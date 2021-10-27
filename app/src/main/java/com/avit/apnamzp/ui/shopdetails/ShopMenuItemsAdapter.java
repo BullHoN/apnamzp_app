@@ -51,8 +51,6 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
     public void onBindViewHolder(@NonNull ShopMenuItemsViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ShopItemData curr = shopItemDataList.get(position);
 
-        Log.i(TAG, "onBindViewHolder: " + curr.getTaxOrPackigingPrice());
-
         holder.itemNameView.setText(curr.getName() + "(" + curr.getPricings().get(0).getType() + ")");
         holder.itemPriceView.setText("₹" + curr.getPricings().get(0).getPrice());
 
@@ -65,6 +63,9 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
             holder.itemImageView.setVisibility(View.GONE);
         }
 
+        if(!curr.getVeg()){
+            holder.isVegView.setImageResource(R.drawable.ic_nonveg);
+        }
 
         Cart cart = Cart.getInstance(context);
         if(cart != null){
@@ -129,7 +130,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
     class ShopMenuItemsViewHolder extends RecyclerView.ViewHolder{
 
         public TextView itemNameView,itemPriceView,quantityTextView;
-        public ImageView itemImageView;
+        public ImageView itemImageView,isVegView;
         public MaterialButton addButton;
         public LinearLayout addButtonView,quantityView, increaseQuantityButton, decreaseQuantityButton;
 
@@ -139,6 +140,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
             itemPriceView = itemView.findViewById(R.id.itemPrice);
             itemImageView = itemView.findViewById(R.id.itemImage);
             addButton = itemView.findViewById(R.id.addButton);
+            isVegView = itemView.findViewById(R.id.isVeg);
 
             addButtonView = itemView.findViewById(R.id.addButtonView);
             quantityView = itemView.findViewById(R.id.quantityView);

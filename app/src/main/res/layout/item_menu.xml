@@ -21,6 +21,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/isVeg"
                 android:scaleType="centerInside"
                 android:src="@drawable/veg_item_icon"
                 android:layout_width="25dp"
@@ -63,6 +64,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:scaleType="centerCrop"
                     android:id="@+id/itemImage"
                     android:src="@color/primaryColor"
                     android:layout_width="match_parent"

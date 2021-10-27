@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_getLocationFragment"
             app:destination="@id/getLocationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_allItemsSearchFragment"
+            app:destination="@id/allItemsSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -81,4 +84,16 @@
         android:name="com.avit.apnamzp.ui.location.GetLocationFragment"
         android:label="fragment_get_location"
         tools:layout="@layout/fragment_get_location" />
+    <fragment
+        android:id="@+id/allItemsSearchFragment"
+        android:name="com.avit.apnamzp.ui.allitemssearch.AllItemsSearchFragment"
+        android:label="fragment_all_items_search"
+        tools:layout="@layout/fragment_all_items_search" >
+        <action
+            android:id="@+id/action_allItemsSearchFragment_to_pickUpAndDropFragment"
+            app:destination="@id/pickUpAndDropFragment" />
+        <action
+            android:id="@+id/action_allItemsSearchFragment_to_shopDetailsFragment"
+            app:destination="@id/shopDetailsFragment" />
+    </fragment>
 </navigation>

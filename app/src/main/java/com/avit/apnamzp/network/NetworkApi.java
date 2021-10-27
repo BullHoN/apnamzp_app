@@ -30,4 +30,7 @@ public interface NetworkApi {
      @GET("/getOffers")
      Call<List<OfferItem>> getOffers(@Query("onlyAdmin") Boolean onlyAdmin,@Query("shopName") String shopName);
 
+     @GET("/search")
+     Call<List<ShopData>> getSearchResults(@Query("query") String query);
+
 }

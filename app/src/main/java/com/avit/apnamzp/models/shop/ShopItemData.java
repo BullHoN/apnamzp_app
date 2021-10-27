@@ -11,6 +11,7 @@ public class ShopItemData {
     public String taxOrPackigingPrice;
     public String discount;
     public Boolean available;
+    private Boolean isVeg;
 
     public ShopItemData(String name, List<ShopPricingData> pricings, String imageURL) {
         this.name = name;
@@ -20,6 +21,10 @@ public class ShopItemData {
 
     public Boolean getAvailable() {
         return available;
+    }
+
+    public Boolean getVeg() {
+        return isVeg;
     }
 
     public String getDiscount() {

@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
         binding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(root).navigate(R.id.action_homeFragment_to_searchFragment);
+                Navigation.findNavController(root).navigate(R.id.action_homeFragment_to_allItemsSearchFragment);
             }
         });
 
