@@ -78,7 +78,11 @@
         android:id="@+id/shopDetailsFragment"
         android:name="com.avit.apnamzp.ui.shopdetails.ShopDetailsFragment"
         android:label="fragment_shop_details"
-        tools:layout="@layout/fragment_shop_details" />
+        tools:layout="@layout/fragment_shop_details" >
+        <action
+            android:id="@+id/action_shopDetailsFragment_to_viewsAndAddressFragment"
+            app:destination="@id/viewsAndAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/getLocationFragment"
         android:name="com.avit.apnamzp.ui.location.GetLocationFragment"
@@ -96,4 +100,9 @@
             android:id="@+id/action_allItemsSearchFragment_to_shopDetailsFragment"
             app:destination="@id/shopDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/viewsAndAddressFragment"
+        android:name="com.avit.apnamzp.ui.viewsandaddress.ViewsAndAddressFragment"
+        android:label="fragment_views_and_address"
+        tools:layout="@layout/fragment_views_and_address" />
 </navigation>

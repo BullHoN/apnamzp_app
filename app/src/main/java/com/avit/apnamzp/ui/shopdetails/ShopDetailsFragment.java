@@ -100,7 +100,18 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             }
         });
 
+        binding.openReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("shopName", shopData.getShopName());
+                bundle.putString("shopAddress",shopData.getAddressData().getMainAddress());
+                bundle.putString("latitude",shopData.getAddressData().getLatitude());
+                bundle.putString("longitude",shopData.getAddressData().getLongitude());
 
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_shopDetailsFragment_to_viewsAndAddressFragment,bundle);
+            }
+        });
 
         return root;
     }
@@ -154,6 +165,13 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
     }
     @Override
     public Boolean showDialog(ShopItemData shopItemData,int posOfShopItem) {
+
+        if(!shopData.getOpen()){
+            Toasty.warning(getContext(),"Shop is Currently Closed!!",Toasty.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
+
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_choosedishtype);
 

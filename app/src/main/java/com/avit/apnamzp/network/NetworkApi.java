@@ -1,5 +1,6 @@
 package com.avit.apnamzp.network;
 
+import com.avit.apnamzp.models.ReviewData;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
@@ -32,5 +33,8 @@ public interface NetworkApi {
 
      @GET("/search")
      Call<List<ShopData>> getSearchResults(@Query("query") String query);
+
+     @GET("/reviews")
+     Call<List<ReviewData>> getReviews(@Query("shopName") String shopName);
 
 }
