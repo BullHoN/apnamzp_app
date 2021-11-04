@@ -12,8 +12,11 @@
         android:roundIcon="@drawable/main_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.ApnaMzp"
-        android:windowSoftInputMode="stateVisible|adjustResize"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="stateVisible|adjustResize">
+        <activity
+            android:name=".auth.AuthActivity"
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="true" />
@@ -30,11 +33,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
-
     </application>
 
 </manifest>

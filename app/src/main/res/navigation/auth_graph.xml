@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_graph"
+    app:startDestination="@id/authHomeFragment">
+
+    <fragment
+        android:id="@+id/authHomeFragment"
+        android:name="com.avit.apnamzp.auth.home.AuthHomeFragment"
+        android:label="fragment_auth_home"
+        tools:layout="@layout/fragment_auth_home" >
+        <action
+            android:id="@+id/action_authHomeFragment_to_authOtpFragment"
+            app:destination="@id/authOtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authOtpFragment"
+        android:name="com.avit.apnamzp.auth.otp.AuthOtpFragment"
+        android:label="fragment_auth_otp"
+        tools:layout="@layout/fragment_auth_otp" >
+        <action
+            android:id="@+id/action_authOtpFragment_to_authProfileFragment"
+            app:destination="@id/authProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authProfileFragment"
+        android:name="com.avit.apnamzp.auth.profile.AuthProfileFragment"
+        android:label="fragment_auth_profile"
+        tools:layout="@layout/fragment_auth_profile" />
+</navigation>

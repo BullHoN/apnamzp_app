@@ -13,10 +13,15 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/seleted_back.xml" value="0.22592592592592592" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/seprator_ic.xml" value="0.19166666666666668" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/unselected_back.xml" value="0.22592592592592592" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/white_curved_back.xml" value="0.22962962962962963" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_auth.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_home.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/activity_main.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/bottom_sheet_choosedishtype.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_all_items_search.xml" value="0.34427083333333336" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_auth_home.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_auth_otp.xml" value="0.32708333333333334" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_auth_profile.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_cart.xml" value="0.176" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_get_location.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_home.xml" value="0.11499493414387031" />

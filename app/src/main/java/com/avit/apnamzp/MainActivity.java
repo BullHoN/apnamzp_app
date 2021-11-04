@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 
+import com.avit.apnamzp.auth.AuthActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AuthActivity.class);
                 startActivity(intent);
                 finish();
             }

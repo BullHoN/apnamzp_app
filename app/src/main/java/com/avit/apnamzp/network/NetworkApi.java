@@ -1,6 +1,7 @@
 package com.avit.apnamzp.network;
 
 import com.avit.apnamzp.models.ReviewData;
+import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
@@ -12,7 +13,9 @@ import java.util.Queue;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -36,5 +39,17 @@ public interface NetworkApi {
 
      @GET("/reviews")
      Call<List<ReviewData>> getReviews(@Query("shopName") String shopName);
+
+     @GET("/checkUserExists")
+     Call<Boolean> doesUsersExists(@Query("phoneNo") String phoneNo);
+
+     @GET("/verifyOtp")
+     Call<Boolean> verifyOtp(@Query("phoneNo") String phoneNo,@Query("otp") String otp);
+
+     @GET("/sendOtp")
+     Call<ResponseBody> sendOtp(@Query("phoneNo") String phoneNo);
+
+     @POST("/registerUser")
+     Call<Boolean> registerUser(@Body User userData);
 
 }
