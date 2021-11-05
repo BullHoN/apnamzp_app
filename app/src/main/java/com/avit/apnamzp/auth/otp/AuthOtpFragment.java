@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthOtpBinding;
+import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.mukesh.OnOtpCompletionListener;
@@ -27,11 +28,13 @@ public class AuthOtpFragment extends Fragment {
 
     private FragmentAuthOtpBinding binding;
     private String TAG = "AuthActivity";
+    private LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAuthOtpBinding.inflate(inflater,container,false);
+        loadingDialog = new LoadingDialog(getActivity());
 
         Bundle bundle = getArguments();
         String phoneNo = bundle.getString("phoneNo");
@@ -39,6 +42,7 @@ public class AuthOtpFragment extends Fragment {
         binding.otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
             @Override
             public void onOtpCompleted(String otp) {
+                loadingDialog.startLoadingDialog();
                 verifyOtpFromServer(phoneNo,otp);
             }
         });
@@ -46,6 +50,7 @@ public class AuthOtpFragment extends Fragment {
         binding.resendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.startLoadingDialog();
                 sendOtp(phoneNo);
             }
         });
@@ -61,12 +66,14 @@ public class AuthOtpFragment extends Fragment {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                loadingDialog.dismissDialog();
                 Toasty.success(getContext(),"Otp Successfully send",Toasty.LENGTH_SHORT)
                         .show();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                loadingDialog.dismissDialog();
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
             }
@@ -81,6 +88,7 @@ public class AuthOtpFragment extends Fragment {
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                loadingDialog.dismissDialog();
                 if(response.body()){
                     Toasty.success(getContext(),"Successfully Verified",Toasty.LENGTH_SHORT)
                             .show();
@@ -95,6 +103,7 @@ public class AuthOtpFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
+                loadingDialog.dismissDialog();
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
             }

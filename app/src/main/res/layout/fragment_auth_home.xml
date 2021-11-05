@@ -62,7 +62,6 @@
 
                 </LinearLayout>
 
-
                 <EditText
                     android:id="@+id/phoneNo"
                     android:layout_marginLeft="8dp"
@@ -73,6 +72,37 @@
                     android:layout_height="match_parent"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/white_curved_back"
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:visibility="gone"
+                    android:padding="12dp"
+                    android:id="@+id/passwordView"
+                    android:layout_marginLeft="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Password"
+                    android:layout_width="match_parent"
+                    android:inputType="textPassword"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/forgetPasswordView"
+                android:visibility="gone"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/white"
+                android:layout_gravity="end"
+                android:text="Forgot password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:id="@+id/continueButton"

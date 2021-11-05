@@ -9,6 +9,33 @@ import com.google.gson.Gson;
 
 public class User {
 
+    public static String getPhoneNumber(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(SharedPrefNames.USER_PHONE,null);
+    }
+
+    public static void setPhoneNumber(Context context,String phoneNo){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_PHONE,phoneNo);
+        editor.apply();
+    }
+
+    public static String getUsername(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        String userName = sharedPreferences.getString(SharedPrefNames.USER_NAME,null);
+        return userName;
+    }
+
+    public static void setUsername(Context context,String username){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_NAME,username);
+        editor.apply();
+    }
+
     public static Boolean getIsVerified(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
         Boolean curr = sharedPreferences.getBoolean(SharedPrefNames.USER_VERIFIED,false);

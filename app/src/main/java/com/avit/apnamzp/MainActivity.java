@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 
 import com.avit.apnamzp.auth.AuthActivity;
+import com.avit.apnamzp.localdb.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +16,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO: CHECK FOR AUTENTICATION
+        // CHECK FOR AUTENTICATION
+        Intent intent;
+        if(User.getIsVerified(getApplicationContext())){
+            intent = new Intent(getApplicationContext(),HomeActivity.class);
+        }
+        else {
+            intent = new Intent(getApplicationContext(), AuthActivity.class);
+        }
 
         new CountDownTimer(1500,750){
 
@@ -26,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(getApplicationContext(), AuthActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthProfileBinding;
+import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
@@ -25,12 +26,14 @@ import retrofit2.Retrofit;
 public class AuthProfileFragment extends Fragment {
 
     private FragmentAuthProfileBinding binding;
+    private LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentAuthProfileBinding.inflate(inflater,container,false);
+        loadingDialog = new LoadingDialog(getActivity());
 
         Bundle bundle = getArguments();
         String phoneNo = bundle.getString("phoneNo");
@@ -74,6 +77,7 @@ public class AuthProfileFragment extends Fragment {
     }
 
     private void registerUser(User user){
+        loadingDialog.startLoadingDialog();
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
@@ -81,16 +85,19 @@ public class AuthProfileFragment extends Fragment {
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                loadingDialog.dismissDialog();
                 Intent intent = new Intent(getContext(),HomeActivity.class);
                 startActivity(intent);
                 getActivity().finish();
 
-                // TODO: SAVE DATA TO SHARED PREF.
-
+                com.avit.apnamzp.localdb.User.setUsername(getContext(),user.getName());
+                com.avit.apnamzp.localdb.User.setPhoneNumber(getContext(),user.getPhoneNo());
+                com.avit.apnamzp.localdb.User.setIsVerified(getContext(),true);
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
+                loadingDialog.dismissDialog();
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
             }

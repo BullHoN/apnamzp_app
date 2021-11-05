@@ -52,4 +52,7 @@ public interface NetworkApi {
      @POST("/registerUser")
      Call<Boolean> registerUser(@Body User userData);
 
+     @GET("/login")
+     Call<Boolean> login(@Query("phoneNo") String phoneNo,@Query("password") String password);
+
 }

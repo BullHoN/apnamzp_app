@@ -213,7 +213,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signUpButton"
-            android:text="Sign Up"
+            android:text="Continue"
             android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
