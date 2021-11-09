@@ -118,6 +118,11 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
 
     }
 
+    public void replaceItems(List<ShopItemData> newItems){
+        shopItemDataList = newItems;
+        notifyDataSetChanged();
+    }
+
     public void updateTheUI(int posi){
         notifyItemChanged(posi);
     }

@@ -32,18 +32,23 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
     private String TAG = "ShopDetailsAdapter";
     private onItemAdded onItemAddedInterface;
     public ShopMenuItemsAdapter adapter;
+    private RecyclerView.RecycledViewPool viewPool;
 
     public ShopDetailsAdapter(List<ShopCategoryData> shopCategoryDataList, Context context,onItemAdded onItemAddedInterface) {
         this.shopCategoryDataList = shopCategoryDataList;
         this.context = context;
         this.onItemAddedInterface = onItemAddedInterface;
+        viewPool = new RecyclerView.RecycledViewPool();
     }
 
     @NonNull
     @Override
     public ShopDetailsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_menu_list,parent,false);
-        return new ShopDetailsViewHolder(view);
+        ShopDetailsViewHolder viewHolder = new ShopDetailsViewHolder(view);
+        viewHolder.menuItemsListView.setRecycledViewPool(viewPool);
+
+        return viewHolder;
     }
 
     @Override

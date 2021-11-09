@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Printer;
 
+import com.avit.apnamzp.models.order.DeliveryAddress;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 
@@ -105,6 +106,12 @@ public class User {
 
         editor.putString(SharedPrefNames.USER_LANDMARK,address);
         editor.apply();
+    }
+
+    public static DeliveryAddress getDeliveryAddress(Context context){
+        LatLng latLng = User.getLatLng(context);
+
+        return new DeliveryAddress(String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),User.getGoogleMapStreetAddress(context),User.getHomeDetails(context),User.getLandMark(context));
     }
 
 }

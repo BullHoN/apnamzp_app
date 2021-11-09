@@ -23,6 +23,38 @@ public class OrderItem {
 
     private int offerDiscountedAmount;
     private String offerCode;
+    private BillingDetails billingDetails;
+
+    public OrderItem(){
+
+    }
+
+    public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails) {
+        this.itemTotal = itemTotal;
+        this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
+        this.deliveryCharge = deliveryCharge;
+        this.totalDiscount = totalDiscount;
+        this.totalPay = totalPay;
+        this.isDeliveryService = isDeliveryService;
+        this.specialInstructions = specialInstructions;
+        this.isPaid = isPaid;
+        this.shopID = shopID;
+        this.shopCategory = shopCategory;
+        this.orderItems = orderItems;
+        this.userId = userId;
+        this.deliveryAddress = deliveryAddress;
+        this.offerDiscountedAmount = offerDiscountedAmount;
+        this.offerCode = offerCode;
+        this.billingDetails = billingDetails;
+    }
+
+    public BillingDetails getBillingDetails() {
+        return billingDetails;
+    }
+
+    public void setBillingDetails() {
+        this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,isDeliveryService);
+    }
 
     public int calculateTotalPrice(){
         if(isDeliveryService){

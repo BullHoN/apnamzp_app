@@ -18,12 +18,14 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentCartBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.localdb.User;
+import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.nio.file.ClosedFileSystemException;
 
@@ -192,11 +194,61 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                choosePaymentType();
             }
         });
 
         return root;
+    }
+
+    private void choosePaymentType(){
+        BottomSheetDialog dialog = new BottomSheetDialog(getContext());
+        dialog.setContentView(R.layout.dialog_paymenttype);
+
+        dialog.findViewById(R.id.cashOnDeliveryButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkout(false);
+            }
+        });
+
+        dialog.findViewById(R.id.onlinePaymentButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void checkout(Boolean isPaid){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Cart cart = Cart.getInstance(getContext());
+        orderItem.setOrderItems(cart.getCartItems());
+        orderItem.setShopID(cart.getShopID());
+        orderItem.setShopCategory(cart.getShopData().getShopType());
+        orderItem.setUserId(User.getPhoneNumber(getContext()));
+        orderItem.setDeliveryAddress(User.getDeliveryAddress(getContext()));
+        orderItem.setPaid(isPaid);
+        orderItem.setBillingDetails();
+
+
+        Call<Boolean> call = networkApi.checkout(orderItem);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
+                        .show();
+            }
+        });
     }
 
     private void calculateDistance(String originAddress,String destinationAddress){

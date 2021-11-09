@@ -1,8 +1,11 @@
 package com.avit.apnamzp.network;
 
+import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.ReviewData;
 import com.avit.apnamzp.models.User;
+import com.avit.apnamzp.models.cart.CartItemData;
 import com.avit.apnamzp.models.offer.OfferItem;
+import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.ui.cart.GetDistanceResponse;
@@ -54,5 +57,11 @@ public interface NetworkApi {
 
      @GET("/login")
      Call<Boolean> login(@Query("phoneNo") String phoneNo,@Query("password") String password);
+
+     @POST("/checkout")
+     Call<Boolean> checkout(@Body OrderItem orderItem);
+
+     @GET("/user/getOrders")
+     Call<List<OrderItem>> getOrders(@Query("userId") String userId);
 
 }

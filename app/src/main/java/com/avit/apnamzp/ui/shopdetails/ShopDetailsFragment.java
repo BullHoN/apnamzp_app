@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentShopDetailsBinding;
+import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
@@ -45,12 +46,15 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
     private Gson gson;
     private String TAG = "ShopDetailsFragment";
     private ShopData shopData;
+    private LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentShopDetailsBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
+        loadingDialog = new LoadingDialog(getActivity());
+//        loadingDialog.startLoadingDialog();
 
         viewModel = new ViewModelProvider(this).get(ShopDetailsViewModel.class);
         gson = new Gson();
