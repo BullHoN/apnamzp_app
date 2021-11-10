@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +18,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOrdersBinding;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +38,20 @@ public class OrdersFragment extends Fragment {
 
         viewModel.getDataFromServer(getContext(), User.getPhoneNumber(getContext()));
 
+        Gson gson = new Gson();
+
         binding.ordersList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
-        OrdersAdapter adapter = new OrdersAdapter(getContext(),new ArrayList<>());
+        OrdersAdapter adapter = new OrdersAdapter(getContext(), new ArrayList<>(), new OrdersAdapter.openOrderDetailsInterface() {
+            @Override
+            public void openOrderDetails(OrderItem orderItem) {
+
+                Bundle bundle = new Bundle();
+                String orderItemString = gson.toJson(orderItem,OrderItem.class);
+                bundle.putString("orderItem",orderItemString);
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_ordersFragment_to_orderDetailsFragment,bundle);
+            }
+        });
         binding.ordersList.setAdapter(adapter);
 
         viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<OrderItem>>() {

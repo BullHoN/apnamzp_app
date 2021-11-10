@@ -66,6 +66,8 @@ dependencies {
 
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.2'
 
+    implementation 'com.github.baoyachi:StepView:1.9'
+
     def room_version = "2.3.0"
 
     implementation "androidx.room:room-runtime:$room_version"

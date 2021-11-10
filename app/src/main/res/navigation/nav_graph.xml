@@ -45,7 +45,11 @@
         android:id="@+id/ordersFragment"
         android:name="com.avit.apnamzp.ui.orders.OrdersFragment"
         android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/offersFragment"
         android:name="com.avit.apnamzp.ui.offers.OffersFragment"
@@ -105,4 +109,9 @@
         android:name="com.avit.apnamzp.ui.viewsandaddress.ViewsAndAddressFragment"
         android:label="fragment_views_and_address"
         tools:layout="@layout/fragment_views_and_address" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.avit.apnamzp.ui.orderdetails.OrderDetailsFragment"
+        android:label="fragment_order_details"
+        tools:layout="@layout/fragment_order_details" />
 </navigation>

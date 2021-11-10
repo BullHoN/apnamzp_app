@@ -28,6 +28,7 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_get_location.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_home.xml" value="0.11499493414387031" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_offers.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_order_details.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_orders.xml" value="0.21195652173913043" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_pick_up_and_drop.xml" value="0.21195652173913043" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_profile.xml" value="0.11499493414387031" />
@@ -39,6 +40,7 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_menu.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_menu_list.xml" value="0.23645833333333333" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_offer.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_orderdetailsorderitems.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_orderdisplay.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_pickanddroplistitem.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/item_shopdetails.xml" value="0.264" />

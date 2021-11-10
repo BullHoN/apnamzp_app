@@ -1,5 +1,6 @@
 package com.avit.apnamzp.models.order;
 
+import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
 
 import java.util.List;
@@ -24,6 +25,37 @@ public class OrderItem {
     private int offerDiscountedAmount;
     private String offerCode;
     private BillingDetails billingDetails;
+    private ShopData shopData;
+    private String _id;
+    private int orderStatus;
+
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public int getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public void setShopData(ShopData shopData) {
+        this.shopData = shopData;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void setBillingDetails(BillingDetails billingDetails) {
+        this.billingDetails = billingDetails;
+    }
+
+    public ShopData getShopData() {
+        return shopData;
+    }
 
     public OrderItem(){
 
