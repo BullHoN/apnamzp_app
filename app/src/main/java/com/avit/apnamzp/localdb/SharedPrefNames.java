@@ -10,5 +10,6 @@ public class SharedPrefNames {
     public static String USER_LANDMARK = "MYMZP_USER_LANDMARK";
     public static String USER_NAME = "MYMZP_USER_NAME";
     public static String USER_PHONE = "MYMZP_USER_PHONENO";
+    public static String USER_FCM_TOKEN = "MYMZP_USER_FCMTOKEN";
 
 }

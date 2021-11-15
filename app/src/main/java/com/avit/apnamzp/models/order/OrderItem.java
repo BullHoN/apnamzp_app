@@ -2,7 +2,9 @@ package com.avit.apnamzp.models.order;
 
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class OrderItem {
@@ -28,6 +30,25 @@ public class OrderItem {
     private ShopData shopData;
     private String _id;
     private int orderStatus;
+    @SerializedName("created_at")
+    private Date createdAt;
+    private int orderType;
+
+    public void setOrderType(int orderType) {
+        this.orderType = orderType;
+    }
+
+    public int getOrderType() {
+        return orderType;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
     public void setOrderStatus(int orderStatus) {
         this.orderStatus = orderStatus;

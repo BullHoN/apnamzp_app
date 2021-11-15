@@ -116,6 +116,10 @@ public class AuthHomeFragment extends Fragment {
                     Toasty.success(getContext(),"Login Successfull",Toasty.LENGTH_SHORT)
                             .show();
                     loadingDialog.dismissDialog();
+
+                    com.avit.apnamzp.localdb.User.setPhoneNumber(getContext(),phoneNo);
+                    com.avit.apnamzp.localdb.User.setIsVerified(getContext(),true);
+
                     Intent intent = new Intent(getContext(),HomeActivity.class);
                     startActivity(intent);
                     getActivity().finish();

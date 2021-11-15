@@ -234,6 +234,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setDeliveryAddress(User.getDeliveryAddress(getContext()));
         orderItem.setPaid(isPaid);
         orderItem.setBillingDetails();
+        orderItem.setOrderType(0);
+        orderItem.setOrderStatus(1);
 
 
         Call<Boolean> call = networkApi.checkout(orderItem);

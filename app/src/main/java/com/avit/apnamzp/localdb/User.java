@@ -10,6 +10,19 @@ import com.google.gson.Gson;
 
 public class User {
 
+    public static String getFCMToken(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(SharedPrefNames.USER_FCM_TOKEN,"");
+    }
+
+    public static void setFCMToken(Context context,String token){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_FCM_TOKEN,token);
+        editor.apply();
+    }
+
     public static String getPhoneNumber(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getString(SharedPrefNames.USER_PHONE,null);
