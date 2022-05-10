@@ -3,6 +3,7 @@ package com.avit.apnamzp.notification;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
@@ -13,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.localdb.User;
+import com.avit.apnamzp.utils.NotificationUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -28,6 +31,7 @@ public class NotificationService extends FirebaseMessagingService {
     public static final String CHANNEL_OFFERS_ID = "OffersChannel";
     public static final String CHANNEL_NEWS_ID = "NewsChannel";
     private NotificationManagerCompat notificationManager;
+    private int notificationId = 1;
 
     @Override
     public void onNewToken(@NonNull String s) {
@@ -45,8 +49,30 @@ public class NotificationService extends FirebaseMessagingService {
         createNotificationChannels();
 
         String notificationType = data.get("type");
-        showOrderNotification();
+        if(notificationType.contains("order_status")){
 
+            String title = data.get("title");
+            String desc = data.get("desc");
+            String orderId = data.get("orderId");
+
+            manageOrderNotification(title,desc,orderId);
+        }
+
+
+    }
+
+    private void manageOrderNotification(String title,String desc,String orderId){
+        if(NotificationUtils.isAppIsInBackground(getApplicationContext())){
+            showOrderNotification(title,desc,orderId);
+        }
+        else {
+            Intent intent = new Intent();
+            intent.setAction("com.avit.apnamzp.ORDER_STATUS_UPDATE");
+
+            intent.putExtra("orderId",orderId);
+            getApplicationContext().sendBroadcast(intent);
+
+        }
     }
 
     public void createNotificationChannels(){
@@ -68,16 +94,26 @@ public class NotificationService extends FirebaseMessagingService {
         }
     }
 
-    private void showOrderNotification(){
+    private void showOrderNotification(String title,String desc,String orderId){
+
+        Intent viewOrderDetailsIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        viewOrderDetailsIntent.putExtra("orderId",orderId);
+        viewOrderDetailsIntent.setAction("com.avit.apnamzp_order_status_update");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,viewOrderDetailsIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ORDER_ID)
-                .setContentTitle("Order title")
+                .setContentTitle(title)
                 .setSmallIcon(R.drawable.main_icon)
-                .setContentText("Irder Message")
+                .setContentText(desc)
+                .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setAutoCancel(true)
                 .build();
-
-        notificationManager.notify(1,notification);
+        
+        notificationManager.notify(notificationId,notification);
+        notificationId = (notificationId + 1)%Integer.MAX_VALUE;
     }
 
     private void showOffersNotification(){

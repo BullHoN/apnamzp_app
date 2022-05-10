@@ -1,6 +1,7 @@
 package com.avit.apnamzp.ui.orders;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import retrofit2.Retrofit;
 
 public class OrdersViewModel extends ViewModel {
     private MutableLiveData<List<OrderItem>> mutableLiveData;
+    private String TAG = "OrdersViewModel";
 
     public OrdersViewModel(){
         mutableLiveData = new MutableLiveData<>();
@@ -37,6 +40,8 @@ public class OrdersViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
                 mutableLiveData.setValue(response.body());
+//                Log.i(TAG, "onResponse: " + response.body());
+
             }
 
             @Override

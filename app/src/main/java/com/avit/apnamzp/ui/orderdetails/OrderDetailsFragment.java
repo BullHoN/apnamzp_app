@@ -3,9 +3,12 @@ package com.avit.apnamzp.ui.orderdetails;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,31 +25,50 @@ public class OrderDetailsFragment extends Fragment {
 
     private FragmentOrderDetailsBinding binding;
     private OrderItem orderItem;
+    private String TAG = "OrderDetailsFragment";
+    private OrderDetailsViewModel orderDetailsViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentOrderDetailsBinding.inflate(inflater,container,false);
+        orderDetailsViewModel = ViewModelProviders.of(this).get(OrderDetailsViewModel.class);
 
         Gson gson = new Gson();
         Bundle bundle = getArguments();
         String orderItemsString = bundle.getString("orderItem");
-        orderItem = gson.fromJson(orderItemsString,OrderItem.class);
 
-        binding.shopName.setText(orderItem.getShopData().getShopName());
-        binding.shopAddress.setText(orderItem.getShopData().getAddressData().getMainAddress());
+        if(orderItemsString == null){
+            orderDetailsViewModel.getOrderDataFromServer(getContext(),bundle.getString("orderId"));
+        }
+        else {
+            orderDetailsViewModel.setOrderItem(gson.fromJson(orderItemsString,OrderItem.class));
+        }
+
+        orderDetailsViewModel.getOrderItemMutableLiveData().observe(getViewLifecycleOwner(), new Observer<OrderItem>() {
+            @Override
+            public void onChanged(OrderItem orderItem1) {
+                orderItem = orderItem1;
+
+                binding.shopName.setText(orderItem.getShopData().getShopName());
+                binding.shopAddress.setText(orderItem.getShopData().getAddressData().getMainAddress());
 
 
-        binding.orderItems.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        OrderItemsAdapter adapter = new OrderItemsAdapter(getContext(),orderItem.getOrderItems());
-        binding.orderItems.setAdapter(adapter);
+                binding.orderItems.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                OrderItemsAdapter adapter = new OrderItemsAdapter(getContext(), orderItem.getOrderItems());
+                binding.orderItems.setAdapter(adapter);
 
-        setUpUI();
+                setUpUI();
 
-        // Vertical StepView
-        binding.orderStatus.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
-        OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(),orderItem.getOrderStatus());
-        binding.orderStatus.setAdapter(orderStatusAdapter);
+                // Vertical StepView
+                binding.orderStatus.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus());
+                binding.orderStatus.setAdapter(orderStatusAdapter);
+            }
+        });
+
+
+
 
         return binding.getRoot();
     }

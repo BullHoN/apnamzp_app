@@ -42,14 +42,19 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.statusMessageView.setText("Completed");
         }
         else if(position == status){
-            holder.statusImage.setImageResource(R.drawable.ic_attention);
-            holder.statusMessageView.setText("Working On It...");
+            if(status == 6){
+                holder.statusImage.setImageResource(R.drawable.ic_check);
+                holder.statusMessageView.setText("Completed");
+            }
+            else {
+                holder.statusImage.setImageResource(R.drawable.ic_attention);
+                holder.statusMessageView.setText("Working On It...");
+            }
         }
         else {
             holder.statusImage.setImageResource(R.drawable.circle_back);
             holder.statusMessageView.setText("waiting...");
         }
-
 
     }
 

@@ -208,6 +208,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         dialog.findViewById(R.id.cashOnDeliveryButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i(TAG, "onClick: checkout button");
+                dialog.dismiss();
                 checkout(false);
             }
         });
@@ -242,13 +244,17 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-
+                Log.d(TAG, "onResponse: aaja bhai");
+                Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
+                        .show();
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_ordersFragment);
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
+                Log.i(TAG, "onFailure: " +  t.getMessage());
             }
         });
     }

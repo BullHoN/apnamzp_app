@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_cartFragment_to_offersFragment"
             app:destination="@id/offersFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"

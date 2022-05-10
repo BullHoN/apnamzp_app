@@ -57,7 +57,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
                 .into(holder.shopImage);
 
         String messages[] = {"Order Placed","Order Confirmed","Order In Preparetion","Rider Assign",
-        "Rider Reached Shop","Rider On The Way","Order Arrived","Order Delivered","Order Cancelled"};
+        "Rider Reached Shop","Rider On The Way","Order Delivered","Order Cancelled"};
 
         holder.orderStatusView.setText(messages[curr.getOrderStatus()]);
 

@@ -24,6 +24,7 @@ import retrofit2.http.Query;
 
 public interface NetworkApi {
      String SERVER_URL = "http://192.168.1.3:5000/";
+//     String SERVER_URL = "http://da22-2401-4900-1f3b-392b-189b-5688-d508-410c.ngrok.io";
 
      @GET("/category/{shopType}")
      Call<ArrayList<ShopData>> getShopsFromCategories(@Path("shopType") String shopType);
@@ -63,5 +64,11 @@ public interface NetworkApi {
 
      @GET("/user/getOrders")
      Call<List<OrderItem>> getOrders(@Query("userId") String userId);
+
+     @POST("/user_routes/updateFCM")
+     Call<ResponseBody> updateFCMToken(@Body User user,@Query("user_type") String user_type);
+
+     @GET("/user/getOrder")
+     Call<OrderItem> getOrderById(@Query("order_id") String orderId);
 
 }
