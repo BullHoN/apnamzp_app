@@ -31,7 +31,7 @@ public class NotificationService extends FirebaseMessagingService {
     public static final String CHANNEL_OFFERS_ID = "OffersChannel";
     public static final String CHANNEL_NEWS_ID = "NewsChannel";
     private NotificationManagerCompat notificationManager;
-    private int notificationId = 1;
+    public static int ORDER_NOTIFICATION_ID = 1;
 
     @Override
     public void onNewToken(@NonNull String s) {
@@ -111,9 +111,12 @@ public class NotificationService extends FirebaseMessagingService {
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(true)
                 .build();
-        
-        notificationManager.notify(notificationId,notification);
-        notificationId = (notificationId + 1)%Integer.MAX_VALUE;
+
+        if(ORDER_NOTIFICATION_ID > 1073741824){
+            ORDER_NOTIFICATION_ID = 0;
+        }
+
+        notificationManager.notify(ORDER_NOTIFICATION_ID++,notification);
     }
 
     private void showOffersNotification(){

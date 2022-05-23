@@ -6,10 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
-        android:layout_marginLeft="15sp"
-        android:background="@color/purple_700"
         android:layout_width="2dp"
-        android:layout_height="70dp" />
+        android:layout_height="70dp"
+        android:layout_marginLeft="15sp"
+        android:background="@color/purple_700" />
 
     <ImageView
         android:id="@+id/statusImage"
@@ -37,8 +37,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:visibility="gone"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/errorColor"
+            android:id="@+id/cancel_reason"
+            android:textSize="16sp"
+            android:text="waiting..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
-
-
 
 </RelativeLayout>

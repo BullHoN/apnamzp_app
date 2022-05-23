@@ -61,9 +61,16 @@ public class OrderDetailsFragment extends Fragment {
                 setUpUI();
 
                 // Vertical StepView
+                Log.i(TAG, "onChanged: " + orderItem.getCancelReason());
                 binding.orderStatus.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus());
+                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason());
                 binding.orderStatus.setAdapter(orderStatusAdapter);
+
+                if(orderItem.getOrderStatus() >= 3 && orderItem.getOrderStatus() < 6){
+                    binding.deliveryBoyDetailsView.setVisibility(View.VISIBLE);
+                    binding.deliverySathiPhoneNo.setText("+91 " + orderItem.getAssignedDeliveryBoy());
+                }
+
             }
         });
 
