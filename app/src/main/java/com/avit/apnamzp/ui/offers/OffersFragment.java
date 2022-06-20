@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
     private FragmentOffersBinding binding;
     private OffersAdapter offersAdapter;
     private OfferViewModel viewModel;
+    private String TAG = "OffersFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,6 +54,7 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
             binding.offersList.setAdapter(offersAdapter);
         }
         else {
+            Log.i(TAG, "onCreateView: " + bundle.getString("shopName"));
             viewModel.getDataFromServer(getContext(),false,bundle.getString("shopName"));
             offersAdapter = new OffersAdapter(getContext(),true,new ArrayList<>(),this);
             binding.offersList.setAdapter(offersAdapter);

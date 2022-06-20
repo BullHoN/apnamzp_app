@@ -63,6 +63,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.cartBody.setVisibility(View.VISIBLE);
 
         Log.i(TAG, "onCreateView: " + cart.getShopName());
+        Log.i(TAG, "onCreateView: " + cart.getShopData().getTaxPercentage());
 
         binding.cartItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         cartItemsAdapter = new CartItemsAdapter(getContext(),cart.getCartItems(),this);
@@ -103,7 +104,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.totalDiscount.setText("₹" + totalDiscount + ".00");
         orderItem.setTotalDiscount(totalDiscount);
 
-        int totalTaxesAndPackingCharge = cart.getTotalPackingCharge();
+        int totalTaxesAndPackingCharge = cart.getTotalPackingCharge() + cart.getTotalTaxDeduction();
+
         binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
         orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
 
@@ -317,7 +319,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             orderItem.setTotalDiscount(totalDiscount);
 
 
-            int totalTaxesAndPackingCharge = cart.getTotalPackingCharge();
+            int totalTaxesAndPackingCharge = cart.getTotalPackingCharge() + cart.getTotalTaxDeduction();
             binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
             orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
 

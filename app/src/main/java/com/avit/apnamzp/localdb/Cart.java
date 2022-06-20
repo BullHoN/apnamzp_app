@@ -131,6 +131,10 @@ public class Cart {
         return total;
     }
 
+    public int getTotalTaxDeduction(){
+        return (int) Math.ceil(((getTotalOfItems() - getTotalDiscount()) * Float.parseFloat(getShopData().getTaxPercentage()))/100);
+    }
+
     public int getTotalDiscount(){
         int total = 0;
         for(ShopItemData shopItemData : cartItems){

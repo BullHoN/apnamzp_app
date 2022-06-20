@@ -62,6 +62,8 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         String jsonString = getArguments().getString("shopData");
         shopData = gson.fromJson(jsonString,ShopData.class);
 
+        Log.i(TAG, "onCreateView: " + shopData.getTaxPercentage());
+
         binding.shopName.setText(shopData.getShopName());
         binding.tagLine.setText(shopData.getTagLine());
         binding.minOrder.setText("Min Order - " + "₹" + shopData.getPricingDetails().getMinOrderPrice());

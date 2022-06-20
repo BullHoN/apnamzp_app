@@ -40,6 +40,7 @@ public class OrderItem {
         return cancelReason;
     }
 
+
     public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy) {
         this.itemTotal = itemTotal;
         this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;

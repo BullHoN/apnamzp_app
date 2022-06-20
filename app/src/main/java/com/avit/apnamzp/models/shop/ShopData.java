@@ -15,9 +15,26 @@ public class ShopData {
     private String shopType;
     private String reviews;
     private String menuItemsID;
+    private String taxPercentage;
     private String _id;
 
-    public ShopData(String shopName,Boolean isOpen) {
+    public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id) {
+        this.name = name;
+        this.tagLine = tagLine;
+        this.pricingDetails = pricingDetails;
+        this.addressData = addressData;
+        this.isOpen = isOpen;
+        this.averageDeliveryTime = averageDeliveryTime;
+        this.bannerImage = bannerImage;
+        this.averageRatings = averageRatings;
+        this.shopType = shopType;
+        this.reviews = reviews;
+        this.menuItemsID = menuItemsID;
+        this.taxPercentage = taxPercentage;
+        this._id = _id;
+    }
+
+    public ShopData(String shopName, Boolean isOpen) {
         this.name = shopName;
         this.isOpen = isOpen;
     }
@@ -43,6 +60,10 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public String getTaxPercentage() {
+        return taxPercentage;
     }
 
     public String get_id() {

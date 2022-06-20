@@ -67,6 +67,7 @@ public class SearchCategoryFragment extends Fragment {
             @Override
             public void openShopDetails(ShopData shopData) {
                 Bundle shopDetailsBundle = new Bundle();
+                Log.i(TAG, "openShopDetails: " + shopData.getTaxPercentage());
                 String jsonString  = gson.toJson(shopData,ShopData.class);
                 shopDetailsBundle.putString("shopData",jsonString);
 
@@ -76,7 +77,7 @@ public class SearchCategoryFragment extends Fragment {
         });
         binding.shopsList.setAdapter(adapter);
 
-        // TODO: Load Initial Data
+        // Load Initial Data
 
         // Observe Change in Shops Data
         viewModel.getShopsData().observe(getViewLifecycleOwner(), new Observer<List<ShopData>>() {
