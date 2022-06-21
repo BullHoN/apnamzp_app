@@ -4,6 +4,7 @@ import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.ReviewData;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.cart.CartItemData;
+import com.avit.apnamzp.models.cart.CartMetaData;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
@@ -70,5 +71,8 @@ public interface NetworkApi {
 
      @GET("/user/getOrder")
      Call<OrderItem> getOrderById(@Query("order_id") String orderId);
+
+     @GET("/user/cart/metadata")
+     Call<CartMetaData> getCartMetaData();
 
 }

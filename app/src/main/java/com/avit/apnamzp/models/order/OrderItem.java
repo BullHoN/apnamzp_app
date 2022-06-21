@@ -13,6 +13,8 @@ public class OrderItem {
     private int deliveryCharge;
     private int totalDiscount;
     private int totalPay;
+    private int itemOnTheWaySingleCost;
+
     private Boolean isDeliveryService;
     private String specialInstructions;
     private Boolean isPaid;
@@ -35,6 +37,7 @@ public class OrderItem {
     private int orderType;
     private String cancelReason;
     private String assignedDeliveryBoy;
+    private List<String> itemsOnTheWay;
 
     public String getCancelReason() {
         return cancelReason;
@@ -94,6 +97,22 @@ public class OrderItem {
         this.createdAt = createdAt;
         this.orderType = orderType;
         this.cancelReason = cancelReason;
+    }
+
+    public int getItemOnTheWaySingleCost() {
+        return itemOnTheWaySingleCost;
+    }
+
+    public void setItemOnTheWaySingleCost(int itemOnTheWaySingleCost) {
+        this.itemOnTheWaySingleCost = itemOnTheWaySingleCost;
+    }
+
+    public void setItemsOnTheWay(List<String> itemsOnTheWay) {
+        this.itemsOnTheWay = itemsOnTheWay;
+    }
+
+    public List<String> getItemsOnTheWay() {
+        return itemsOnTheWay;
     }
 
     public void setOrderType(int orderType) {
@@ -168,16 +187,21 @@ public class OrderItem {
     }
 
     public void setBillingDetails() {
-        this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,isDeliveryService);
+        this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,getTotalFromItemsOnTheWay(),isDeliveryService);
     }
 
     public int calculateTotalPrice(){
         if(isDeliveryService){
-            totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge - totalDiscount - offerDiscountedAmount;
+            totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge - totalDiscount - offerDiscountedAmount + getTotalFromItemsOnTheWay();
             return totalPay;
         }
         totalPay = itemTotal + totalTaxesAndPackingCharge - totalDiscount - offerDiscountedAmount;
         return totalPay;
+    }
+
+    public int getTotalFromItemsOnTheWay(){
+        if(itemsOnTheWay == null) return 0;
+        return itemsOnTheWay.size() * itemOnTheWaySingleCost;
     }
 
     public void setOfferDiscountedAmount(int offerDiscountedAmount) {

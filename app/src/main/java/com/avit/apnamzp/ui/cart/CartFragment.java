@@ -13,11 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentCartBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.localdb.User;
+import com.avit.apnamzp.models.cart.CartMetaData;
 import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
@@ -28,6 +30,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.nio.file.ClosedFileSystemException;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
@@ -44,6 +48,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     private String TAG = "CartFragment";
     private Boolean isServiceTypeDelivery = true;
     private OrderItem orderItem;
+    private CartItemsOnTheWayAdapter cartItemsOnTheWayAdapter;
+    private CartMetaData cartMetaData;
+    private Cart cart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,18 +59,19 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding = FragmentCartBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
 
-        Cart cart = Cart.getInstance(getContext());
+        cart = Cart.getInstance(getContext());
         orderItem = new OrderItem();
 
         if(cart == null || cart.getCartSize() == 0){
             return root;
         }
 
+        getCartMetaData();
+
         binding.emptyCartView.setVisibility(View.GONE);
         binding.cartBody.setVisibility(View.VISIBLE);
 
         Log.i(TAG, "onCreateView: " + cart.getShopName());
-        Log.i(TAG, "onCreateView: " + cart.getShopData().getTaxPercentage());
 
         binding.cartItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         cartItemsAdapter = new CartItemsAdapter(getContext(),cart.getCartItems(),this);
@@ -76,7 +84,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.changeLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(root).navigate(R.id.action_cartFragment_to_getLocationFragment);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_getLocationFragment);
             }
         });
 
@@ -109,6 +117,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
         orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
 
+        binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
 
         orderItem.setDeliveryService(true);
         binding.deliveryServiceButton.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +135,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 binding.selfPickUpServiceButton.setBackgroundResource(R.drawable.unselected_back);
                 binding.selfPickUpServiceText.setTextColor(getResources().getColor(R.color.primaryColor));
 
-                binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
-                binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+                updateTheTotalPay();
                 binding.deliveryChargeView.setVisibility(View.VISIBLE);
 
             }
@@ -148,8 +156,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 binding.selfPickUpServiceButton.setBackgroundResource(R.drawable.selected_back);
                 binding.selfPickUpServiceText.setTextColor(getResources().getColor(R.color.white));
 
-                binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
-                binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+                updateTheTotalPay();
+
                 binding.deliveryChargeView.setVisibility(View.GONE);
 
             }
@@ -171,7 +179,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 Bundle bundle = new Bundle();
                 bundle.putString("shopName", cart.getShopName());
 
-                Navigation.findNavController(root).navigate(R.id.action_cartFragment_to_offersFragment,bundle);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_offersFragment,bundle);
             }
         });
 
@@ -184,8 +192,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
 
-                binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
-                binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+                updateTheTotalPay();
 
                 binding.offerBodyView.setVisibility(View.GONE);
                 binding.addCouponView.setVisibility(View.VISIBLE);
@@ -201,6 +208,64 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         });
 
         return root;
+    }
+
+    private void loadTheUI(){
+        binding.itemsOnTheWay.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        orderItem.setItemsOnTheWay(cart.getItemsOnTheWay());
+
+        binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+
+        cartItemsOnTheWayAdapter = new CartItemsOnTheWayAdapter(getContext(), cart.getItemsOnTheWay(), new CartItemsOnTheWayAdapter.ActionsOnTheWayInterface() {
+            @Override
+            public void removeItemOnTheWay(String text) {
+                List<String> newItemsOnTheWay = cart.getItemsOnTheWay();
+                newItemsOnTheWay.remove(text);
+
+                cart.addItemsOnTheWay(getContext(),newItemsOnTheWay);
+                cartItemsOnTheWayAdapter.updateItemsOnTheWay(newItemsOnTheWay);
+                orderItem.setItemsOnTheWay(newItemsOnTheWay);
+                updateTheTotalPay();
+
+                binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+
+            }
+        });
+
+        binding.itemsOnTheWay.setAdapter(cartItemsOnTheWayAdapter);
+
+        binding.submitItemsOnTheWay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: validate items
+                String itemOnTheWay = binding.addItemsOnTheWay.getText().toString();
+                if(itemOnTheWay.length() < 3){
+                    Toasty.error(getContext(),"Enter Valid Items",Toasty.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // add items in the list
+                List<String> newItemsOnTheWay = cart.getItemsOnTheWay();
+                newItemsOnTheWay.add(itemOnTheWay);
+
+                cart.addItemsOnTheWay(getContext(),newItemsOnTheWay);
+
+                cartItemsOnTheWayAdapter.updateItemsOnTheWay(newItemsOnTheWay);
+                orderItem.setItemsOnTheWay(newItemsOnTheWay);
+
+                binding.addItemsOnTheWay.setText("");
+                binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+                // hide the keyboard
+
+                updateTheTotalPay();
+
+            }
+        });
+    }
+
+    private void updateTheTotalPay(){
+        binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
+        binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
     }
 
     private void choosePaymentType(){
@@ -224,6 +289,29 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         });
 
         dialog.show();
+    }
+
+    private void getCartMetaData(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Call<CartMetaData> call = networkApi.getCartMetaData();
+        call.enqueue(new Callback<CartMetaData>() {
+            @Override
+            public void onResponse(Call<CartMetaData> call, Response<CartMetaData> response) {
+                cartMetaData = response.body();
+                orderItem.setItemOnTheWaySingleCost(cartMetaData.getItemsOnTheWayCost());
+                loadTheUI();
+            }
+
+            @Override
+            public void onFailure(Call<CartMetaData> call, Throwable t) {
+                Toasty.error(getContext(),"Some Error Occurred",Toasty.LENGTH_SHORT)
+                        .show();
+                // TODO: do not allow to add items on the way
+            }
+        });
+
     }
 
     private void checkout(Boolean isPaid){
@@ -323,10 +411,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
             orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
 
-            binding.totalPriceToPay.setText("₹" + orderItem.getTotalPay() + ".00");
-            binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
-
-
             if(cart.getAppliedOffer() != null) {
                 String offerType = cart.getAppliedOffer().getOfferType();
                 if (offerType.equals("percent")) {
@@ -350,6 +434,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             binding.emptyCartView.setVisibility(View.VISIBLE);
             badge.setVisible(false);
         }
+
+        updateTheTotalPay();
+
     }
 
     @Override

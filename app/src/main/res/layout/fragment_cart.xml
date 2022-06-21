@@ -125,8 +125,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <TextView
@@ -142,9 +142,52 @@
                 <TextView
                     android:text="Add Item from each shop in a single line, every shop will have a 10Rs Increment in the total price"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
 
 
+                <LinearLayout
+                    android:weightSum="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                        android:layout_width="match_parent"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="false"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/add_items_on_the_way"
+                            android:hint="Add Items from a single shop seprate by ' , ' "
+                            android:minLines="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:id="@+id/submit_items_on_the_way"
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_send_24"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:isScrollContainer="false"
+                    android:id="@+id/items_on_the_way"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_on_the_way"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
@@ -526,6 +569,31 @@
 
                     <TextView
                         android:id="@+id/totalDiscount"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textColor="@color/primaryColor"
+                        android:text="$0.00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:weightSum="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textColor="@color/primaryColor"
+                        android:layout_weight="1"
+                        android:text="Items On The Way Cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/totalItemsToPickCost"
                         android:textSize="16sp"
                         android:fontFamily="@font/roboto_medium"
                         android:textColor="@color/primaryColor"

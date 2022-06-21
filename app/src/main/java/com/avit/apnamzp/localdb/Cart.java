@@ -2,6 +2,7 @@ package com.avit.apnamzp.localdb;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 
@@ -15,17 +16,20 @@ import java.util.List;
 
 public class Cart {
 
+    private static Cart cart;
     private String shopName;
     private String shopID;
     private ShopData shopData;
     private List<ShopItemData> cartItems;
     private OfferItem appliedOffer;
+    private List<String> itemsOnTheWay;
 
     public Cart(Context context,String shopName, String shopID, ShopData shopData, List<ShopItemData> cartItems) {
         this.shopName = shopName;
         this.shopID = shopID;
         this.shopData = shopData;
         this.cartItems = cartItems;
+        this.itemsOnTheWay = new ArrayList<>();
         saveToSharedPref(context);
     }
 
@@ -34,6 +38,7 @@ public class Cart {
         this.shopID = shopID;
         this.cartItems = shopItemDataList;
         this.shopData = shopData;
+        this.itemsOnTheWay = new ArrayList<>();
         saveToSharedPref(context);
     }
 
@@ -41,10 +46,21 @@ public class Cart {
         this.shopName = shopName;
         this.shopID = shopID;
         this.shopData = shopData;
+        this.itemsOnTheWay = new ArrayList<>();
         saveToSharedPref(context);
     }
 
-    public Boolean insertToCart(Context context,String itemID,ShopItemData newCartItem){
+    public void addItemsOnTheWay(Context context,List<String> itemsOnTheWay){
+        Cart cart = Cart.getInstance(context);
+        cart.itemsOnTheWay = itemsOnTheWay;
+        saveToSharedPref(context);
+    }
+
+    public List<String> getItemsOnTheWay() {
+        return itemsOnTheWay;
+    }
+
+    public Boolean insertToCart(Context context, String itemID, ShopItemData newCartItem){
         if(this.shopID != null && !itemID.equals(this.shopID)) return false;
         cartItems.add(newCartItem);
         saveToSharedPref(context);
@@ -172,8 +188,6 @@ public class Cart {
         editor.putString(SharedPrefNames.CART_NAME,cartString);
         editor.apply();
     }
-
-    private static Cart cart;
 
     public static Cart getInstance(Context context){
         if(cart == null){
