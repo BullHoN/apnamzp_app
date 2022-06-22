@@ -2,7 +2,20 @@ package com.avit.apnamzp.models.order;
 
 public class BillingDetails {
     private int  deliveryCharge, itemTotal, offerDiscountedAmount, totalDiscount, totalTaxesAndPackingCharge, totalPay, itemsOnTheWayTotalCost;
+    private String taxPercentage;
     private Boolean isDeliveryService;
+
+    public BillingDetails(int deliveryCharge, int itemTotal, int offerDiscountedAmount, int totalDiscount, int totalTaxesAndPackingCharge, int totalPay, int itemsOnTheWayTotalCost, String taxPercentage, Boolean isDeliveryService) {
+        this.deliveryCharge = deliveryCharge;
+        this.itemTotal = itemTotal;
+        this.offerDiscountedAmount = offerDiscountedAmount;
+        this.totalDiscount = totalDiscount;
+        this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
+        this.totalPay = totalPay;
+        this.itemsOnTheWayTotalCost = itemsOnTheWayTotalCost;
+        this.taxPercentage = taxPercentage;
+        this.isDeliveryService = isDeliveryService;
+    }
 
     public BillingDetails(int deliveryCharge, int itemTotal, int offerDiscountedAmount, int totalDiscount, int totalTaxesAndPackingCharge, int totalPay, int itemsOnTheWayTotalCost, Boolean isDeliveryService) {
         this.deliveryCharge = deliveryCharge;
@@ -23,6 +36,10 @@ public class BillingDetails {
         this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
         this.totalPay = totalPay;
         this.isDeliveryService = isDeliveryService;
+    }
+
+    public String getTaxPercentage() {
+        return taxPercentage;
     }
 
     public int getItemsOnTheWayTotalCost() {

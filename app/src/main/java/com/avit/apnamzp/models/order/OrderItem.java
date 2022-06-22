@@ -186,8 +186,8 @@ public class OrderItem {
         return billingDetails;
     }
 
-    public void setBillingDetails() {
-        this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,getTotalFromItemsOnTheWay(),isDeliveryService);
+    public void setBillingDetails(String taxPercentage) {
+        this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,getTotalFromItemsOnTheWay(),taxPercentage,isDeliveryService);
     }
 
     public int calculateTotalPrice(){
