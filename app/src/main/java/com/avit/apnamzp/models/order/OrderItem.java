@@ -43,6 +43,33 @@ public class OrderItem {
         return cancelReason;
     }
 
+    public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, int itemOnTheWaySingleCost, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy, List<String> itemsOnTheWay) {
+        this.itemTotal = itemTotal;
+        this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
+        this.deliveryCharge = deliveryCharge;
+        this.totalDiscount = totalDiscount;
+        this.totalPay = totalPay;
+        this.itemOnTheWaySingleCost = itemOnTheWaySingleCost;
+        this.isDeliveryService = isDeliveryService;
+        this.specialInstructions = specialInstructions;
+        this.isPaid = isPaid;
+        this.shopID = shopID;
+        this.shopCategory = shopCategory;
+        this.orderItems = orderItems;
+        this.userId = userId;
+        this.deliveryAddress = deliveryAddress;
+        this.offerDiscountedAmount = offerDiscountedAmount;
+        this.offerCode = offerCode;
+        this.billingDetails = billingDetails;
+        this.shopData = shopData;
+        this._id = _id;
+        this.orderStatus = orderStatus;
+        this.createdAt = createdAt;
+        this.orderType = orderType;
+        this.cancelReason = cancelReason;
+        this.assignedDeliveryBoy = assignedDeliveryBoy;
+        this.itemsOnTheWay = itemsOnTheWay;
+    }
 
     public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy) {
         this.itemTotal = itemTotal;

@@ -102,6 +102,7 @@
                 tools:listitem="@layout/item_orderdetailsorderitems" />
 
             <LinearLayout
+                android:isScrollContainer="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -203,6 +204,32 @@
             </LinearLayout>
 
             <LinearLayout
+                android:isScrollContainer="false"
+                android:visibility="gone"
+                android:id="@+id/items_on_the_way_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Items On The Way"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:isScrollContainer="false"
+                    android:id="@+id/items_on_the_way_recyclerview"
+                    android:layout_width="match_parent"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_ion_the_way_order_details"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -278,6 +305,29 @@
 
                     <TextView
                         android:id="@+id/deliveryCharge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$20.00"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Items On The Way Delivery Charge"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/onTheWayItemsTotalCost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$20.00"

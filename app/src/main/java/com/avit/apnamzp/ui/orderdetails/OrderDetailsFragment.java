@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOrderDetailsBinding;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -82,11 +83,20 @@ public class OrderDetailsFragment extends Fragment {
 
     private void setUpUI(){
 
+        // items on the way
+        if(orderItem.getItemsOnTheWay() != null && orderItem.getItemsOnTheWay().size() > 0){
+            binding.itemsOnTheWayContainer.setVisibility(View.VISIBLE);
+            binding.itemsOnTheWayRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            ItemsOnTheWayOrderDetailsAdapter itemsOnTheWayOrderDetailsAdapter = new ItemsOnTheWayOrderDetailsAdapter(orderItem.getItemsOnTheWay(),getContext());
+            binding.itemsOnTheWayRecyclerview.setAdapter(itemsOnTheWayOrderDetailsAdapter);
+        }
+
         // Billing Details
         binding.itemsTotal.setText("₹" + orderItem.getBillingDetails().getItemTotal() + ".00");
         binding.taxAndPackagingCharge.setText("₹" + orderItem.getBillingDetails().getTotalTaxesAndPackingCharge() + ".00");
         binding.deliveryCharge.setText("₹" + orderItem.getBillingDetails().getDeliveryCharge() + ".00");
-        binding.totalDiscount.setText("₹" + orderItem.getBillingDetails().getTotalDiscount() + ".00");
+        binding.onTheWayItemsTotalCost.setText(PrettyStrings.getPriceInRupees(orderItem.getBillingDetails().getItemsOnTheWayTotalCost()));
+        binding.totalDiscount.setText("₹" + (orderItem.getBillingDetails().getTotalDiscount() + orderItem.getBillingDetails().getOfferDiscountedAmount()) + ".00");
         binding.totalPriceToPay.setText("₹" + orderItem.getBillingDetails().getTotalPay() + ".00");
 
         // Order Details
