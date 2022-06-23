@@ -96,6 +96,7 @@ public class OrderDetailsFragment extends Fragment {
         binding.taxAndPackagingCharge.setText("₹" + orderItem.getBillingDetails().getTotalTaxesAndPackingCharge() + ".00");
         binding.deliveryCharge.setText("₹" + orderItem.getBillingDetails().getDeliveryCharge() + ".00");
         binding.onTheWayItemsTotalCost.setText(PrettyStrings.getPriceInRupees(orderItem.getBillingDetails().getItemsOnTheWayTotalCost()));
+        binding.onTheWayItemsTotalActualCost.setText(PrettyStrings.getPriceInRupees(orderItem.getBillingDetails().getItemsOnTheWayActualCost()));
         binding.totalDiscount.setText("₹" + (orderItem.getBillingDetails().getTotalDiscount() + orderItem.getBillingDetails().getOfferDiscountedAmount()) + ".00");
         binding.totalPriceToPay.setText("₹" + orderItem.getBillingDetails().getTotalPay() + ".00");
 
