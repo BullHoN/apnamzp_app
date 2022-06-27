@@ -70,7 +70,23 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
         Cart cart = Cart.getInstance(context);
         if(cart != null){
             ShopItemData cartItem =  cart.isPresentInCart(curr.get_id());
-            if(cartItem != null){
+            if(cartItem != null && !curr.getAvailable()){
+                holder.addButton.setText("Unavailable");
+                holder.addButton.setCheckable(false);
+                holder.addButton.setFocusable(false);
+
+                cart.removeFromCart(context, curr.get_id());
+                onAddButtonInterface.removeTheBatch();
+                return;
+            }
+            else if(!curr.getAvailable()){
+                holder.addButton.setText("Unavailable");
+                holder.addButton.setCheckable(false);
+                holder.addButton.setFocusable(false);
+
+                return;
+            }
+            else if(cartItem != null){
                 holder.addButtonView.setVisibility(View.GONE);
                 holder.quantityView.setVisibility(View.VISIBLE);
                 holder.quantityTextView.setText(String.valueOf(cartItem.getQuantity()));
