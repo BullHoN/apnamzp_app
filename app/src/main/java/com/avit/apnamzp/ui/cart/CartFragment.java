@@ -24,6 +24,7 @@ import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -211,6 +212,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     }
 
     private void loadTheUI(){
+
+        binding.itemsOnTheWayHeading.setText("Add Item from each shop in a single line, every shop will have a" + PrettyStrings.getPriceInRupees(orderItem.getItemOnTheWaySingleCost()) + " Increment in the total price");
+
         binding.itemsOnTheWay.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         orderItem.setItemsOnTheWay(cart.getItemsOnTheWay());
 

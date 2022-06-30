@@ -140,6 +140,7 @@
 
 
                 <TextView
+                    android:id="@+id/items_on_the_way_heading"
                     android:text="Add Item from each shop in a single line, every shop will have a 10Rs Increment in the total price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
