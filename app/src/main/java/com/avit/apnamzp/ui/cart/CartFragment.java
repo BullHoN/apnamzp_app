@@ -67,6 +67,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             return root;
         }
 
+        orderItem.setShopData(cart.getShopData());
+
         getCartMetaData();
 
         binding.emptyCartView.setVisibility(View.GONE);
@@ -119,6 +121,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
 
         binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+
+        binding.minPriceForFreeDelivery.setText(PrettyStrings.getPriceInRupees(orderItem.getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
+
 
         orderItem.setDeliveryService(true);
         binding.deliveryServiceButton.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +218,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
     private void loadTheUI(){
 
-        binding.itemsOnTheWayHeading.setText("Add Item from each shop in a single line, every shop will have a" + PrettyStrings.getPriceInRupees(orderItem.getItemOnTheWaySingleCost()) + " Increment in the total price");
+        binding.itemsOnTheWayHeading.setText("Add Item from each shop in a single line, every shop will have a " + PrettyStrings.getPriceInRupees(orderItem.getItemOnTheWaySingleCost()) + " Increment in the total price");
 
         binding.itemsOnTheWay.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         orderItem.setItemsOnTheWay(cart.getItemsOnTheWay());
@@ -268,6 +273,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     }
 
     private void updateTheTotalPay(){
+        binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
         binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
         binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
     }
@@ -368,7 +374,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 int deliveryCharge = Integer.parseInt(distanceResponse.getDistance());
                 orderItem.setDeliveryCharge(deliveryCharge);
-                binding.deliveryCharge.setText("₹" + deliveryCharge + ".00");
+
+                binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
 
                 binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
                 binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
@@ -404,16 +411,18 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             badge.setNumber(value);
 
             int itemTotal = cart.getTotalOfItems();
-            binding.itemsTotal.setText("₹" + itemTotal + ".00");
             orderItem.setItemTotal(itemTotal);
+            binding.itemsTotal.setText("₹" + orderItem.getItemTotal() + ".00");
+
 
             int totalDiscount = cart.getTotalDiscount();
             orderItem.setTotalDiscount(totalDiscount);
 
 
             int totalTaxesAndPackingCharge = cart.getTotalPackingCharge() + cart.getTotalTaxDeduction();
-            binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
             orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
+            binding.taxes.setText("₹" + orderItem.getTotalTaxesAndPackingCharge() + ".00");
+
 
             if(cart.getAppliedOffer() != null) {
                 String offerType = cart.getAppliedOffer().getOfferType();
@@ -489,8 +498,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         }
         else {
-            binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
-            binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+            updateTheTotalPay();
+//            binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
+//            binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
         }
 
     }

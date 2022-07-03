@@ -1,5 +1,7 @@
 package com.avit.apnamzp.models.order;
 
+import android.util.Log;
+
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.google.gson.annotations.SerializedName;
@@ -38,6 +40,7 @@ public class OrderItem {
     private String cancelReason;
     private String assignedDeliveryBoy;
     private List<String> itemsOnTheWay;
+    private static String TAG = "OrderItem";
 
     public String getCancelReason() {
         return cancelReason;
@@ -215,11 +218,15 @@ public class OrderItem {
 
     public void setBillingDetails(String taxPercentage) {
         this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,getTotalFromItemsOnTheWay(),taxPercentage,isDeliveryService);
+        this.billingDetails.setFreeDeliveryPrice(Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
     }
 
     public int calculateTotalPrice(){
         if(isDeliveryService){
             totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge - totalDiscount - offerDiscountedAmount + getTotalFromItemsOnTheWay();
+            if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice())){
+                totalPay -= deliveryCharge;
+            }
             return totalPay;
         }
         totalPay = itemTotal + totalTaxesAndPackingCharge - totalDiscount - offerDiscountedAmount;
@@ -312,6 +319,10 @@ public class OrderItem {
     }
 
     public int getDeliveryCharge() {
+//        Log.i(TAG, "getDeliveryCharge: " + itemTotal + " " + Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
+        if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice())){
+            return 0;
+        }
         return deliveryCharge;
     }
 
