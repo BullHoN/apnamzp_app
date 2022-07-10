@@ -40,6 +40,9 @@ public class OrdersFragment extends Fragment {
 
         Gson gson = new Gson();
 
+        binding.loading.setAnimation(R.raw.orders_loading);
+        binding.loading.playAnimation();
+
         binding.ordersList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         OrdersAdapter adapter = new OrdersAdapter(getContext(), new ArrayList<>(), new OrdersAdapter.openOrderDetailsInterface() {
             @Override
@@ -58,6 +61,17 @@ public class OrdersFragment extends Fragment {
             @Override
             public void onChanged(List<OrderItem> orderItems) {
                 adapter.replaceItems(orderItems);
+                binding.loading.setVisibility(View.GONE);
+
+                if(orderItems.size() == 0){
+                    binding.emptyOrders.setVisibility(View.VISIBLE);
+                    binding.emptyOrders.setAnimation(R.raw.no_orders_animation);
+                    binding.emptyOrders.playAnimation();
+                }
+                else {
+                    binding.emptyOrders.setVisibility(View.GONE);
+                }
+
             }
         });
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOffersBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.offer.OfferItem;
@@ -37,6 +38,9 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
         binding = FragmentOffersBinding.inflate(inflater,container,false);
         viewModel = ViewModelProviders.of(this).get(OfferViewModel.class);
         View root = binding.getRoot();
+
+        binding.loading.setAnimation(R.raw.offers_loading);
+        binding.loading.playAnimation();
 
         binding.offersList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
 
@@ -65,6 +69,7 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
             @Override
             public void onChanged(List<OfferItem> offerItems) {
                 offersAdapter.changeValues(offerItems);
+                binding.loading.setVisibility(View.GONE);
             }
         });
 
