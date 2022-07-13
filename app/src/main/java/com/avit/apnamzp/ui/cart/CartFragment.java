@@ -373,7 +373,15 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 GetDistanceResponse distanceResponse = response.body();
 
                 int deliveryCharge = Integer.parseInt(distanceResponse.getDistance());
+
+                if(deliveryCharge == -1){
+                    Toasty.error(getContext(),"Service Not Available At This Long Distance",Toasty.LENGTH_SHORT)
+                            .show();
+                    binding.paymentButton.setEnabled(false);
+                }
+
                 orderItem.setDeliveryCharge(deliveryCharge);
+                orderItem.setActualDistance(distanceResponse.getActualDistance());
 
                 binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
 

@@ -5,9 +5,19 @@ import java.util.List;
 public class GetDistanceResponse {
 
     private String distance;
+    private String actualDistance;
+
+    public GetDistanceResponse(String distance, String actualDistance) {
+        this.distance = distance;
+        this.actualDistance = actualDistance;
+    }
 
     public GetDistanceResponse(String distance) {
         this.distance = distance;
+    }
+
+    public String getActualDistance() {
+        return actualDistance;
     }
 
     @Override
