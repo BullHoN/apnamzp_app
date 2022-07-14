@@ -41,15 +41,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.mukesh.OtpView
+            <com.goodiebag.pinview.Pinview
                 android:id="@+id/otp_view"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
                 android:layout_width="wrap_content"
+                app:inputType="number"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                app:OtpItemCount="4"
-                app:OtpViewType="rectangle"
+                app:pinLength="4"
+                app:forceKeyboard="false"
                 android:itemBackground="@color/white"
                 android:textColor="@color/primaryColor" />
 

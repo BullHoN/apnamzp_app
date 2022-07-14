@@ -15,6 +15,7 @@ import com.avit.apnamzp.databinding.FragmentAuthOtpBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.goodiebag.pinview.Pinview;
 import com.mukesh.OnOtpCompletionListener;
 
 import es.dmoral.toasty.Toasty;
@@ -27,7 +28,7 @@ import retrofit2.Retrofit;
 public class AuthOtpFragment extends Fragment {
 
     private FragmentAuthOtpBinding binding;
-    private String TAG = "AuthActivity";
+    private String TAG = "AuthActivitys";
     private LoadingDialog loadingDialog;
 
     @Override
@@ -39,11 +40,14 @@ public class AuthOtpFragment extends Fragment {
         Bundle bundle = getArguments();
         String phoneNo = bundle.getString("phoneNo");
 
-        binding.otpView.setOtpCompletionListener(new OnOtpCompletionListener() {
+        binding.otpView.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
-            public void onOtpCompleted(String otp) {
+            public void onDataEntered(Pinview pinview, boolean fromUser) {
+                Log.i(TAG, "onDataEntered: " + pinview.getValue());
+
                 loadingDialog.startLoadingDialog();
-                verifyOtpFromServer(phoneNo,otp);
+                verifyOtpFromServer(phoneNo,pinview.getValue());
+
             }
         });
 
