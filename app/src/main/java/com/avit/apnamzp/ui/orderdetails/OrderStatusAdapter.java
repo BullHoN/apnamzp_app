@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,10 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     private Context context;
     private int status;
     private String[] messages = {"Order Placed","Order Confirmed","Order In Preperation","Rider Assign","Rider Reached Shop","Rider On The Way","Order Delivered","Order Cancelled"};
+    private String[] selfPickupMessages = {"Order Placed","Order Confirmed","Order In Preperation","Order Delivered","Order Cancelled"};
     private int size;
     private String cancelReason;
+    private boolean isDeliveryService;
 
     public OrderStatusAdapter(Context context,int status){
         this.context = context;
@@ -27,11 +30,15 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         size = status == 7 ? 2 : 7;
     }
 
-    public OrderStatusAdapter(Context context,int status,String cancelReason){
+    public OrderStatusAdapter(Context context,int status,String cancelReason,boolean isDeliveryService){
         this.context = context;
         this.status = status;
         this.cancelReason = cancelReason;
         size = status == 7 ? 2 : 7;
+        this.isDeliveryService = isDeliveryService;
+        if(!isDeliveryService){
+            size = 4;
+        }
     }
 
     @NonNull
@@ -62,6 +69,8 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             return;
         }
 
+
+
         if(position < status){
             holder.statusImage.setImageResource(R.drawable.ic_check);
             holder.statusMessageView.setText("Completed");
@@ -81,6 +90,12 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.statusMessageView.setText("waiting...");
         }
 
+        if(position == 3 && status == 6){
+            holder.statusTitleView.setText("Order Received");
+            holder.statusImage.setImageResource(R.drawable.ic_check);
+            holder.statusMessageView.setText("Completed");
+        }
+
     }
 
     @Override
@@ -92,6 +107,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
         public TextView statusTitleView, statusMessageView, statusCancelMessage;
         public ImageView statusImage;
+        public RelativeLayout orderStatusContainer;
 
         public OrderStatusViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -99,6 +115,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             statusMessageView = itemView.findViewById(R.id.statusMessage);
             statusImage = itemView.findViewById(R.id.statusImage);
             statusCancelMessage = itemView.findViewById(R.id.cancel_reason);
+            orderStatusContainer = itemView.findViewById(R.id.order_status_container);
         }
     }
 }

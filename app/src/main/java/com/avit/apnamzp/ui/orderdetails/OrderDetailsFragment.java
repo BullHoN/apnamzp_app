@@ -64,10 +64,10 @@ public class OrderDetailsFragment extends Fragment {
                 // Vertical StepView
                 Log.i(TAG, "onChanged: " + orderItem.getCancelReason());
                 binding.orderStatus.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason());
+                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService());
                 binding.orderStatus.setAdapter(orderStatusAdapter);
 
-                if(orderItem.getOrderStatus() >= 3 && orderItem.getOrderStatus() < 6){
+                if(orderItem.getOrderStatus() >= 3 && orderItem.getOrderStatus() < 6 && !orderItem.getBillingDetails().getDeliveryService()){
                     binding.deliveryBoyDetailsView.setVisibility(View.VISIBLE);
                     binding.deliverySathiPhoneNo.setText("+91 " + orderItem.getAssignedDeliveryBoy());
                 }
@@ -111,7 +111,7 @@ public class OrderDetailsFragment extends Fragment {
             binding.paymentMethod.setText("Cash On Delivery");
         }
 
-        if(orderItem.getOrderType() == 0){
+        if(orderItem.getBillingDetails().getDeliveryService()){
             binding.orderType.setText("Delivery");
         }
         else {
