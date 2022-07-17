@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Navigation.findNavController(root).navigate(R.id.action_homeFragment_to_getLocationFragment);
+                throw new RuntimeException("test application");
             }
         });
 

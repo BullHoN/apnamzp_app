@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import okhttp3.ResponseBody;
@@ -46,6 +48,11 @@ public class HomeActivity extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this,R.id.fragmentContainerView);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
+
+        Log.i(TAG, "onCreate: " + User.getPhoneNumber(getApplicationContext()));
+
+        FirebaseCrashlytics.getInstance().setUserId(User.getPhoneNumber(getApplicationContext()));
+
 
         String orderId = getIntent().getStringExtra("orderId");
         if(orderId != null){

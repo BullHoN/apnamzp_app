@@ -25,7 +25,7 @@ import retrofit2.http.Query;
 
 public interface NetworkApi {
      String SERVER_URL = "http://192.168.63.85:5000/";
-//     String SERVER_URL = "http://da22-2401-4900-1f3b-392b-189b-5688-d508-410c.ngrok.io";
+//     String SERVER_URL = "https://546b-2409-4063-2109-67d5-d1b4-465b-c713-8c3e.ngrok.io";
 
      @GET("/category/{shopType}")
      Call<ArrayList<ShopData>> getShopsFromCategories(@Path("shopType") String shopType);
