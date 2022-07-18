@@ -50,7 +50,6 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull OrderStatusViewHolder holder, int position) {
-
         holder.statusTitleView.setText(messages[position]);
 
         if(status == 7){
@@ -76,14 +75,16 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.statusMessageView.setText("Completed");
         }
         else if(position == status){
-            if(status == 6){
-                holder.statusImage.setImageResource(R.drawable.ic_check);
-                holder.statusMessageView.setText("Completed");
-            }
-            else {
-                holder.statusImage.setImageResource(R.drawable.ic_attention);
-                holder.statusMessageView.setText("Working On It...");
-            }
+            holder.statusImage.setImageResource(R.drawable.ic_check);
+            holder.statusMessageView.setText("Completed");
+//            if(status == 6){
+//                holder.statusImage.setImageResource(R.drawable.ic_check);
+//                holder.statusMessageView.setText("Completed");
+//            }
+//            else {
+//                holder.statusImage.setImageResource(R.drawable.ic_attention);
+//                holder.statusMessageView.setText("Working On It...");
+//            }
         }
         else {
             holder.statusImage.setImageResource(R.drawable.circle_back);
