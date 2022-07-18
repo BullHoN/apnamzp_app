@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.localdb.User;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -106,15 +108,22 @@ public class HomeActivity extends AppCompatActivity {
 
         com.avit.apnamzp.models.User user = new com.avit.apnamzp.models.User(User.getPhoneNumber(getApplicationContext()),fcmToken);
 
-        Call<ResponseBody> call = networkApi.updateFCMToken(user,"user");
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<NetworkResponse> call = networkApi.updateFCMToken(user,"user");
+        call.enqueue(new Callback<NetworkResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.i(TAG, "onResponse: fcm token updated");
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                if(response.isSuccessful()){
+                    Log.i(TAG, "onResponse: token updated successfully");
+                }
+                else {
+                    NetworkResponse errorResponse = response.body();
+                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 Log.e(TAG, "onFailure: token not saved", t);
             }
         });

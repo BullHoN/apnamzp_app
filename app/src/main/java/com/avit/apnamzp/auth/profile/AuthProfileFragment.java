@@ -14,8 +14,10 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthProfileBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.models.User;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -81,22 +83,31 @@ public class AuthProfileFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        Call<Boolean> call = networkApi.registerUser(user);
-        call.enqueue(new Callback<Boolean>() {
+        Call<NetworkResponse> call = networkApi.registerUser(user);
+        call.enqueue(new Callback<NetworkResponse>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
                 loadingDialog.dismissDialog();
-                Intent intent = new Intent(getContext(),HomeActivity.class);
-                startActivity(intent);
-                getActivity().finish();
 
-                com.avit.apnamzp.localdb.User.setUsername(getContext(),user.getName());
-                com.avit.apnamzp.localdb.User.setPhoneNumber(getContext(),user.getPhoneNo());
-                com.avit.apnamzp.localdb.User.setIsVerified(getContext(),true);
+                if(response.isSuccessful()){
+                    Intent intent = new Intent(getContext(),HomeActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+
+                    com.avit.apnamzp.localdb.User.setUsername(getContext(),user.getName());
+                    com.avit.apnamzp.localdb.User.setPhoneNumber(getContext(),user.getPhoneNo());
+                    com.avit.apnamzp.localdb.User.setIsVerified(getContext(),true);
+                }
+                else {
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();

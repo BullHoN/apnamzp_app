@@ -72,7 +72,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 .load(shopData.getBannerImage())
                 .into(binding.backImage);
 
-        viewModel.getDataFromServer(shopData.getMenuItemsID());
+        viewModel.getDataFromServer(getContext(),shopData.getMenuItemsID());
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override

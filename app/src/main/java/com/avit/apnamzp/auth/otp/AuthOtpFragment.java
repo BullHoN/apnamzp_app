@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthOtpBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 import com.goodiebag.pinview.Pinview;
 import com.mukesh.OnOtpCompletionListener;
 
@@ -66,17 +68,26 @@ public class AuthOtpFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        Call<ResponseBody> call = networkApi.sendOtp(phoneNo);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<NetworkResponse> call = networkApi.sendOtp(phoneNo);
+        call.enqueue(new Callback<NetworkResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
                 loadingDialog.dismissDialog();
-                Toasty.success(getContext(),"Otp Successfully send",Toasty.LENGTH_SHORT)
-                        .show();
+
+                if(response.isSuccessful()){
+                    Toasty.success(getContext(),"Otp Successfully send",Toasty.LENGTH_SHORT)
+                            .show();
+                }
+                else {
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
@@ -88,25 +99,36 @@ public class AuthOtpFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        Call<Boolean> call = networkApi.verifyOtp(phoneNo,otp);
-        call.enqueue(new Callback<Boolean>() {
+        Call<NetworkResponse> call = networkApi.verifyOtp(phoneNo,otp);
+        call.enqueue(new Callback<NetworkResponse>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
                 loadingDialog.dismissDialog();
-                if(response.body()){
-                    Toasty.success(getContext(),"Successfully Verified",Toasty.LENGTH_SHORT)
-                            .show();
 
-                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_authOtpFragment_to_authProfileFragment,getArguments());
+                if(response.isSuccessful()){
+                    NetworkResponse successResponse = response.body();
+                    if(successResponse.isSuccess()){
+                        Toasty.success(getContext(),"Successfully Verified",Toasty.LENGTH_SHORT)
+                                .show();
+
+                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_authOtpFragment_to_authProfileFragment,getArguments());
+                    }
+                    else {
+                        Toasty.error(getContext(),"Incorrect OTP",Toasty.LENGTH_SHORT)
+                                .show();
+                    }
                 }
                 else {
-                    Toasty.error(getContext(),"Incorrect OTP",Toasty.LENGTH_SHORT)
-                        .show();
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
                 }
+
+
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();

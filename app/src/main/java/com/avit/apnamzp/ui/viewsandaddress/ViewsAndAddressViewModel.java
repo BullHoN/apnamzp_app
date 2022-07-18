@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.avit.apnamzp.models.ReviewData;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.List;
 
@@ -32,6 +34,14 @@ public class ViewsAndAddressViewModel extends ViewModel {
         call.enqueue(new Callback<List<ReviewData>>() {
             @Override
             public void onResponse(Call<List<ReviewData>> call, Response<List<ReviewData>> response) {
+
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
                 mutableLiveData.setValue(response.body());
             }
 

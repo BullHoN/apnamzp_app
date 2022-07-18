@@ -6,9 +6,11 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -40,7 +42,14 @@ public class OrderDetailsViewModel extends ViewModel {
         call.enqueue(new Callback<OrderItem>() {
             @Override
             public void onResponse(Call<OrderItem> call, Response<OrderItem> response) {
-                setOrderItem(response.body());
+                if(response.isSuccessful()){
+                    setOrderItem(response.body());
+                }
+                else {
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                }
             }
 
             @Override

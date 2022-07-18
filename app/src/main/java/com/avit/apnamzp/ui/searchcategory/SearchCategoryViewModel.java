@@ -1,13 +1,16 @@
 package com.avit.apnamzp.ui.searchcategory;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class SearchCategoryViewModel extends ViewModel {
         shopsData = new MutableLiveData<>();
     }
 
-    public void getDataFromServer(String shopType){
+    public void getDataFromServer(Context context, String shopType){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
@@ -36,9 +39,18 @@ public class SearchCategoryViewModel extends ViewModel {
         call.enqueue(new Callback<ArrayList<ShopData>>() {
             @Override
             public void onResponse(Call<ArrayList<ShopData>> call, Response<ArrayList<ShopData>> response) {
-                shopDataList = response.body();
-                Log.i(TAG, "onResponse: " + response.body().size());
-                shopsData.setValue(shopDataList);
+
+                if(response.isSuccessful()){
+                    shopDataList = response.body();
+                    Log.i(TAG, "onResponse: " + response.body().size());
+                    shopsData.setValue(shopDataList);
+                }
+                else {
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                }
+
             }
 
             @Override

@@ -48,7 +48,7 @@ public class SearchCategoryFragment extends Fragment {
         String categoryName = bundle.getString("categoryName",null);
         String shopType = bundle.getString("shopType",null);
 
-        viewModel.getDataFromServer(shopType);
+        viewModel.getDataFromServer(getContext(),shopType);
 
         binding.categoryName.setText(categoryName + " Near You");
 

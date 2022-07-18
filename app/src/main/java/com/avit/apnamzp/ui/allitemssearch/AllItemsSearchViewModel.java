@@ -5,9 +5,11 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.List;
 
@@ -32,6 +34,14 @@ public class AllItemsSearchViewModel extends ViewModel {
         call.enqueue(new Callback<List<ShopData>>() {
             @Override
             public void onResponse(Call<List<ShopData>> call, Response<List<ShopData>> response) {
+
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
                 mutableLiveShopData.setValue(response.body());
             }
 

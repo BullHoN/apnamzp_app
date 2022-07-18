@@ -5,6 +5,7 @@ import com.avit.apnamzp.models.ReviewData;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.cart.CartItemData;
 import com.avit.apnamzp.models.cart.CartMetaData;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
@@ -25,7 +26,7 @@ import retrofit2.http.Query;
 
 public interface NetworkApi {
      String SERVER_URL = "http://192.168.63.85:5000/";
-//     String SERVER_URL = "https://546b-2409-4063-2109-67d5-d1b4-465b-c713-8c3e.ngrok.io";
+//     String SERVER_URL = "https://482c-2409-4063-2109-67d5-8589-6b8a-35ff-e19.ngrok.io";
 
      @GET("/category/{shopType}")
      Call<ArrayList<ShopData>> getShopsFromCategories(@Path("shopType") String shopType);
@@ -46,28 +47,28 @@ public interface NetworkApi {
      Call<List<ReviewData>> getReviews(@Query("shopName") String shopName);
 
      @GET("/checkUserExists")
-     Call<Boolean> doesUsersExists(@Query("phoneNo") String phoneNo);
+     Call<NetworkResponse> doesUsersExists(@Query("phoneNo") String phoneNo);
 
      @GET("/verifyOtp")
-     Call<Boolean> verifyOtp(@Query("phoneNo") String phoneNo,@Query("otp") String otp);
+     Call<NetworkResponse> verifyOtp(@Query("phoneNo") String phoneNo,@Query("otp") String otp);
 
      @GET("/sendOtp")
-     Call<ResponseBody> sendOtp(@Query("phoneNo") String phoneNo);
+     Call<NetworkResponse> sendOtp(@Query("phoneNo") String phoneNo);
 
      @POST("/registerUser")
-     Call<Boolean> registerUser(@Body User userData);
+     Call<NetworkResponse> registerUser(@Body User userData);
 
      @GET("/login")
-     Call<Boolean> login(@Query("phoneNo") String phoneNo,@Query("password") String password);
+     Call<NetworkResponse> login(@Query("phoneNo") String phoneNo, @Query("password") String password);
 
      @POST("/checkout")
-     Call<Boolean> checkout(@Body OrderItem orderItem);
+     Call<NetworkResponse> checkout(@Body OrderItem orderItem);
 
      @GET("/user/getOrders")
      Call<List<OrderItem>> getOrders(@Query("userId") String userId);
 
      @POST("/user_routes/updateFCM")
-     Call<ResponseBody> updateFCMToken(@Body User user,@Query("user_type") String user_type);
+     Call<NetworkResponse> updateFCMToken(@Body User user,@Query("user_type") String user_type);
 
      @GET("/user/getOrder")
      Call<OrderItem> getOrderById(@Query("order_id") String orderId);

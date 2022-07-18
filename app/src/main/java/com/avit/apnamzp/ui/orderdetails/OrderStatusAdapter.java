@@ -90,10 +90,16 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.statusMessageView.setText("waiting...");
         }
 
-        if(position == 3 && status == 6){
+        if(position == 3 && !isDeliveryService){
             holder.statusTitleView.setText("Order Received");
-            holder.statusImage.setImageResource(R.drawable.ic_check);
-            holder.statusMessageView.setText("Completed");
+            if(status == 6){
+                holder.statusImage.setImageResource(R.drawable.ic_check);
+                holder.statusMessageView.setText("Completed");
+            }
+            else {
+                holder.statusTitleView.setText("Order Received");
+                holder.statusMessageView.setText("waiting...");
+            }
         }
 
     }

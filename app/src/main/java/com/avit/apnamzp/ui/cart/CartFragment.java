@@ -20,10 +20,12 @@ import com.avit.apnamzp.databinding.FragmentCartBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.cart.CartMetaData;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
@@ -340,18 +342,26 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setOrderStatus(0);
 
 
-        Call<Boolean> call = networkApi.checkout(orderItem);
-        call.enqueue(new Callback<Boolean>() {
+        Call<NetworkResponse> call = networkApi.checkout(orderItem);
+        call.enqueue(new Callback<NetworkResponse>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                Log.d(TAG, "onResponse: aaja bhai");
-                Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
-                        .show();
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_ordersFragment);
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+
+                if(response.isSuccessful()){
+                    Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
+                            .show();
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_ordersFragment);
+                }
+                else {
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
                 Log.i(TAG, "onFailure: " +  t.getMessage());
@@ -370,6 +380,14 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         call.enqueue(new Callback<GetDistanceResponse>() {
             @Override
             public void onResponse(Call<GetDistanceResponse> call, Response<GetDistanceResponse> response) {
+
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
                 GetDistanceResponse distanceResponse = response.body();
 
                 int deliveryCharge = Integer.parseInt(distanceResponse.getDistance());

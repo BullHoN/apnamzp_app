@@ -67,7 +67,7 @@ public class OrderDetailsFragment extends Fragment {
                 OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService());
                 binding.orderStatus.setAdapter(orderStatusAdapter);
 
-                if(orderItem.getOrderStatus() >= 3 && orderItem.getOrderStatus() < 6 && !orderItem.getBillingDetails().getDeliveryService()){
+                if(orderItem.getOrderStatus() >= 3 && orderItem.getOrderStatus() < 6 && orderItem.getBillingDetails().getDeliveryService()){
                     binding.deliveryBoyDetailsView.setVisibility(View.VISIBLE);
                     binding.deliverySathiPhoneNo.setText("+91 " + orderItem.getAssignedDeliveryBoy());
                 }
