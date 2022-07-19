@@ -69,12 +69,14 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             return root;
         }
 
+        binding.loading.setAnimation(R.raw.cart_loading_animation);
+        binding.loading.playAnimation();
+
         orderItem.setShopData(cart.getShopData());
 
         getCartMetaData();
 
         binding.emptyCartView.setVisibility(View.GONE);
-        binding.cartBody.setVisibility(View.VISIBLE);
 
         Log.i(TAG, "onCreateView: " + cart.getShopName());
 
@@ -136,6 +138,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 binding.deliveryAddressView.setVisibility(View.VISIBLE);
                 binding.showRouteView.setVisibility(View.GONE);
+                binding.itemsOnTheWayContainer.setVisibility(View.VISIBLE);
 
                 binding.deliveryServiceButton.setBackgroundResource(R.drawable.selected_back);
                 binding.deliveryServiceText.setTextColor(getResources().getColor(R.color.white));
@@ -157,6 +160,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 binding.deliveryAddressView.setVisibility(View.GONE);
                 binding.showRouteView.setVisibility(View.VISIBLE);
+                binding.itemsOnTheWayContainer.setVisibility(View.GONE);
 
                 binding.deliveryServiceButton.setBackgroundResource(R.drawable.unselected_back);
                 binding.deliveryServiceText.setTextColor(getResources().getColor(R.color.primaryColor));
@@ -330,6 +334,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
+        String specialInstructions = binding.specialInstruction.getText().toString();
+
         Cart cart = Cart.getInstance(getContext());
         orderItem.setOrderItems(cart.getCartItems());
         orderItem.setShopID(cart.getShopID());
@@ -340,6 +346,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setBillingDetails(cart.getShopData().getTaxPercentage());
         orderItem.setOrderType(0);
         orderItem.setOrderStatus(0);
+        orderItem.setSpecialInstructions(specialInstructions);
 
 
         Call<NetworkResponse> call = networkApi.checkout(orderItem);
@@ -350,6 +357,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 if(response.isSuccessful()){
                     Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
                             .show();
+
+                    updateBadge(0);
                     Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_ordersFragment);
                 }
                 else {
@@ -405,6 +414,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
                 binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
+
+                binding.loading.setVisibility(View.GONE);
+                binding.cartBody.setVisibility(View.VISIBLE);
             }
 
             @Override

@@ -42,6 +42,13 @@ public class AuthOtpFragment extends Fragment {
         Bundle bundle = getArguments();
         String phoneNo = bundle.getString("phoneNo");
 
+        binding.changeNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
+        
         binding.otpView.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
             public void onDataEntered(Pinview pinview, boolean fromUser) {

@@ -100,6 +100,22 @@ public class OrderDetailsFragment extends Fragment {
         binding.totalDiscount.setText("₹" + (orderItem.getBillingDetails().getTotalDiscount() + orderItem.getBillingDetails().getOfferDiscountedAmount()) + ".00");
         binding.totalPriceToPay.setText("₹" + orderItem.getBillingDetails().getTotalPay() + ".00");
 
+        if(orderItem.getBillingDetails().getDeliveryCharge() == 0){
+            binding.deliveryChargeContainer.setVisibility(View.GONE);
+        }
+
+        if(orderItem.getBillingDetails().getItemsOnTheWayTotalCost() == 0){
+            binding.itemsOnTheWayDeliveryChargeContainer.setVisibility(View.GONE);
+        }
+
+        if(orderItem.getBillingDetails().getItemsOnTheWayActualCost() == 0){
+            binding.itemsOnTheWayActualCostContainer.setVisibility(View.GONE);
+        }
+
+        if((orderItem.getBillingDetails().getTotalDiscount() + orderItem.getBillingDetails().getOfferDiscountedAmount()) == 0){
+            binding.discountContainer.setVisibility(View.GONE);
+        }
+
         // Order Details
         binding.orderNo.setText(orderItem.get_id());
         binding.deliveryAddressView.setText(orderItem.getDeliveryAddress().getRawAddress());

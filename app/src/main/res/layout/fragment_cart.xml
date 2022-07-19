@@ -175,6 +175,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/items_on_the_way_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -699,6 +700,21 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_gravity="center"
+                app:lottie_loop="true"
+                android:id="@+id/loading"
+                android:layout_width="250dp"
+                android:layout_height="250dp" />
+
+        </LinearLayout>
 
 
     </RelativeLayout>

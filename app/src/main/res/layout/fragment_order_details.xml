@@ -290,6 +290,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/delivery_charge_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -313,6 +314,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/items_on_the_way_delivery_charge_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -336,6 +338,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/items_on_the_way_actual_cost_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -359,6 +362,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/discount_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
