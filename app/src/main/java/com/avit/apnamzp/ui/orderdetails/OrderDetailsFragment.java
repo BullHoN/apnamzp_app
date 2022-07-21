@@ -64,10 +64,10 @@ public class OrderDetailsFragment extends Fragment {
                 // Vertical StepView
                 Log.i(TAG, "onChanged: " + orderItem.getCancelReason());
                 binding.orderStatus.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService());
+                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService(),orderItem.getAssignedDeliveryBoy());
                 binding.orderStatus.setAdapter(orderStatusAdapter);
 
-                if(orderItem.getOrderStatus() >= 3 && orderItem.getOrderStatus() < 6 && orderItem.getBillingDetails().getDeliveryService()){
+                if(orderItem.getBillingDetails().getDeliveryService() && orderItem.getAssignedDeliveryBoy() != null && orderItem.getAssignedDeliveryBoy().length() > 0){
                     binding.deliveryBoyDetailsView.setVisibility(View.VISIBLE);
                     binding.deliverySathiPhoneNo.setText("+91 " + orderItem.getAssignedDeliveryBoy());
                 }
@@ -86,9 +86,15 @@ public class OrderDetailsFragment extends Fragment {
         // items on the way
         if(orderItem.getItemsOnTheWay() != null && orderItem.getItemsOnTheWay().size() > 0){
             binding.itemsOnTheWayContainer.setVisibility(View.VISIBLE);
-            binding.itemsOnTheWayRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-            ItemsOnTheWayOrderDetailsAdapter itemsOnTheWayOrderDetailsAdapter = new ItemsOnTheWayOrderDetailsAdapter(orderItem.getItemsOnTheWay(),getContext());
-            binding.itemsOnTheWayRecyclerview.setAdapter(itemsOnTheWayOrderDetailsAdapter);
+
+            if(orderItem.isItemsOnTheWayCancelled()){
+                binding.itemsOnTheWayCancelledMessage.setVisibility(View.VISIBLE);
+            }
+            else {
+                binding.itemsOnTheWayRecyclerview.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+                ItemsOnTheWayOrderDetailsAdapter itemsOnTheWayOrderDetailsAdapter = new ItemsOnTheWayOrderDetailsAdapter(orderItem.getItemsOnTheWay(),getContext());
+                binding.itemsOnTheWayRecyclerview.setAdapter(itemsOnTheWayOrderDetailsAdapter);
+            }
         }
 
         // Billing Details

@@ -357,8 +357,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 if(response.isSuccessful()){
                     Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
                             .show();
-
-                    updateBadge(0);
+                    // TODO: change this
+//                    updateBadge(0);
                     Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_ordersFragment);
                 }
                 else {

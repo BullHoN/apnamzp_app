@@ -219,6 +219,16 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/items_on_the_way_cancelled_message"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:textColor="@color/errorColor"
+                    android:text="Items On The Way Were Cancelled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:isScrollContainer="false"
                     android:id="@+id/items_on_the_way_recyclerview"

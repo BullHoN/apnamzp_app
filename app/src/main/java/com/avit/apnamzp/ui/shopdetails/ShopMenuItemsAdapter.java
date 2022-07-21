@@ -33,11 +33,13 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
     private List<ShopItemData> shopItemDataList;
     private onAddButtonInterface onAddButtonInterface;
     private String TAG = "ShopDetailsFragment";
+    private boolean showAddButton;
 
-    public ShopMenuItemsAdapter(Context context, List<ShopItemData> shopItemDataList,onAddButtonInterface onAddButtonInterface) {
+    public ShopMenuItemsAdapter(Context context, List<ShopItemData> shopItemDataList,onAddButtonInterface onAddButtonInterface,boolean showAddButton) {
         this.context = context;
         this.shopItemDataList = shopItemDataList;
         this.onAddButtonInterface = onAddButtonInterface;
+        this.showAddButton = showAddButton;
     }
 
     @NonNull
@@ -65,6 +67,13 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
 
         if(!curr.getVeg()){
             holder.isVegView.setImageResource(R.drawable.ic_nonveg);
+        }
+
+        if(!showAddButton){
+            holder.addButton.setVisibility(View.GONE);
+        }
+        else {
+            holder.addButton.setVisibility(View.VISIBLE);
         }
 
         Cart cart = Cart.getInstance(context);

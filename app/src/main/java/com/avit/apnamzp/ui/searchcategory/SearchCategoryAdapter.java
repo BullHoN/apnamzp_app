@@ -47,6 +47,10 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
     public void onBindViewHolder(@NonNull SearchCategoryViewHolder holder, int position) {
         ShopData curr = shopDataList.get(position);
 
+        if(!curr.getOpen()){
+            holder.shopCardView.setAlpha(0.7f);
+        }
+
         holder.nameView.setText(curr.getShopName());
         holder.tagLineView.setText(curr.getTagLine());
         holder.averageDeliveryTimeView.setText(curr.getAverageDeliveryTime());
@@ -98,7 +102,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 
 class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,minOrderView,noOfRatingView,reviewsView;
+    public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,minOrderView,noOfRatingView,reviewsView,notAcceptingOrders;
     public ImageView closedBackView,shopImageView;
     public MaterialCardView shopCardView;
     public LinearLayout ratingBackground,reviewsBackground;
@@ -117,5 +121,7 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         ratingBackground = itemView.findViewById(R.id.ratingBackground);
         reviewsBackground = itemView.findViewById(R.id.reviewsBackground);
         shopImageView = itemView.findViewById(R.id.shopImage);
+
+        notAcceptingOrders = itemView.findViewById(R.id.not_accepting_orders);
     }
 }

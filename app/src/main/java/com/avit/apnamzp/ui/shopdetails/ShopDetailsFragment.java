@@ -68,6 +68,10 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         binding.tagLine.setText(shopData.getTagLine());
         binding.minOrder.setText("Min Order - " + "₹" + shopData.getPricingDetails().getMinOrderPrice());
 
+        if(shopData.getOpen()){
+           binding.notAcceptingOrdersContainer.setVisibility(View.GONE);
+        }
+
         Glide.with(getContext())
                 .load(shopData.getBannerImage())
                 .into(binding.backImage);
@@ -82,7 +86,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         });
 
         binding.menuList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        shopDetailsAdapter = new ShopDetailsAdapter(new ArrayList<>(),getContext(),this);
+        shopDetailsAdapter = new ShopDetailsAdapter(new ArrayList<>(),getContext(),this,(shopData.getOpen() && shopData.isAllowCheckout()));
         binding.menuList.setAdapter(shopDetailsAdapter);
 
         viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShopCategoryData>>() {

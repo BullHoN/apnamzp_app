@@ -72,6 +72,15 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:textSize="12sp"
+                    android:id="@+id/not_accepting_orders"
+                    android:visibility="gone"
+                    android:textColor="@color/errorColor"
+                    android:text="Currently not accepting orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
                     android:id="@+id/tagLine"
                     android:text="Sweets | Backery Items"
                     android:layout_width="wrap_content"

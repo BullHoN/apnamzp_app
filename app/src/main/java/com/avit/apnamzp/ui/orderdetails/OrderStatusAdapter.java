@@ -21,7 +21,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     private String[] messages = {"Order Placed","Order Confirmed","Order In Preperation","Rider Assign","Rider Reached Shop","Rider On The Way","Order Delivered","Order Cancelled"};
     private String[] selfPickupMessages = {"Order Placed","Order Confirmed","Order In Preperation","Order Delivered","Order Cancelled"};
     private int size;
-    private String cancelReason;
+    private String cancelReason, assignedDeliveryBoy;
     private boolean isDeliveryService;
 
     public OrderStatusAdapter(Context context,int status){
@@ -30,12 +30,13 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         size = status == 7 ? 2 : 7;
     }
 
-    public OrderStatusAdapter(Context context,int status,String cancelReason,boolean isDeliveryService){
+    public OrderStatusAdapter(Context context, int status, String cancelReason, boolean isDeliveryService,String assignedDeliveryBoy){
         this.context = context;
         this.status = status;
         this.cancelReason = cancelReason;
         size = status == 7 ? 2 : 7;
         this.isDeliveryService = isDeliveryService;
+        this.assignedDeliveryBoy = assignedDeliveryBoy;
         if(!isDeliveryService){
             size = 4;
         }
@@ -101,6 +102,11 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
                 holder.statusTitleView.setText("Order Received");
                 holder.statusMessageView.setText("waiting...");
             }
+        }
+
+        if(position == 3 && assignedDeliveryBoy != null && assignedDeliveryBoy.length() > 0){
+            holder.statusImage.setImageResource(R.drawable.ic_check);
+            holder.statusMessageView.setText("Completed");
         }
 
     }
