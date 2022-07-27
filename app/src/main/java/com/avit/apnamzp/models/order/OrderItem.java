@@ -42,10 +42,42 @@ public class OrderItem {
     private List<String> itemsOnTheWay;
     private String actualDistance;
     private boolean itemsOnTheWayCancelled;
+    private boolean adminShopService;
     private static String TAG = "OrderItem";
 
     public String getCancelReason() {
         return cancelReason;
+    }
+
+    public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, int itemOnTheWaySingleCost, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy, List<String> itemsOnTheWay, String actualDistance, boolean itemsOnTheWayCancelled, boolean adminShopService) {
+        this.itemTotal = itemTotal;
+        this.totalTaxesAndPackingCharge = totalTaxesAndPackingCharge;
+        this.deliveryCharge = deliveryCharge;
+        this.totalDiscount = totalDiscount;
+        this.totalPay = totalPay;
+        this.itemOnTheWaySingleCost = itemOnTheWaySingleCost;
+        this.isDeliveryService = isDeliveryService;
+        this.specialInstructions = specialInstructions;
+        this.isPaid = isPaid;
+        this.shopID = shopID;
+        this.shopCategory = shopCategory;
+        this.orderItems = orderItems;
+        this.userId = userId;
+        this.deliveryAddress = deliveryAddress;
+        this.offerDiscountedAmount = offerDiscountedAmount;
+        this.offerCode = offerCode;
+        this.billingDetails = billingDetails;
+        this.shopData = shopData;
+        this._id = _id;
+        this.orderStatus = orderStatus;
+        this.createdAt = createdAt;
+        this.orderType = orderType;
+        this.cancelReason = cancelReason;
+        this.assignedDeliveryBoy = assignedDeliveryBoy;
+        this.itemsOnTheWay = itemsOnTheWay;
+        this.actualDistance = actualDistance;
+        this.itemsOnTheWayCancelled = itemsOnTheWayCancelled;
+        this.adminShopService = adminShopService;
     }
 
     public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, int itemOnTheWaySingleCost, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy, List<String> itemsOnTheWay, String actualDistance, boolean itemsOnTheWayCancelled) {
@@ -188,6 +220,14 @@ public class OrderItem {
         this.createdAt = createdAt;
         this.orderType = orderType;
         this.cancelReason = cancelReason;
+    }
+
+    public void setAdminShopService(boolean adminShopService) {
+        this.adminShopService = adminShopService;
+    }
+
+    public boolean isAdminShopService() {
+        return adminShopService;
     }
 
     public boolean isItemsOnTheWayCancelled() {

@@ -1,6 +1,7 @@
 package com.avit.apnamzp.network;
 
 import com.avit.apnamzp.localdb.Cart;
+import com.avit.apnamzp.models.BannerData;
 import com.avit.apnamzp.models.ReviewData;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.cart.CartItemData;
@@ -26,7 +27,10 @@ import retrofit2.http.Query;
 
 public interface NetworkApi {
      String SERVER_URL = "http://192.168.63.85:5000/";
-//     String SERVER_URL = "https://f215-2409-4063-2109-67d5-3470-720d-5003-7110.ngrok.io";
+//     String SERVER_URL = "https://2b07-2409-4063-2109-67d5-3c8e-1b02-6605-695b.ngrok.io";
+
+     @GET("/user/bannerImages")
+     Call<List<BannerData>> getBannerImages();
 
      @GET("/category/{shopType}")
      Call<ArrayList<ShopData>> getShopsFromCategories(@Path("shopType") String shopType);

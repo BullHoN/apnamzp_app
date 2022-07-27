@@ -347,6 +347,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setOrderType(0);
         orderItem.setOrderStatus(0);
         orderItem.setSpecialInstructions(specialInstructions);
+        orderItem.setAdminShopService(cart.getShopData().isAdminShopService());
+
 
 
         Call<NetworkResponse> call = networkApi.checkout(orderItem);
