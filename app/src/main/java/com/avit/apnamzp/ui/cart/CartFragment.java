@@ -317,6 +317,15 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             public void onResponse(Call<CartMetaData> call, Response<CartMetaData> response) {
                 cartMetaData = response.body();
                 orderItem.setItemOnTheWaySingleCost(cartMetaData.getItemsOnTheWayCost());
+
+                if(cartMetaData.getSlurgeCharges() > 0){
+                    binding.slurgeChargesContainer.setVisibility(View.VISIBLE);
+                    binding.slurgeReason.setText(cartMetaData.getSlurgeReason());
+                    binding.deliveryChargeText.setText("Delivery Charge & Slurge Charges");
+                }else {
+                    binding.slurgeChargesContainer.setVisibility(View.GONE);
+                }
+
                 loadTheUI();
             }
 
@@ -409,7 +418,13 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     binding.paymentButton.setEnabled(false);
                 }
 
-                orderItem.setDeliveryCharge(deliveryCharge);
+                if(cartMetaData.getSlurgeCharges() == 0){
+                    orderItem.setDeliveryCharge(deliveryCharge);
+                }
+                else {
+                    orderItem.setDeliveryCharge(deliveryCharge + cartMetaData.getSlurgeCharges());
+                }
+
                 orderItem.setActualDistance(distanceResponse.getActualDistance());
 
                 binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
