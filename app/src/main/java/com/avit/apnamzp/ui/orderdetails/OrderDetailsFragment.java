@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,12 +39,14 @@ public class OrderDetailsFragment extends Fragment {
         Gson gson = new Gson();
         Bundle bundle = getArguments();
         String orderItemsString = bundle.getString("orderItem");
+        String action = bundle.getString("action");
 
         if(orderItemsString == null){
             orderDetailsViewModel.getOrderDataFromServer(getContext(),bundle.getString("orderId"));
         }
         else {
-            orderDetailsViewModel.setOrderItem(gson.fromJson(orderItemsString,OrderItem.class));
+            OrderItem temp = gson.fromJson(orderItemsString,OrderItem.class);
+            orderDetailsViewModel.setOrderItem(temp);
         }
 
         orderDetailsViewModel.getOrderItemMutableLiveData().observe(getViewLifecycleOwner(), new Observer<OrderItem>() {
@@ -58,6 +61,13 @@ public class OrderDetailsFragment extends Fragment {
                 binding.orderItems.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
                 OrderItemsAdapter adapter = new OrderItemsAdapter(getContext(), orderItem.getOrderItems());
                 binding.orderItems.setAdapter(adapter);
+
+                if(orderItemsString == null && orderItem.getOrderStatus() == 6){
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("shopId", orderItem.getShopID());
+                    bundle1.putString("orderId", orderItem.get_id());
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_orderDetailsFragment_to_feedbackFragment,bundle1);
+                }
 
                 setUpUI();
 

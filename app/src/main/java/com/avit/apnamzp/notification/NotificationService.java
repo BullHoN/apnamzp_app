@@ -70,6 +70,8 @@ public class NotificationService extends FirebaseMessagingService {
             intent.setAction("com.avit.apnamzp.ORDER_STATUS_UPDATE");
 
             intent.putExtra("orderId",orderId);
+            intent.putExtra("action","feedback");
+
             getApplicationContext().sendBroadcast(intent);
 
         }
@@ -98,6 +100,7 @@ public class NotificationService extends FirebaseMessagingService {
 
         Intent viewOrderDetailsIntent = new Intent(getApplicationContext(), HomeActivity.class);
         viewOrderDetailsIntent.putExtra("orderId",orderId);
+        viewOrderDetailsIntent.putExtra("action", "feedback");
         viewOrderDetailsIntent.setAction("com.avit.apnamzp_order_status_update");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,viewOrderDetailsIntent,PendingIntent.FLAG_UPDATE_CURRENT);

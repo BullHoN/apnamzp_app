@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    tools:context=".ui.feedback.FeedbackFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryColor"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="14dp">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Feedback form"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_below="@id/header"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:textColor="@color/primaryColor"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="22sp"
+                android:text="Your Order's Feedback Form"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true" >
+
+                <LinearLayout
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Food Rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/foodRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_starWidth="20dp"
+                        app:srb_starHeight="20dp"
+                        app:srb_numStars="5" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="write review"
+                        android:layout_height="wrap_content" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/foodReview"
+                            android:layout_width="match_parent"
+                            android:inputType="text"
+                            android:imeOptions="actionDone"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true" >
+
+                <LinearLayout
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Delivery Sathi Rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/deliverySathiRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_starWidth="20dp"
+                        app:srb_starHeight="20dp"
+                        app:srb_numStars="5" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="write review"
+                        android:layout_height="wrap_content" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:inputType="text"
+                            android:id="@+id/deliverySathiReview"
+                            android:imeOptions="actionDone"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true" >
+
+                <LinearLayout
+                    android:padding="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Overall Experience"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.willy.ratingbar.ScaleRatingBar
+                        android:id="@+id/apnaRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_starWidth="20dp"
+                        app:srb_starHeight="20dp"
+                        app:srb_numStars="5" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="write review"
+                        android:layout_height="wrap_content" >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/apnaReview"
+                            android:layout_width="match_parent"
+                            android:inputType="text"
+                            android:imeOptions="actionDone"
+                            android:layout_height="wrap_content" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submit_review"
+                android:layout_marginTop="12dp"
+                android:text="Submit Review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

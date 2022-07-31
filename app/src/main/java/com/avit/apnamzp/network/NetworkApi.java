@@ -6,6 +6,7 @@ import com.avit.apnamzp.models.ReviewData;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.cart.CartItemData;
 import com.avit.apnamzp.models.cart.CartMetaData;
+import com.avit.apnamzp.models.feedback.Feedback;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.order.OrderItem;
@@ -80,6 +81,7 @@ public interface NetworkApi {
      @GET("/user/cart/metadata")
      Call<CartMetaData> getCartMetaData();
 
-
+     @POST("/user_routes/feedback")
+     Call<NetworkResponse> postFeedback(@Body Feedback feedback);
 
 }
