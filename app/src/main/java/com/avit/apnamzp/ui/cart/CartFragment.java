@@ -370,7 +370,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                             .show();
                     // TODO: change this
 //                    updateBadge(0);
-                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_ordersFragment);
+
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_successFragment);
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);

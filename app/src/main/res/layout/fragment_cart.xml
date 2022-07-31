@@ -86,7 +86,7 @@
             android:layout_below="@id/header"
             android:orientation="vertical"
             android:padding="12dp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cartItems"

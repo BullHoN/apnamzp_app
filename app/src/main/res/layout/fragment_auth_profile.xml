@@ -130,6 +130,7 @@
                 android:layout_width="match_parent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:hintAnimationEnabled="false"
+                app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
                 android:layout_height="wrap_content">
 
@@ -164,6 +165,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:hintAnimationEnabled="false"
                 app:hintEnabled="false"
+                app:passwordToggleEnabled="true"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
