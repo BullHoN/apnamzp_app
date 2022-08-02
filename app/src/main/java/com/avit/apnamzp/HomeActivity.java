@@ -27,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.razorpay.PaymentResultListener;
 
 import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
@@ -35,7 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements PaymentResultListener {
 
     private String TAG = "HomeActivityToken";
     private BroadcastReceiver receiver;
@@ -154,5 +155,20 @@ public class HomeActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Log.i(TAG, "onPaymentSuccess: ");
+        // TODO: checkout order
+        Toasty.success(getApplicationContext(),"sgsdgsdg",Toasty.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.i(TAG, "onPaymentError: ");
+        Toasty.error(getApplicationContext(),"payment failed",Toasty.LENGTH_LONG)
+                .show();
     }
 }

@@ -10,6 +10,8 @@ import com.avit.apnamzp.models.feedback.Feedback;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
+import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.ui.cart.GetDistanceResponse;
@@ -83,5 +85,8 @@ public interface NetworkApi {
 
      @POST("/user_routes/feedback")
      Call<NetworkResponse> postFeedback(@Body Feedback feedback);
+
+     @POST("/user/getOrderId")
+     Call<PaymentMetadata> getOrderPaymentId(@Body OnlinePaymentOrderIdPostData postData);
 
 }

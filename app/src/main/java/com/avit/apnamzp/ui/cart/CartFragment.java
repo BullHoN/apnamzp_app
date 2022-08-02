@@ -1,5 +1,6 @@
 package com.avit.apnamzp.ui.cart;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.avit.apnamzp.models.cart.CartMetaData;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
+import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.utils.ErrorUtils;
@@ -31,6 +34,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONObject;
 
 import java.nio.file.ClosedFileSystemException;
 import java.util.ArrayList;
@@ -44,7 +51,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CartFragment extends Fragment implements CartItemsAdapter.updateBadge{
+public class CartFragment extends Fragment implements CartItemsAdapter.updateBadge {
 
     private FragmentCartBinding binding;
     private CartItemsAdapter cartItemsAdapter;
@@ -72,6 +79,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.loading.setAnimation(R.raw.cart_loading_animation);
         binding.loading.playAnimation();
 
+        Checkout.preload(getContext());
         orderItem.setShopData(cart.getShopData());
 
         getCartMetaData();
@@ -300,11 +308,70 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         dialog.findViewById(R.id.onlinePaymentButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO: Price will increase dialog
+                getOrderPaymentId();
             }
         });
 
         dialog.show();
+    }
+
+
+    private void getOrderPaymentId(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        OnlinePaymentOrderIdPostData postData = new OnlinePaymentOrderIdPostData(orderItem.getTotalPay(), User.getPhoneNumber(getContext()));
+        Call<PaymentMetadata> call = networkApi.getOrderPaymentId(postData);
+        call.enqueue(new Callback<PaymentMetadata>() {
+            @Override
+            public void onResponse(Call<PaymentMetadata> call, Response<PaymentMetadata> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                payOnline(response.body().getPaymentId());
+
+            }
+
+            @Override
+            public void onFailure(Call<PaymentMetadata> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+
+    }
+
+
+    private void payOnline(String orderPaymentId){
+        Checkout checkout = new Checkout();
+        checkout.setImage(R.drawable.main_icon);
+
+        try{
+            JSONObject options = new JSONObject();
+            options.put("name", "Apna MZP");
+            options.put("description", "Reference No. #123456");
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            options.put("order_id", orderPaymentId);//from response of step 3.
+            options.put("theme.color", "#3399cc");
+            options.put("currency", "INR");
+            options.put("amount", String.valueOf(orderItem.getTotalPay()));//pass amount in currency subunits
+
+            JSONObject retryObj = new JSONObject();
+            retryObj.put("enabled", true);
+            retryObj.put("max_count", 4);
+            options.put("retry", retryObj);
+
+            checkout.open(getActivity(),options);
+        }
+        catch(Exception e){
+            Toasty.error(getContext(),"Error in payment " + e.getMessage(),Toasty.LENGTH_SHORT)
+                    .show();
+        }
+
     }
 
     private void getCartMetaData(){
@@ -560,4 +627,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         }
 
     }
+
+
 }
