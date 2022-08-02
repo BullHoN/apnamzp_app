@@ -32,6 +32,7 @@ public class NotificationService extends FirebaseMessagingService {
     public static final String CHANNEL_NEWS_ID = "NewsChannel";
     private NotificationManagerCompat notificationManager;
     public static int ORDER_NOTIFICATION_ID = 1;
+    public static int NEWS_NOTIFICATION_ID = 101;
 
     @Override
     public void onNewToken(@NonNull String s) {
@@ -49,15 +50,19 @@ public class NotificationService extends FirebaseMessagingService {
         createNotificationChannels();
 
         String notificationType = data.get("type");
-        if(notificationType.contains("order_status")){
 
+        if(notificationType.contains("order_status")){
             String title = data.get("title");
             String desc = data.get("desc");
             String orderId = data.get("orderId");
 
             manageOrderNotification(title,desc,orderId);
         }
-
+        else {
+            String title = data.get("title");
+            String desc = data.get("desc");
+            showNewsNotification(title,desc);
+        }
 
     }
 
@@ -126,7 +131,27 @@ public class NotificationService extends FirebaseMessagingService {
 
     }
 
-    private void showNewsNotification(){
+    private void showNewsNotification(String title, String desc){
+        Intent homeActivityIntent = new Intent(getApplicationContext(),HomeActivity.class);
+        homeActivityIntent.setAction("com.avit.apnamzp_news_notification");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,homeActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_OFFERS_ID)
+                .setContentTitle(title)
+                .setSmallIcon(R.drawable.main_icon)
+                .setContentText(desc)
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setAutoCancel(true)
+                .build();
+
+        if(NEWS_NOTIFICATION_ID > 1073741824){
+            NEWS_NOTIFICATION_ID = 0;
+        }
+
+        notificationManager.notify(NEWS_NOTIFICATION_ID++,notification);
 
     }
 
