@@ -64,6 +64,10 @@ public class HomeActivity extends AppCompatActivity implements PaymentResultList
             navController.navigate(R.id.orderDetailsFragment,bundle);
         }
 
+        if(getIntent() != null && getIntent().getBooleanExtra("open_orders",false)){
+            navController.navigate(R.id.successFragment);
+        }
+
         updateTheCartBatch();
 
         // Firebase Token

@@ -28,12 +28,14 @@ import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.ui.payment.OnlinePaymentActivity;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -61,6 +63,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     private CartItemsOnTheWayAdapter cartItemsOnTheWayAdapter;
     private CartMetaData cartMetaData;
     private Cart cart;
+    private Gson gson;
+    private String orderPaymentId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +75,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         cart = Cart.getInstance(getContext());
         orderItem = new OrderItem();
+        gson = new Gson();
 
         if(cart == null || cart.getCartSize() == 0){
             return root;
@@ -79,7 +84,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.loading.setAnimation(R.raw.cart_loading_animation);
         binding.loading.playAnimation();
 
-        Checkout.preload(getContext());
         orderItem.setShopData(cart.getShopData());
 
         getCartMetaData();
@@ -333,7 +337,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     return;
                 }
 
-                payOnline(response.body().getPaymentId());
+//                payOnline(response.body().getPaymentId());
+                orderPaymentId = response.body().getPaymentId();
+                checkout(true);
 
             }
 
@@ -342,35 +348,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 Log.e(TAG, "onFailure: ", t);
             }
         });
-
-    }
-
-
-    private void payOnline(String orderPaymentId){
-        Checkout checkout = new Checkout();
-        checkout.setImage(R.drawable.main_icon);
-
-        try{
-            JSONObject options = new JSONObject();
-            options.put("name", "Apna MZP");
-            options.put("description", "Reference No. #123456");
-            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
-            options.put("order_id", orderPaymentId);//from response of step 3.
-            options.put("theme.color", "#3399cc");
-            options.put("currency", "INR");
-            options.put("amount", String.valueOf(orderItem.getTotalPay()));//pass amount in currency subunits
-
-            JSONObject retryObj = new JSONObject();
-            retryObj.put("enabled", true);
-            retryObj.put("max_count", 4);
-            options.put("retry", retryObj);
-
-            checkout.open(getActivity(),options);
-        }
-        catch(Exception e){
-            Toasty.error(getContext(),"Error in payment " + e.getMessage(),Toasty.LENGTH_SHORT)
-                    .show();
-        }
 
     }
 
@@ -425,7 +402,14 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setSpecialInstructions(specialInstructions);
         orderItem.setAdminShopService(cart.getShopData().isAdminShopService());
 
+        if(isPaid){
+            Intent onlinePaymentActivityIntent = new Intent(getContext(), OnlinePaymentActivity.class);
+            onlinePaymentActivityIntent.putExtra("orderItem",gson.toJson(orderItem));
+            onlinePaymentActivityIntent.putExtra("orderPaymentId", orderPaymentId);
 
+            startActivity(onlinePaymentActivityIntent);
+            return;
+        }
 
         Call<NetworkResponse> call = networkApi.checkout(orderItem);
         call.enqueue(new Callback<NetworkResponse>() {
