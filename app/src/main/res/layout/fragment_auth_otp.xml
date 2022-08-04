@@ -34,6 +34,7 @@
             android:background="@color/primaryColor">
 
             <TextView
+                android:id="@+id/registed_mobile_no"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/white"
                 android:textSize="18sp"

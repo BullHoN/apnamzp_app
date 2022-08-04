@@ -3,6 +3,7 @@ package com.avit.apnamzp.ui.bussinessdetails;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,13 @@ public class BussinessDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentBussinessDetailsBinding.inflate(inflater,container,false);
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
 
         Bundle bundle = getArguments();
 

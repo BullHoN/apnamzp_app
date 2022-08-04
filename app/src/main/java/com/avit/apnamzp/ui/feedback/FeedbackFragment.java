@@ -56,7 +56,6 @@ public class FeedbackFragment extends Fragment {
 
                 String userPhoneNo = User.getPhoneNumber(getContext());
 
-                // TODO: get shop name, orderID from bundle
                 ReviewData foodFeedBack = new ReviewData(userPhoneNo,foodRating,
                         foodReview,"shop",shopName,orderId);
 

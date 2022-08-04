@@ -23,6 +23,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class OrderDetailsFragment extends Fragment {
 
     private FragmentOrderDetailsBinding binding;
@@ -53,6 +55,18 @@ public class OrderDetailsFragment extends Fragment {
             @Override
             public void onChanged(OrderItem orderItem1) {
                 orderItem = orderItem1;
+
+                Toasty.warning(getContext(),String.valueOf(orderItem1.isUserFeedBack()),Toasty.LENGTH_SHORT)
+                        .show();
+
+                if(!orderItem.isUserFeedBack() && orderItem.getOrderStatus() == 6){
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("shopId",orderItem.getShopID());
+                    bundle1.putString("orderId",orderItem.get_id());
+
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_orderDetailsFragment_to_feedbackFragment,bundle1);
+
+                }
 
                 binding.shopName.setText(orderItem.getShopData().getShopName());
                 binding.shopAddress.setText(orderItem.getShopData().getAddressData().getMainAddress());

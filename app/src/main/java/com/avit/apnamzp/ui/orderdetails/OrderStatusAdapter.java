@@ -34,12 +34,14 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         this.context = context;
         this.status = status;
         this.cancelReason = cancelReason;
-        size = status == 7 ? 2 : 7;
+
         this.isDeliveryService = isDeliveryService;
         this.assignedDeliveryBoy = assignedDeliveryBoy;
         if(!isDeliveryService){
             size = 4;
         }
+
+        size = status == 7 ? 2 : 7;
     }
 
     @NonNull

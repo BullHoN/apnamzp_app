@@ -42,6 +42,8 @@ public class AuthOtpFragment extends Fragment {
         Bundle bundle = getArguments();
         String phoneNo = bundle.getString("phoneNo");
 
+        binding.registedMobileNo.setText("Enter the OTP received on the registered mobile number. " + phoneNo);
+
         binding.changeNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

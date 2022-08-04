@@ -61,7 +61,10 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
             options.put("order_id", orderPaymentId);//from response of step 3.
             options.put("theme.color", "#3399cc");
             options.put("currency", "INR");
-            options.put("amount", String.valueOf(orderItem.getTotalPay()));//pass amount in currency subunits
+            options.put("amount", String.valueOf(orderItem.getTotalPay() * 100));//pass amount in currency subunits
+            options.put("prefill.contact",User.getPhoneNumber(getApplicationContext()));
+            options.put("prefill.email","");
+            options.put("readonly.email",true);
 
             JSONObject retryObj = new JSONObject();
             retryObj.put("enabled", true);

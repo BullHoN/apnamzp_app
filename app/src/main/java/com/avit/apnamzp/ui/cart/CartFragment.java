@@ -1,10 +1,13 @@
 package com.avit.apnamzp.ui.cart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -142,6 +145,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
 
         orderItem.setDeliveryService(true);
+
         binding.deliveryServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,6 +167,11 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
             }
         });
+
+
+        if(cart.getShopData().isAdminShopService()){
+            binding.selfPickUpServiceButton.setVisibility(View.GONE);
+        }
 
         binding.selfPickUpServiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -313,6 +322,15 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             @Override
             public void onClick(View view) {
                 // TODO: Price will increase dialog
+
+                Toasty.warning(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG)
+                        .show();
+
+                if(orderItem.getItemsOnTheWay().size() > 0){
+                    Toasty.error(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
                 getOrderPaymentId();
             }
         });
@@ -320,12 +338,16 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         dialog.show();
     }
 
+    private void showIncreasedPriceDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//        builder.setTitle("")
+    }
 
     private void getOrderPaymentId(){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        OnlinePaymentOrderIdPostData postData = new OnlinePaymentOrderIdPostData(orderItem.getTotalPay(), User.getPhoneNumber(getContext()));
+        OnlinePaymentOrderIdPostData postData = new OnlinePaymentOrderIdPostData(orderItem.getTotalPay() * 100, User.getPhoneNumber(getContext()));
         Call<PaymentMetadata> call = networkApi.getOrderPaymentId(postData);
         call.enqueue(new Callback<PaymentMetadata>() {
             @Override

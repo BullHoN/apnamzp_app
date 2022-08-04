@@ -29,6 +29,20 @@ public class ProfileFragment extends Fragment {
 
         sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
+
+        binding.aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openBussinessDetailsFragment("About Us",R.string.about_us_text);
+            }
+        });
+
         binding.privacy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
