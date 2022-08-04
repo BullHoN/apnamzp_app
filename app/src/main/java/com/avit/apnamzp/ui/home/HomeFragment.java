@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.getImages(getContext());
+//        homeViewModel.getImages(getContext());
 
         View root = binding.getRoot();
 
@@ -176,6 +176,8 @@ public class HomeFragment extends Fragment {
             public void onChanged(List<BannerData> bannerData) {
                 carouselView = binding.bannerCarousel;
                 carouselView.setSize(bannerData.size());
+
+                Log.i(TAG, "onChanged: " + bannerData.size());
 
                 carouselView.setCarouselViewListener(new CarouselViewListener() {
                     @Override

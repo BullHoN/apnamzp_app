@@ -1,16 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    android:layout_height="match_parent" >
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/header"
+        android:weightSum="1"
+        android:padding="12dp"
+        android:background="@color/primaryColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_baseline_arrow_back_24" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/categoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Profile Section"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-</ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/header"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="centerInside"
+            android:src="@drawable/logo_with_moto"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:layout_below="@id/banner"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_baseline_location_on_24" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="My Address" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/privacy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_credit_card_black_24dp" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Privacy Policy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_assignment_black_24dp" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Terms and condition" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/shipping_policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_baseline_delivery_dining_24" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Shipping Policy" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/refund_and_cancellation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_baseline_free_cancellation_24" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Refund and Cancellation" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_baseline_contact_support_24" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Contact Us" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:id="@+id/signOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_baseline_verified_user_24" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Sign Out" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/madeBY"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/primaryColor"
+            android:textSize="18sp"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:text="MADE WITH 💓💓 By Apna MZP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

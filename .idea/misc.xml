@@ -7,6 +7,11 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/circle_back.xml" value="0.2324074074074074" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/closed_back.xml" value="0.19166666666666668" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/disabled_black.xml" value="0.2324074074074074" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/ic_assignment_black_24dp.xml" value="0.20555555555555555" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/ic_baseline_delivery_dining_24.xml" value="0.20555555555555555" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.20555555555555555" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/ic_baseline_verified_user_24.xml" value="0.20555555555555555" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/ic_credit_card_black_24dp.xml" value="0.20555555555555555" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/map_marker_ripple.xml" value="0.24166666666666667" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/offercode_back.xml" value="0.20833333333333334" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/drawable/reviews_back.xml" value="0.19166666666666668" />
@@ -27,6 +32,7 @@
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_auth_home.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_auth_otp.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_auth_profile.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_bussiness_details.xml" value="0.23229166666666667" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_cart.xml" value="0.27361963190184047" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_feedback.xml" value="0.23229166666666667" />
         <entry key="..\:/AndroidStudioProjects/ApnaMzp/app/src/main/res/layout/fragment_get_location.xml" value="0.23645833333333333" />

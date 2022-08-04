@@ -29,8 +29,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkApi {
-     String SERVER_URL = "http://192.168.138.85:5000/";
-//     String SERVER_URL = "https://2b07-2409-4063-2109-67d5-3c8e-1b02-6605-695b.ngrok.io";
+//     String SERVER_URL = "http://192.168.138.85:5000/";
+     String SERVER_URL = "https://5173-2409-4063-4c0b-2aac-4841-8b2c-e10d-b80a.ngrok.io";
 
      @GET("/user/bannerImages")
      Call<List<BannerData>> getBannerImages();

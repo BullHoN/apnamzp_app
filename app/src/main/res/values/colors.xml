@@ -13,5 +13,6 @@
     <color name="primaryBackgroundColor">#E0F2FF</color>
     <color name="primaryTextColor">#FFFFFF</color>
     <color name="secondaryTextColor">#727272</color>
+    <color name="primaryText">#616161</color>
 
 </resources>

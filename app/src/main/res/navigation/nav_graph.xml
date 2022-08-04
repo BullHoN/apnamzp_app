@@ -73,7 +73,11 @@
         android:id="@+id/profileFragment"
         android:name="com.avit.apnamzp.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_bussinessDetailsFragment"
+            app:destination="@id/bussinessDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.avit.apnamzp.ui.searchcategory.SearchCategoryFragment"
@@ -141,4 +145,9 @@
         android:name="com.avit.apnamzp.ui.feedback.FeedbackFragment"
         android:label="fragment_feedback"
         tools:layout="@layout/fragment_feedback" />
+    <fragment
+        android:id="@+id/bussinessDetailsFragment"
+        android:name="com.avit.apnamzp.ui.bussinessdetails.BussinessDetailsFragment"
+        android:label="fragment_bussiness_details"
+        tools:layout="@layout/fragment_bussiness_details" />
 </navigation>
