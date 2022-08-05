@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentCartBinding;
@@ -29,6 +30,7 @@ import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
+import com.avit.apnamzp.models.shop.ShopItemData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.ui.payment.OnlinePaymentActivity;
@@ -243,6 +245,31 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         return root;
     }
 
+    private void openYouSavedDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_you_saved,binding.getRoot(),false);
+
+        TextView youSavedText = view.findViewById(R.id.you_saved_text);
+        youSavedText.setText("You Saved " + PrettyStrings.getPriceInRupees(calculateSavedAmount()));
+
+        builder.setView(view);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setLayout(900,900);
+
+    }
+
+    private int calculateSavedAmount(){
+        float increasePercentage = cart.getShopData().getIncreaseDisplayPricePercentage() * 0.01f;
+        int total_saved = 0;
+
+        for(ShopItemData shopItemData : cart.getCartItems()){
+            total_saved += Math.round(Integer.parseInt(shopItemData.getPricings().get(0).getPrice()) * increasePercentage);
+        }
+        return  total_saved;
+    }
+
     private void loadTheUI(){
 
         binding.itemsOnTheWayHeading.setText("Add Item from each shop in a single line, every shop will have a " + PrettyStrings.getPriceInRupees(orderItem.getItemOnTheWaySingleCost()) + " Increment in the total price");
@@ -297,6 +324,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
             }
         });
+
     }
 
     private void updateTheTotalPay(){
@@ -508,6 +536,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 binding.loading.setVisibility(View.GONE);
                 binding.cartBody.setVisibility(View.VISIBLE);
+
+                openYouSavedDialog();
             }
 
             @Override

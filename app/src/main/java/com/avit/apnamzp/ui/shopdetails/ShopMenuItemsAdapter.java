@@ -2,6 +2,7 @@ package com.avit.apnamzp.ui.shopdetails;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.avit.apnamzp.utils.PrettyStrings;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 
@@ -34,12 +36,14 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
     private onAddButtonInterface onAddButtonInterface;
     private String TAG = "ShopDetailsFragment";
     private boolean showAddButton;
+    private float increasedPercentage;
 
-    public ShopMenuItemsAdapter(Context context, List<ShopItemData> shopItemDataList,onAddButtonInterface onAddButtonInterface,boolean showAddButton) {
+    public ShopMenuItemsAdapter(Context context, List<ShopItemData> shopItemDataList,onAddButtonInterface onAddButtonInterface,boolean showAddButton,float increasedPercentage) {
         this.context = context;
         this.shopItemDataList = shopItemDataList;
         this.onAddButtonInterface = onAddButtonInterface;
         this.showAddButton = showAddButton;
+        this.increasedPercentage = increasedPercentage;
     }
 
     @NonNull
@@ -54,7 +58,10 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
         ShopItemData curr = shopItemDataList.get(position);
 
         holder.itemNameView.setText(curr.getName() + "(" + curr.getPricings().get(0).getType() + ")");
-        holder.itemPriceView.setText("₹" + curr.getPricings().get(0).getPrice());
+        holder.itemPriceView.setText(PrettyStrings.getPriceInRupees(curr.getPricings().get(0).getPrice()));
+        holder.increasePriceTextView.setPaintFlags(holder.increasePriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        int increasedPrice = Integer.parseInt(curr.getPricings().get(0).getPrice()) + Math.round(Integer.parseInt(curr.getPricings().get(0).getPrice()) * increasedPercentage);
+        holder.increasePriceTextView.setText(PrettyStrings.getPriceInRupees((increasedPrice)));
 
         if(curr.getImageURL() != null && curr.getImageURL().length() > 0){
             Glide.with(context)
@@ -159,7 +166,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
 
     class ShopMenuItemsViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView itemNameView,itemPriceView,quantityTextView;
+        public TextView itemNameView,itemPriceView,quantityTextView, increasePriceTextView;
         public ImageView itemImageView,isVegView;
         public MaterialButton addButton;
         public LinearLayout addButtonView,quantityView, increaseQuantityButton, decreaseQuantityButton;
@@ -177,6 +184,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
             increaseQuantityButton = itemView.findViewById(R.id.increaseQuantity);
             decreaseQuantityButton = itemView.findViewById(R.id.decreaseQuantity);
             quantityTextView = itemView.findViewById(R.id.quantityText);
+            increasePriceTextView = itemView.findViewById(R.id.increasedPrice);
 
         }
     }

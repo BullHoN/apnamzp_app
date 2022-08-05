@@ -34,13 +34,15 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
     public ShopMenuItemsAdapter adapter;
     private RecyclerView.RecycledViewPool viewPool;
     private boolean showAddButton;
+    private float increasedPercentage;
 
-    public ShopDetailsAdapter(List<ShopCategoryData> shopCategoryDataList, Context context,onItemAdded onItemAddedInterface,boolean showAddButton) {
+    public ShopDetailsAdapter(List<ShopCategoryData> shopCategoryDataList, Context context,onItemAdded onItemAddedInterface,boolean showAddButton,float increasedPercentage) {
         this.shopCategoryDataList = shopCategoryDataList;
         this.context = context;
         this.onItemAddedInterface = onItemAddedInterface;
         viewPool = new RecyclerView.RecycledViewPool();
         this.showAddButton = showAddButton;
+        this.increasedPercentage = increasedPercentage;
     }
 
     @NonNull
@@ -75,7 +77,7 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
             public void removeTheBatch() {
                 onItemAddedInterface.removeTheBatch();
             }
-        },showAddButton);
+        },showAddButton,increasedPercentage);
         holder.menuItemsListView.setAdapter(adapter);
 
 

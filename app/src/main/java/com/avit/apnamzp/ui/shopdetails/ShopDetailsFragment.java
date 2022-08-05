@@ -86,7 +86,8 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         });
 
         binding.menuList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        shopDetailsAdapter = new ShopDetailsAdapter(new ArrayList<>(),getContext(),this,(shopData.getOpen() && shopData.isAllowCheckout()));
+        float increasedPercentage = shopData.getIncreaseDisplayPricePercentage() * 0.01f;
+        shopDetailsAdapter = new ShopDetailsAdapter(new ArrayList<>(),getContext(),this,(shopData.getOpen() && shopData.isAllowCheckout()),increasedPercentage);
         binding.menuList.setAdapter(shopDetailsAdapter);
 
         viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShopCategoryData>>() {

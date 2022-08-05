@@ -2,6 +2,7 @@ package com.avit.apnamzp.ui.cart;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.avit.apnamzp.ui.shopdetails.ShopMenuItemsAdapter;
+import com.avit.apnamzp.utils.PrettyStrings;
 
 import java.util.List;
 
@@ -49,10 +51,15 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
         ShopItemData curr = cartItems.get(position);
 
         holder.nameView.setText(curr.getName() + "(" + curr.getPricings().get(0).getType() + ")");
-        holder.priceView.setText("₹" + curr.getPricings().get(0).getPrice());
+        holder.priceView.setText(PrettyStrings.getPriceInRupees(curr.getPricings().get(0).getPrice()));
         holder.quantityView.setText(String.valueOf(curr.getQuantity()));
 
         Cart cart = Cart.getInstance(context);
+
+        holder.increasePriceTextView.setPaintFlags(holder.increasePriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        float increasedPercentage = cart.getShopData().getIncreaseDisplayPricePercentage() * 0.01f;
+        int increasedPrice = Integer.parseInt(curr.getPricings().get(0).getPrice()) + Math.round(Integer.parseInt(curr.getPricings().get(0).getPrice()) * increasedPercentage);
+        holder.increasePriceTextView.setText(PrettyStrings.getPriceInRupees((increasedPrice)));
 
         holder.increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +112,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
 
     public class CartItemsViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView nameView,priceView,quantityView;
+        public TextView nameView,priceView,quantityView,increasePriceTextView;
         public LinearLayout increaseQuantityButton,decreaseQuantityButton;
         public ImageView removeButton;
 
@@ -118,6 +125,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
             decreaseQuantityButton = itemView.findViewById(R.id.decreaseQuantity);
             removeButton = itemView.findViewById(R.id.removeButton);
             quantityView = itemView.findViewById(R.id.quantityText);
+            increasePriceTextView = itemView.findViewById(R.id.increasedPrice);
 
         }
     }
