@@ -33,7 +33,7 @@ public class HomeViewModel extends ViewModel {
         bannerDataList.add(new BannerData("https://www.mysmartprice.com/gear/wp-content/uploads/2018/08/flipkart.png"));
 
         bannerImages = new MutableLiveData<>();
-        bannerImages.setValue(bannerDataList);
+//        bannerImages.setValue(bannerDataList);
     }
 
     public void getImages(Context context){

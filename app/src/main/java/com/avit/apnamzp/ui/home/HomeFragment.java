@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-//        homeViewModel.getImages(getContext());
+        homeViewModel.getImages(getContext());
 
         View root = binding.getRoot();
 
