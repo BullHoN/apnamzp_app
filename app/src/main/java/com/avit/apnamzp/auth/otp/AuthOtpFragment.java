@@ -1,5 +1,7 @@
 package com.avit.apnamzp.auth.otp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -67,6 +69,17 @@ public class AuthOtpFragment extends Fragment {
             public void onClick(View view) {
                 loadingDialog.startLoadingDialog();
                 sendOtp(phoneNo);
+            }
+        });
+
+        binding.callHelplineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNo = "9565820009";
+                Intent callingIntent = new Intent();
+                callingIntent.setAction(Intent.ACTION_DIAL);
+                callingIntent.setData(Uri.parse("tel: " + phoneNo));
+                startActivity(callingIntent);
             }
         });
 

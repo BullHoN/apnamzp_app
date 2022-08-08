@@ -1,6 +1,7 @@
 package com.avit.apnamzp.auth.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthHomeBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
+import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
@@ -88,6 +90,17 @@ public class AuthHomeFragment extends Fragment {
             }
         });
 
+        binding.callHelplineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNo = "9565820009";
+                Intent callingIntent = new Intent();
+                callingIntent.setAction(Intent.ACTION_DIAL);
+                callingIntent.setData(Uri.parse("tel: " + phoneNo));
+                startActivity(callingIntent);
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -143,6 +156,10 @@ public class AuthHomeFragment extends Fragment {
                                 .show();
                         loadingDialog.dismissDialog();
 
+                        String userName = networkResponse.getData();
+//                        Log.i(TAG, "onResponse: " + userName);
+
+                        com.avit.apnamzp.localdb.User.setUsername(getContext(),userName);
                         com.avit.apnamzp.localdb.User.setPhoneNumber(getContext(),phoneNo);
                         com.avit.apnamzp.localdb.User.setIsVerified(getContext(),true);
 

@@ -6,6 +6,10 @@ public class User {
     private String password;
     private String fcmId;
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public User(String name, String phoneNo, String password) {
         this.name = name;
         this.phoneNo = phoneNo;

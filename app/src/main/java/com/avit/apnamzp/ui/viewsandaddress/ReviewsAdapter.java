@@ -42,6 +42,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
         holder.scaleRatingBarView.setRating(Integer.parseInt(curr.getRating()));
         holder.scaleRatingBarView.setClickable(false);
 
+        holder.initialView.setText(String.valueOf(curr.getUserName().charAt(0)));
+
     }
 
     public void changeData(List<ReviewData> newData){
@@ -56,7 +58,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
 
     public class ReviewsViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView nameView,bodyView;
+        public TextView nameView,bodyView,initialView;
         public ScaleRatingBar scaleRatingBarView;
 
         public ReviewsViewHolder(@NonNull View itemView) {
@@ -64,6 +66,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ReviewsV
             nameView = itemView.findViewById(R.id.nameView);
             bodyView = itemView.findViewById(R.id.reviewBody);
             scaleRatingBarView = itemView.findViewById(R.id.ratingsBar);
+            initialView = itemView.findViewById(R.id.initial_view);
         }
     }
 

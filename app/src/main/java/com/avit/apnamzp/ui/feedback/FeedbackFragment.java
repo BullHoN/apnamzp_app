@@ -54,15 +54,16 @@ public class FeedbackFragment extends Fragment {
                 String apnaRating = (String.valueOf(Math.round(binding.apnaRating.getRating())));
                 String apnaRatingReview = binding.apnaReview.getText().toString();
 
-                String userPhoneNo = User.getPhoneNumber(getContext());
+                String userName = User.getUsername(getContext());
+                Log.i(TAG, "onClick: " + userName);
 
-                ReviewData foodFeedBack = new ReviewData(userPhoneNo,foodRating,
+                ReviewData foodFeedBack = new ReviewData(userName,foodRating,
                         foodReview,"shop",shopName,orderId);
 
-                ReviewData deliverySathiFeedback = new ReviewData(userPhoneNo,deliverySathiRating,
+                ReviewData deliverySathiFeedback = new ReviewData(userName,deliverySathiRating,
                         deliverySathiRevew,"sathi",shopName,orderId);
 
-                ReviewData apnaFeedback = new ReviewData(userPhoneNo,apnaRating,
+                ReviewData apnaFeedback = new ReviewData(userName,apnaRating,
                         apnaRatingReview,"apna",shopName,orderId);
 
                 
@@ -91,7 +92,7 @@ public class FeedbackFragment extends Fragment {
 
                 Toasty.success(getContext(),"Thanks for providing feedback",Toasty.LENGTH_SHORT)
                         .show();
-                Navigation.findNavController(binding.getRoot()).popBackStack();
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_feedbackFragment_to_ordersFragment);
             }
 
             @Override

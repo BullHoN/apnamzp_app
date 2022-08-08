@@ -30,7 +30,7 @@ import retrofit2.http.Query;
 
 public interface NetworkApi {
      String SERVER_URL = "http://192.168.138.85:5000/";
-//     String SERVER_URL = "https://3ece-47-9-156-50.ngrok.io";
+//     String SERVER_URL = "https://apnamzp.in/";
 
      @GET("/user/bannerImages")
      Call<List<BannerData>> getBannerImages();

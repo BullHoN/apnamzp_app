@@ -1,5 +1,7 @@
 package com.avit.apnamzp.ui.orderdetails;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -56,8 +58,6 @@ public class OrderDetailsFragment extends Fragment {
             public void onChanged(OrderItem orderItem1) {
                 orderItem = orderItem1;
 
-                Toasty.warning(getContext(),String.valueOf(orderItem1.isUserFeedBack()),Toasty.LENGTH_SHORT)
-                        .show();
 
                 if(!orderItem.isUserFeedBack() && orderItem.getOrderStatus() == 6){
                     Bundle bundle1 = new Bundle();
@@ -94,12 +94,29 @@ public class OrderDetailsFragment extends Fragment {
                 if(orderItem.getBillingDetails().getDeliveryService() && orderItem.getAssignedDeliveryBoy() != null && orderItem.getAssignedDeliveryBoy().length() > 0){
                     binding.deliveryBoyDetailsView.setVisibility(View.VISIBLE);
                     binding.deliverySathiPhoneNo.setText("+91 " + orderItem.getAssignedDeliveryBoy());
+
+                    binding.deliveryBoyDetailsView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String phoneNo = orderItem.getAssignedDeliveryBoy();
+                            Intent callingIntent = new Intent();
+                            callingIntent.setAction(Intent.ACTION_DIAL);
+                            callingIntent.setData(Uri.parse("tel: " + phoneNo));
+                            startActivity(callingIntent);
+                        }
+                    });
+
                 }
 
             }
         });
 
-
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
 
 
         return binding.getRoot();

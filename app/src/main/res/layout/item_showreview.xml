@@ -21,6 +21,7 @@
             android:layout_height="50dp" >
 
             <TextView
+                android:id="@+id/initial_view"
                 android:fontFamily="@font/roboto_bold"
                 android:textSize="18sp"
                 android:textColor="@color/white"

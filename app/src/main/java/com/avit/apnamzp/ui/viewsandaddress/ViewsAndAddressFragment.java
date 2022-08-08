@@ -41,6 +41,7 @@ public class ViewsAndAddressFragment extends Fragment {
         });
 
         Bundle bundle = getArguments();
+        String shopId = bundle.getString("shopId");
         String shopName = bundle.getString("shopName");
         String shopAddress = bundle.getString("shopAddress");
         String latitude = bundle.getString("latitude");
@@ -54,7 +55,7 @@ public class ViewsAndAddressFragment extends Fragment {
             }
         });
 
-        viewModel.getReviewsFromServer(getContext(),shopName);
+        viewModel.getReviewsFromServer(getContext(),shopId);
 
         binding.reviewsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         ReviewsAdapter adapter = new ReviewsAdapter(getContext(),new ArrayList<>());

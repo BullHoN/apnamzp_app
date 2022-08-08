@@ -1,5 +1,7 @@
 package com.avit.apnamzp.ui.orders;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -72,6 +74,17 @@ public class OrdersFragment extends Fragment {
                     binding.emptyOrders.setVisibility(View.GONE);
                 }
 
+            }
+        });
+
+        binding.callForSupportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNo = "9565820009";
+                Intent callingIntent = new Intent();
+                callingIntent.setAction(Intent.ACTION_DIAL);
+                callingIntent.setData(Uri.parse("tel: " + phoneNo));
+                startActivity(callingIntent);
             }
         });
 

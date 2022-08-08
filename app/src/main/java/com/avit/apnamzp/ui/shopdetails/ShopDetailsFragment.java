@@ -115,6 +115,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
+                bundle.putString("shopId", shopData.get_id());
                 bundle.putString("shopName", shopData.getShopName());
                 bundle.putString("shopAddress",shopData.getAddressData().getMainAddress());
                 bundle.putString("latitude",shopData.getAddressData().getLatitude());
