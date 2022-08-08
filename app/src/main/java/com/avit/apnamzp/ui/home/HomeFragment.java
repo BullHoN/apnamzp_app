@@ -1,6 +1,8 @@
 package com.avit.apnamzp.ui.home;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -78,7 +80,11 @@ public class HomeFragment extends Fragment {
         binding.helpline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String phoneNo = "9565820009";
+                Intent callingIntent = new Intent();
+                callingIntent.setAction(Intent.ACTION_DIAL);
+                callingIntent.setData(Uri.parse("tel: " + phoneNo));
+                startActivity(callingIntent);
             }
         });
 
@@ -92,7 +98,11 @@ public class HomeFragment extends Fragment {
         binding.viewAllStores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","All Shops");
+                bundle.putString("shopType","all");
 
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
         });
 
@@ -107,6 +117,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryName","Backery & Snacks");
+                bundle.putString("shopType","Backery and Snacks");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
@@ -130,17 +141,19 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryName","Non veg Resturants");
+                bundle.putString("shopType","Non veg Resturants");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
         });
 
         // Fruits
-        binding.fruitsandvegetables.setOnClickListener(new View.OnClickListener() {
+        binding.thelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Fruits & Vegatables");
+                bundle.putString("categoryName","thelas");
+                bundle.putString("shopType","thelas");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
@@ -152,6 +165,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryName","Dairy Products");
+                bundle.putString("shopType","Dairy Products");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
@@ -163,6 +177,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("categoryName","Groceries");
+                bundle.putString("shopType","Groceries");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }

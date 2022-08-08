@@ -87,6 +87,10 @@ public class SearchCategoryFragment extends Fragment {
                 if(shopData.size() > 0){
                     binding.progessBar.setVisibility(View.GONE);
                 }
+                else {
+                    binding.progessBar.setVisibility(View.GONE);
+                    binding.comingSoonContainer.setVisibility(View.VISIBLE);
+                }
                 adapter.replaceList(shopData);
             }
         });

@@ -84,6 +84,30 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/coming_soon_container"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:src="@drawable/ic_comming_soon_category"
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
+
+            <TextView
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="22sp"
+                android:layout_marginTop="12dp"
+                android:text="Category Coming Soon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 

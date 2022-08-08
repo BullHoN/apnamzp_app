@@ -112,7 +112,7 @@ public class NotificationService extends FirebaseMessagingService {
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ORDER_ID)
                 .setContentTitle(title)
-                .setSmallIcon(R.drawable.main_icon)
+                .setSmallIcon(R.drawable.removed_bg_main_icon)
                 .setContentText(desc)
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -139,7 +139,7 @@ public class NotificationService extends FirebaseMessagingService {
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_OFFERS_ID)
                 .setContentTitle(title)
-                .setSmallIcon(R.drawable.main_icon)
+                .setSmallIcon(R.drawable.removed_bg_main_icon)
                 .setContentText(desc)
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

@@ -197,38 +197,6 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/bakery"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:src="@drawable/ic_bread"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
-
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Bread &amp;&#10; Snacks"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/veg_food"
                     android:layout_width="wrap_content"
                     app:cardUseCompatPadding="true"
@@ -295,7 +263,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/fruitsandvegetables"
+                    android:id="@+id/thelas"
                     android:layout_width="wrap_content"
                     app:cardUseCompatPadding="true"
                     app:cardElevation="3dp"
@@ -309,7 +277,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:src="@drawable/ic_fruits_vegetables"
+                            android:src="@drawable/ic_food_stall"
                             android:layout_width="60dp"
                             android:layout_height="50dp"/>
 
@@ -318,7 +286,39 @@
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Fruits &amp;&#10; Vegetables"
+                            android:text="Thelas"
+                            android:lines="2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/bakery"
+                    android:layout_width="wrap_content"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="3dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:paddingVertical="8dp"
+                        android:layout_width="85dp"
+                        android:layout_height="100dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:src="@drawable/ic_bread"
+                            android:layout_width="60dp"
+                            android:layout_height="50dp"/>
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Bread &amp;&#10; Snacks"
                             android:lines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
