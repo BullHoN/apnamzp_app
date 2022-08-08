@@ -349,17 +349,21 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         dialog.findViewById(R.id.onlinePaymentButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Price will increase dialog
 
-                Toasty.warning(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG)
+                Toasty.warning(getContext(),"Online Payment Method Not Available",Toasty.LENGTH_LONG)
                         .show();
 
-                if(orderItem.getItemsOnTheWay().size() > 0){
-                    Toasty.error(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT)
-                            .show();
-                    return;
-                }
-                getOrderPaymentId();
+                // TODO: Price will increase dialog
+//
+//                Toasty.warning(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG)
+//                        .show();
+//
+//                if(orderItem.getItemsOnTheWay().size() > 0){
+//                    Toasty.error(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT)
+//                            .show();
+//                    return;
+//                }
+//                getOrderPaymentId();
             }
         });
 

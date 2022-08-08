@@ -15,6 +15,7 @@ import com.avit.apnamzp.models.cart.CartItemData;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PickAndDropAdapter extends RecyclerView.Adapter<PickAndDropAdapter.PickAndDropViewHolder>{
 
@@ -54,6 +55,10 @@ public class PickAndDropAdapter extends RecyclerView.Adapter<PickAndDropAdapter.
     @Override
     public int getItemCount() {
         return cartItemDataList.size();
+    }
+
+    public List<CartItemData> getAllItems(){
+        return cartItemDataList;
     }
 
     public void addItem(CartItemData cartItemData){

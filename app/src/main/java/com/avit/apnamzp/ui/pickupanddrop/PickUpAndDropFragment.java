@@ -1,5 +1,7 @@
 package com.avit.apnamzp.ui.pickupanddrop;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -31,6 +33,8 @@ public class PickUpAndDropFragment extends Fragment {
     private String TAG = "PickUpAndDropFragment";
     private FragmentPickUpAndDropBinding binding;
     private CartItemData currItem;
+    private int selectedOption;
+    private PickAndDropAdapter pickAndDropAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +59,7 @@ public class PickUpAndDropFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i(TAG, "onItemSelected: " + i);
+                selectedOption = i;
                 if(i == 0){
                     binding.shopWrapperView.setVisibility(View.VISIBLE);
                     binding.dropOffLocationWrapperView.setVisibility(View.GONE);
@@ -69,7 +74,7 @@ public class PickUpAndDropFragment extends Fragment {
         // Recycler View
         binding.pickanddropItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
 
-        PickAndDropAdapter pickAndDropAdapter = new PickAndDropAdapter(getContext());
+        pickAndDropAdapter = new PickAndDropAdapter(getContext());
         binding.pickanddropItemsRecyclerView.setAdapter(pickAndDropAdapter);
 
         // Item List
@@ -113,8 +118,43 @@ public class PickUpAndDropFragment extends Fragment {
             }
         });
 
+        binding.placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String shopName = binding.storeNameView.getText().toString();
+                String pickUpLocation = binding.pickUpLocation.getText().toString();
+                String specialInstructions = binding.specialInstruction.getText().toString();
+                String dropOffLocation = binding.dropOffLocation.getText().toString();
 
+                openWhatsapp(shopName,pickUpLocation,specialInstructions,dropOffLocation);
+            }
+        });
 
         return root;
     }
+
+    private void openWhatsapp(String shopName,String pickUpLocation,String specialInstruction,String dropOffLocation){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String mobileNumber = "9565820009";
+        String message;
+
+        StringBuilder itemsDetails = new StringBuilder();
+        int i=1;
+        for(CartItemData cartItemData : pickAndDropAdapter.getAllItems()){
+            itemsDetails.append(i + ") Item:" + cartItemData.getName() + ", Quantity: " + cartItemData.getQuantity() + "\n");
+            i++;
+        }
+
+        if(selectedOption == 0){
+            message = "Shop Name: " + shopName + "\n" + "Pick Up Location: " + pickUpLocation + "\n"
+                    + "Special Instruction: " + specialInstruction + "\n" + "---------------" + "\n" + "Items " + itemsDetails.toString();
+        }
+        else {
+            message = "Shop Name: " + shopName + "\n" + "Pick Up Location: " + pickUpLocation + "\n" + "Drop Location: " + dropOffLocation + "\n"
+                    + "Special Instruction: " + specialInstruction + "\n" + "---------------" + "\n" + "Items " + itemsDetails.toString();
+        }
+        intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+"+91"+mobileNumber + "&text="+ message));
+        startActivity(intent);
+    }
+
 }

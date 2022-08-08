@@ -26,7 +26,6 @@ public class HomeViewModel extends ViewModel {
     private String TAG = "HomeFragment";
 
     public HomeViewModel() {
-        // TODO: GET THE BANNER DATA FROM THE SERVER
         List<BannerData> bannerDataList = new ArrayList<>();
         bannerDataList.add(new BannerData("https://caportal.saginfotech.com/wp-content/uploads/2019/06/Discount-Offers.jpg"));
         bannerDataList.add(new BannerData("https://www.arisimart.com/wp-content/uploads/2020/01/OFFER4.jpg"));
