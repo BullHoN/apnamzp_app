@@ -256,7 +256,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         AlertDialog dialog = builder.create();
         dialog.show();
-        dialog.getWindow().setLayout(900,900);
 
     }
 
