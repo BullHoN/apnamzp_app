@@ -38,10 +38,11 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         this.isDeliveryService = isDeliveryService;
         this.assignedDeliveryBoy = assignedDeliveryBoy;
         if(!isDeliveryService){
-            size = 4;
+            size = status == 7 ? 2 : 4;
         }
-
-        size = status == 7 ? 2 : 7;
+        else {
+            size = status == 7 ? 2 : 7;
+        }
     }
 
     @NonNull

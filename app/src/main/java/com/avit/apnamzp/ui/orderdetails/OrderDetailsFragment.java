@@ -60,6 +60,7 @@ public class OrderDetailsFragment extends Fragment {
 
 
                 if(!orderItem.isUserFeedBack() && orderItem.getOrderStatus() == 6){
+
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("shopId",orderItem.getShopID());
                     bundle1.putString("orderId",orderItem.get_id());
@@ -76,12 +77,12 @@ public class OrderDetailsFragment extends Fragment {
                 OrderItemsAdapter adapter = new OrderItemsAdapter(getContext(), orderItem.getOrderItems());
                 binding.orderItems.setAdapter(adapter);
 
-                if(orderItemsString == null && orderItem.getOrderStatus() == 6){
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putString("shopId", orderItem.getShopID());
-                    bundle1.putString("orderId", orderItem.get_id());
-                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_orderDetailsFragment_to_feedbackFragment,bundle1);
-                }
+//                if(orderItemsString == null && orderItem.getOrderStatus() == 6){
+//                    Bundle bundle1 = new Bundle();
+//                    bundle1.putString("shopId", orderItem.getShopID());
+//                    bundle1.putString("orderId", orderItem.get_id());
+//                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_orderDetailsFragment_to_feedbackFragment,bundle1);
+//                }
 
                 setUpUI();
 
@@ -117,7 +118,6 @@ public class OrderDetailsFragment extends Fragment {
                 Navigation.findNavController(binding.getRoot()).popBackStack();
             }
         });
-
 
         return binding.getRoot();
     }
