@@ -60,13 +60,18 @@ public class FeedbackFragment extends Fragment {
                 ReviewData foodFeedBack = new ReviewData(userName,foodRating,
                         foodReview,"shop",shopName,orderId);
 
-                ReviewData deliverySathiFeedback = new ReviewData(userName,deliverySathiRating,
-                        deliverySathiRevew,"sathi",shopName,orderId);
+                ReviewData deliverySathiFeedback = null;
+                if(!deliverySathiRating.equals("0") || deliverySathiRevew.length() != 0){
+                    deliverySathiFeedback = new ReviewData(userName,deliverySathiRating,
+                            deliverySathiRevew,"sathi",shopName,orderId);
+                }
 
-                ReviewData apnaFeedback = new ReviewData(userName,apnaRating,
-                        apnaRatingReview,"apna",shopName,orderId);
+                ReviewData apnaFeedback = null;
+                if(!apnaRating.equals("0") || apnaRatingReview.length() != 0){
+                    apnaFeedback = new ReviewData(userName,apnaRating,
+                            apnaRatingReview,"apna",shopName,orderId);
+                }
 
-                
                 Feedback finalFeedback = new Feedback(foodFeedBack,deliverySathiFeedback,apnaFeedback);
                 sendFeedbackToServer(finalFeedback);
             }
