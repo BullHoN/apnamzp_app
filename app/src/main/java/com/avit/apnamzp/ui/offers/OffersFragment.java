@@ -81,7 +81,7 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
         Cart cart = Cart.getInstance(getContext());
 
         if(cart.getTotalOfItems() - cart.getTotalDiscount() <= Integer.parseInt(offerItem.getDiscountAbove())){
-            Toasty.warning(getContext(),"Items Total Must Be Greater Than Rs." + (cart.getTotalOfItems() - cart.getTotalDiscount())).show();
+            Toasty.warning(getContext(),"Items Total Must Be Greater Than Rs." + offerItem.getDiscountAbove()).show();
             return;
         }
 

@@ -106,7 +106,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterCategories(newText);
+                filterCategories(newText.toLowerCase());
                 return false;
             }
         });

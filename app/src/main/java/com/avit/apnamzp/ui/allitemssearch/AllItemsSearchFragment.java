@@ -76,7 +76,7 @@ public class AllItemsSearchFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 binding.progressBar.setVisibility(View.VISIBLE);
-                viewModel.getSearchDataFromServer(getContext(),query);
+                viewModel.getSearchDataFromServer(getContext(),query.toLowerCase());
                 return false;
             }
 

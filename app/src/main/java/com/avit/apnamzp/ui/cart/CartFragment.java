@@ -424,7 +424,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 if(cartMetaData.getSlurgeCharges() > 0){
                     binding.slurgeChargesContainer.setVisibility(View.VISIBLE);
                     binding.slurgeReason.setText(cartMetaData.getSlurgeReason());
-                    binding.deliveryChargeText.setText("Delivery Charge & Slurge Charges");
+                    binding.deliveryChargeText.setText("Delivery Charge & Surge Charges");
                 }else {
                     binding.slurgeChargesContainer.setVisibility(View.GONE);
                 }
