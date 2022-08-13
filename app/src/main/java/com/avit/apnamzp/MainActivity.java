@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
             @Override
             public void onSuccess(@NonNull AppUpdateInfo appUpdateInfo) {
-                if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_NOT_AVAILABLE
+                if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                         && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
                     try {
                         appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,MainActivity.this,APP_UPDATE_CODE);
