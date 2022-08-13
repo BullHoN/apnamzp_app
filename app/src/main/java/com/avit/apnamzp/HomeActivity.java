@@ -1,6 +1,7 @@
 package com.avit.apnamzp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -11,6 +12,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,9 +23,15 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -36,7 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class HomeActivity extends AppCompatActivity implements PaymentResultListener {
+public class HomeActivity extends AppCompatActivity  {
 
     private String TAG = "HomeActivityToken";
     private BroadcastReceiver receiver;
@@ -161,18 +169,4 @@ public class HomeActivity extends AppCompatActivity implements PaymentResultList
         unregisterReceiver(receiver);
     }
 
-    @Override
-    public void onPaymentSuccess(String s) {
-        Log.i(TAG, "onPaymentSuccess: ");
-        // TODO: checkout order
-        Toasty.success(getApplicationContext(),"sgsdgsdg",Toasty.LENGTH_SHORT)
-                .show();
-    }
-
-    @Override
-    public void onPaymentError(int i, String s) {
-        Log.i(TAG, "onPaymentError: ");
-        Toasty.error(getApplicationContext(),"payment failed",Toasty.LENGTH_LONG)
-                .show();
-    }
 }
