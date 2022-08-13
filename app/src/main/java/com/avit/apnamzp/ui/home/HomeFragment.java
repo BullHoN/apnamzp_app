@@ -23,6 +23,7 @@ import com.avit.apnamzp.databinding.FragmentHomeBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.BannerData;
+import com.avit.apnamzp.utils.InfoConstats;
 import com.bumptech.glide.Glide;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -80,7 +81,7 @@ public class HomeFragment extends Fragment {
         binding.helpline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNo = "9565820009";
+                String phoneNo = InfoConstats.CALLING_NUMBER;
                 Intent callingIntent = new Intent();
                 callingIntent.setAction(Intent.ACTION_DIAL);
                 callingIntent.setData(Uri.parse("tel: " + phoneNo));
@@ -91,7 +92,7 @@ public class HomeFragment extends Fragment {
         binding.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                shareApp();
             }
         });
 
@@ -109,15 +110,23 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    private void shareApp(){
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,"Download Apna MZP App, Your Own City Official App \n One Stop Solution For All Your Delivery Needs \n https://play.google.com/store/apps/details?id=" + getActivity().getPackageName());
+        startActivity(Intent.createChooser(shareIntent,"Choose One"));
+    }
+
     private void setUpCategories(){
 
-        // Backery
+        // Sweets
         binding.bakery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Backery & Snacks");
-                bundle.putString("shopType","Backery and Snacks");
+                bundle.putString("categoryName","Sweets");
+                bundle.putString("shopType","Sweets");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
@@ -152,20 +161,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("categoryName","thelas");
-                bundle.putString("shopType","thelas");
+                bundle.putString("categoryName","Street Food");
+                bundle.putString("shopType","Street Food");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
         });
 
-        // Dairy Products
+        // Home Chefs
         binding.dairyproducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Dairy Products");
-                bundle.putString("shopType","Dairy Products");
+                bundle.putString("categoryName","Home Chefs / Bakers");
+                bundle.putString("shopType","Home Chefs");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
             }
@@ -180,6 +189,24 @@ public class HomeFragment extends Fragment {
                 bundle.putString("shopType","Groceries");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        binding.medicines.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("categoryName","Medicines");
+                bundle.putString("shopType","Medicines");
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+            }
+        });
+
+        binding.parcels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_pickUpAndDropFragment);
             }
         });
 

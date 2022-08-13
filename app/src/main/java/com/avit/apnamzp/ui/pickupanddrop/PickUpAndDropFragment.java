@@ -24,6 +24,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentPickUpAndDropBinding;
 import com.avit.apnamzp.models.cart.CartItemData;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.avit.apnamzp.utils.InfoConstats;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class PickUpAndDropFragment extends Fragment {
 
     private void openWhatsapp(String shopName,String pickUpLocation,String specialInstruction,String dropOffLocation){
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        String mobileNumber = "9565820009";
+        String mobileNumber = InfoConstats.WHATSAPP_NUMBER;
         String message;
 
         StringBuilder itemsDetails = new StringBuilder();

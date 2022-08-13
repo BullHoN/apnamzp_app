@@ -20,6 +20,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOrdersBinding;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.utils.InfoConstats;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class OrdersFragment extends Fragment {
         binding.callForSupportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNo = "9565820009";
+                String phoneNo = InfoConstats.CALLING_NUMBER;
                 Intent callingIntent = new Intent();
                 callingIntent.setAction(Intent.ACTION_DIAL);
                 callingIntent.setData(Uri.parse("tel: " + phoneNo));

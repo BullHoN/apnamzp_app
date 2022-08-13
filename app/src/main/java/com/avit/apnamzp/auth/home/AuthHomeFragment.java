@@ -21,6 +21,7 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.utils.ErrorUtils;
+import com.avit.apnamzp.utils.InfoConstats;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -93,7 +94,7 @@ public class AuthHomeFragment extends Fragment {
         binding.callHelplineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNo = "9565820009";
+                String phoneNo = InfoConstats.CALLING_NUMBER;
                 Intent callingIntent = new Intent();
                 callingIntent.setAction(Intent.ACTION_DIAL);
                 callingIntent.setData(Uri.parse("tel: " + phoneNo));

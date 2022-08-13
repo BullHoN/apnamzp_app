@@ -646,7 +646,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Total Discount"
+                        android:text="Total Discount 🎉🎉"
                         android:textColor="@color/primaryColor" />
 
                     <TextView
@@ -706,6 +706,33 @@
                         android:text="$252.00"
                         android:textColor="@color/secondaryTextColor"
                         android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textColor="@color/successColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Total Savings 🥳🥳" />
+
+                    <TextView
+                        android:id="@+id/savedView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="$252.00"
+                        android:textColor="@color/successColor"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 

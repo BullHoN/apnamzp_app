@@ -75,9 +75,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ordersList"
                 tools:itemCount="5"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/item_orderdisplay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
 
         </LinearLayout>
 

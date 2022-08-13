@@ -133,7 +133,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setItemTotal(itemTotal);
 
         int totalDiscount = cart.getTotalDiscount();
-        binding.totalDiscount.setText("₹" + totalDiscount + ".00");
+        binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(totalDiscount));
+        binding.savedView.setText(PrettyStrings.getPriceInRupees(totalDiscount + calculateSavedAmount()));
         orderItem.setTotalDiscount(totalDiscount);
 
         int totalTaxesAndPackingCharge = cart.getTotalPackingCharge() + cart.getTotalTaxDeduction();
@@ -225,7 +226,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 orderItem.setOfferDiscountedAmount(0);
                 orderItem.setOfferCode(null);
 
-                binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
+                binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+                binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 
                 updateTheTotalPay();
 
@@ -245,12 +247,15 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         return root;
     }
 
-    private void openYouSavedDialog(){
+    private void openYouSavedDialog(int amount,String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_you_saved,binding.getRoot(),false);
 
         TextView youSavedText = view.findViewById(R.id.you_saved_text);
-        youSavedText.setText("You Saved " + PrettyStrings.getPriceInRupees(calculateSavedAmount()));
+        youSavedText.setText("You Saved " + PrettyStrings.getPriceInRupees(amount));
+
+        TextView offerMessage = view.findViewById(R.id.offer_message);
+        offerMessage.setText(message);
 
         builder.setView(view);
 
@@ -264,7 +269,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         int total_saved = 0;
 
         for(ShopItemData shopItemData : cart.getCartItems()){
-            total_saved += Math.round(Integer.parseInt(shopItemData.getPricings().get(0).getPrice()) * increasePercentage);
+            int total_items = shopItemData.getQuantity();
+            total_saved += Math.round(Integer.parseInt(shopItemData.getPricings().get(0).getPrice()) * total_items * increasePercentage);
         }
         return  total_saved;
     }
@@ -472,8 +478,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 if(response.isSuccessful()){
                     Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
                             .show();
-                    // TODO: change this
-//                    updateBadge(0);
+//                      change this
+                    updateBadge(0);
 
                     Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_successFragment);
                 }
@@ -540,7 +546,13 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 binding.loading.setVisibility(View.GONE);
                 binding.cartBody.setVisibility(View.VISIBLE);
 
-                openYouSavedDialog();
+                if(cart.getAppliedOffer() == null){
+                    openYouSavedDialog(calculateSavedAmount(),"0% Commission Coupon \n (Only Pay Menu Price)");
+                }
+                else {
+                    openYouSavedDialog(calculateSavedAmount() + orderItem.getOfferDiscountedAmount(),"2 Offers Applied 🎉🎉 \n 1) 0% Commission (Menu Item Price) \n 2) " + orderItem.getOfferCode());
+                }
+
             }
 
             @Override
@@ -563,6 +575,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
     @Override
     public void updateBadge(int value) {
+
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
         BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
 
@@ -600,7 +613,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 }
             }
 
-            binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
+            binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+            binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 
         }
         else {
@@ -648,7 +662,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         }
 
-        binding.totalDiscount.setText("₹" + orderItem.getDiscountWithOffer() + ".00");
+        binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+        binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 
         if(isServiceTypeDelivery) {
             // Distance API

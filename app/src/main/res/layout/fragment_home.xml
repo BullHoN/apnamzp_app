@@ -286,7 +286,7 @@
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Thelas"
+                            android:text="Street Food"
                             android:lines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -310,7 +310,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:src="@drawable/ic_bread"
+                            android:src="@drawable/ic_sweets"
                             android:layout_width="60dp"
                             android:layout_height="50dp"/>
 
@@ -318,7 +318,7 @@
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Bread &amp;&#10; Snacks"
+                            android:text="Sweets"
                             android:lines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -349,7 +349,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:src="@drawable/ic_dairy_products"
+                            android:src="@drawable/ic_chef"
                             android:layout_width="60dp"
                             android:layout_height="50dp"/>
 
@@ -358,7 +358,7 @@
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Dairy &#10; Products"
+                            android:text="Home Chefs \n &amp; Bakers"
                             android:lines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -401,6 +401,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/medicines"
                     android:layout_width="wrap_content"
                     app:cardUseCompatPadding="true"
                     app:cardElevation="3dp"
@@ -414,7 +415,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:src="@drawable/ic_bread"
+                            android:src="@drawable/ic_medicine"
                             android:layout_width="60dp"
                             android:layout_height="50dp"/>
 
@@ -422,7 +423,7 @@
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Bread &amp; &#10; Snacks"
+                            android:text="Medicines"
                             android:lines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -432,6 +433,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/parcels"
                     android:layout_width="wrap_content"
                     app:cardUseCompatPadding="true"
                     app:cardElevation="3dp"
@@ -445,7 +447,7 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:src="@drawable/ic_bread"
+                            android:src="@drawable/ic_deliveryboy"
                             android:layout_width="60dp"
                             android:layout_height="50dp"/>
 
@@ -453,7 +455,7 @@
                             android:layout_marginTop="5dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Bread &amp; &#10; Snacks"
+                            android:text="Parcel"
                             android:lines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -554,6 +556,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
 
         </LinearLayout>
 
