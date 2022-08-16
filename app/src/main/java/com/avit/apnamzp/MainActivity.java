@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                                 .show();
                     }
                 }
+                else {
+                    moveToNextActivity();
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
