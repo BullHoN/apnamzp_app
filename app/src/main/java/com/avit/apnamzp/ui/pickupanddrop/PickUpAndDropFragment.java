@@ -51,6 +51,17 @@ public class PickUpAndDropFragment extends Fragment {
             }
         });
 
+        binding.helpline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNo = InfoConstats.CALLING_NUMBER;
+                Intent callingIntent = new Intent();
+                callingIntent.setAction(Intent.ACTION_DIAL);
+                callingIntent.setData(Uri.parse("tel: " + phoneNo));
+                startActivity(callingIntent);
+            }
+        });
+
         String categories[] = {"Any Store In Town","Send | Collect Packages"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,categories);
 

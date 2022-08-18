@@ -203,6 +203,8 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
         binding.rippleBack.startRippleAnimation();
 
+        getTheLocationPermission();
+
         // Get My Location
         binding.getMyLocation.setOnClickListener(new View.OnClickListener() {
             @Override

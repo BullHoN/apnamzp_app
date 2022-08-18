@@ -97,6 +97,13 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         Log.i(TAG, "onCreateView: " + cart.getShopName());
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
+
         binding.cartItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         cartItemsAdapter = new CartItemsAdapter(getContext(),cart.getCartItems(),this);
         binding.cartItems.setAdapter(cartItemsAdapter);
@@ -355,20 +362,20 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             @Override
             public void onClick(View view) {
 
-                Toasty.warning(getContext(),"Online Payment Method Not Available",Toasty.LENGTH_LONG)
+//                Toasty.warning(getContext(),"Online Payment Method Not Available",Toasty.LENGTH_LONG)
+//                        .show();
+
+                //  Price will increase dialog
+//
+                Toasty.warning(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG)
                         .show();
 
-                // TODO: Price will increase dialog
-//
-//                Toasty.warning(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG)
-//                        .show();
-//
-//                if(orderItem.getItemsOnTheWay().size() > 0){
-//                    Toasty.error(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT)
-//                            .show();
-//                    return;
-//                }
-//                getOrderPaymentId();
+                if(orderItem.getItemsOnTheWay().size() > 0){
+                    Toasty.error(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                getOrderPaymentId();
             }
         });
 

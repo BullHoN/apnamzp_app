@@ -190,281 +190,294 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-
-            <LinearLayout
+            <HorizontalScrollView
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" >
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/veg_food"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/veg_food"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:src="@drawable/ic_veg"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
-
-                        <TextView
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
                             android:gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Pure Veg &#10;Resturants"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_veg"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Pure Veg &#10;Resturants"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/nonveg"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:src="@drawable/ic_non_veg"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/nonveg"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
                             android:gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Non Veg&#10; Resturants"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_non_veg"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Non Veg&#10; Resturants"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/thelas"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:src="@drawable/ic_food_stall"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/thelas"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
                             android:gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Street Food"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_food_stall"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Street Food"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/bakery"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:src="@drawable/ic_sweets"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/bakery"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Sweets"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_sweets"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Sweets"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-            </LinearLayout>
+                        </LinearLayout>
 
-            <LinearLayout
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content" >
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/dairyproducts"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/dairyproducts"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:src="@drawable/ic_chef"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
-
-                        <TextView
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
                             android:gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Home Chefs \n &amp; Bakers"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_chef"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Home Chefs \n &amp; Bakers"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/groceries"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:src="@drawable/ic_grocery_cart"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/groceries"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
                             android:gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Groceries"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_grocery_cart"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Groceries"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/medicines"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:src="@drawable/ic_medicine"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/medicines"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Medicines"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_medicine"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Medicines"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/parcels"
-                    android:layout_width="wrap_content"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="3dp"
-                    android:layout_height="wrap_content">
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:paddingVertical="8dp"
-                        android:layout_width="85dp"
-                        android:layout_height="100dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:src="@drawable/ic_deliveryboy"
-                            android:layout_width="60dp"
-                            android:layout_height="50dp"/>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/parcels"
+                        android:layout_width="wrap_content"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="3dp"
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_marginTop="5dp"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/roboto_medium"
-                            android:text="Parcel"
-                            android:lines="2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        <LinearLayout
+                            android:paddingVertical="8dp"
+                            android:layout_width="85dp"
+                            android:layout_height="100dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:src="@drawable/ic_deliveryboy"
+                                android:layout_width="60dp"
+                                android:layout_height="50dp"/>
 
-                </com.google.android.material.card.MaterialCardView>
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/roboto_medium"
+                                android:text="Parcel"
+                                android:lines="2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-            </LinearLayout>
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:layout_marginTop="12dp"
