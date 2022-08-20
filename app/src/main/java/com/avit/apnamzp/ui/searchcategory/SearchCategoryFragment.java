@@ -44,6 +44,8 @@ public class SearchCategoryFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SearchCategoryViewModel.class);
         gson = new Gson();
 
+//        binding.searchBar.setBackgroundColor(getResources().getColor(R.color.secondaryTextColor));
+
         Bundle bundle = getArguments();
         String categoryName = bundle.getString("categoryName",null);
         String shopType = bundle.getString("shopType",null);

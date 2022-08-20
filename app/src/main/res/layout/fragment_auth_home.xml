@@ -33,10 +33,11 @@
             android:padding="24dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
-                android:text="We Know you are Hungry! Let's start to explore fod near youy."
+                android:text="Let's Explore The World Of \n 0%  Commission 😎😎"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -63,6 +64,7 @@
                 </LinearLayout>
 
                 <EditText
+                    style="@style/edit_text"
                     android:id="@+id/phoneNo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -81,6 +83,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    style="@style/edit_text"
                     android:id="@+id/passwordView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

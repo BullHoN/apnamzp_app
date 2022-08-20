@@ -550,7 +550,7 @@
                         android:id="@+id/charges_message"
                         android:fontFamily="@font/roboto_medium"
                         android:layout_marginTop="5dp"
-                        android:textColor="@color/primaryColor"
+                        style="@style/second_text"
                         android:text="Delivery Fee: Rs.20 per store within 3KM distance and after 3KM, additional Rs.5 will be added per KM. Processing Fee: Rs.20 per Store."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

@@ -169,10 +169,10 @@
                 android:id="@+id/search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/search_back"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@android:color/transparent"
                 app:queryHint="Search Item"
+                style="@style/search_styles"
                 app:submitBackground="@android:color/transparent" />
 
         </LinearLayout>

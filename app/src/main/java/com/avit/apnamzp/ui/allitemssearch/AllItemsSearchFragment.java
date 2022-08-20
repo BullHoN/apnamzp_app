@@ -39,7 +39,16 @@ public class AllItemsSearchFragment extends Fragment {
         binding = FragmentAllItemsSearchBinding.inflate(inflater,container,false);
         viewModel = new ViewModelProvider(this).get(AllItemsSearchViewModel.class);
 
+//        binding.searchBar.setBackgroundColor(getResources().getColor(R.color.secondaryTextColor));
+
         Gson gson = new Gson();
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
 
         binding.shopsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         SearchCategoryAdapter adapter = new SearchCategoryAdapter(getContext(), new ArrayList<>(), new SearchCategoryAdapter.openShopDetails() {

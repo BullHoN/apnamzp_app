@@ -144,8 +144,8 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/location_text"
                     android:id="@+id/rawAddress"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:text="Select Location"
                     android:layout_width="wrap_content"

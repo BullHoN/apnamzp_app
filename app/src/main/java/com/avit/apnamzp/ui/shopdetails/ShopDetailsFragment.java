@@ -59,6 +59,8 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         viewModel = new ViewModelProvider(this).get(ShopDetailsViewModel.class);
         gson = new Gson();
 
+//        binding.searchBar.setBackgroundColor(getResources().getColor(R.color.secondaryTextColor));
+
         String jsonString = getArguments().getString("shopData");
         shopData = gson.fromJson(jsonString,ShopData.class);
 

@@ -66,7 +66,7 @@
                     android:lines="1"
                     android:textSize="16sp"
                     android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/black"
+                    style="@style/headings"
                     android:text="Kathir Sweets and Bakery kslfdnklngkl nklsdgn klskd gnkl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

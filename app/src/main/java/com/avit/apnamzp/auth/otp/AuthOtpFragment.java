@@ -52,7 +52,8 @@ public class AuthOtpFragment extends Fragment {
                 Navigation.findNavController(binding.getRoot()).popBackStack();
             }
         });
-        
+
+        binding.otpView.setTextColor(getResources().getColor(R.color.black));
         binding.otpView.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
             public void onDataEntered(Pinview pinview, boolean fromUser) {

@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content" />
 
             <com.goodiebag.pinview.Pinview
+                style="@style/edit_text"
                 android:id="@+id/otp_view"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
@@ -51,8 +52,7 @@
                 android:layout_height="wrap_content"
                 app:pinLength="4"
                 app:forceKeyboard="false"
-                android:itemBackground="@color/white"
-                android:textColor="@color/primaryColor" />
+                android:itemBackground="@color/black" />
 
             <TextView
                 android:id="@+id/resendOtp"

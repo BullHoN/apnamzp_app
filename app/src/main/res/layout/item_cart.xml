@@ -42,9 +42,9 @@
                         android:id="@+id/itemName"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/roboto_medium"
-                        android:textColor="@color/black"
                         android:textSize="16sp"
                         android:text="Paper Roast"
+                        style="@style/location_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -57,8 +57,8 @@
                             android:id="@+id/increasedPrice"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/roboto_medium"
-                            android:textColor="@color/primaryColor"
                             android:text="$100.00"
+                            style="@style/second_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -67,8 +67,8 @@
                             android:id="@+id/itemPrice"
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:textColor="@color/primaryColor"
                             android:text="$100.00"
+                            style="@style/second_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 

@@ -42,16 +42,16 @@
 
 
         <androidx.appcompat.widget.SearchView
-            android:layout_marginTop="18dp"
-            android:layout_marginHorizontal="12dp"
             android:id="@+id/search_bar"
-            android:layout_below="@id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_back"
+            android:layout_below="@id/header"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="18dp"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search Store"
+            style="@style/search_styles"
             app:submitBackground="@android:color/transparent" />
 
             <LinearLayout
