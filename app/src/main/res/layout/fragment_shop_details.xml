@@ -189,6 +189,30 @@
 
         <LinearLayout
             android:visibility="gone"
+            android:layout_below="@id/menuList"
+            android:id="@+id/fssai_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_fssai" />
+
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:id="@+id/fssai_code"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"
+                android:text="Lic. No. 746282462hh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:layout_marginBottom="12dp"
             android:layout_alignParentBottom="true"
@@ -222,12 +246,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+
+
+
         </LinearLayout>
 
         <View
-            android:layout_below="@id/menuList"
+            android:layout_below="@id/fssai_container"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="100dp"/>
 
     </RelativeLayout>
 

@@ -77,6 +77,12 @@
         <action
             android:id="@+id/action_profileFragment_to_bussinessDetailsFragment"
             app:destination="@id/bussinessDetailsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_contatUsFragment"
+            app:destination="@id/contatUsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -154,4 +160,14 @@
         android:name="com.avit.apnamzp.ui.bussinessdetails.BussinessDetailsFragment"
         android:label="fragment_bussiness_details"
         tools:layout="@layout/fragment_bussiness_details" />
+    <fragment
+        android:id="@+id/contatUsFragment"
+        android:name="com.avit.apnamzp.ui.contactus.contatUsFragment"
+        android:label="fragment_contat_us"
+        tools:layout="@layout/fragment_contat_us" />
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.avit.apnamzp.ui.userdetails.UserDetailsFragment"
+        android:label="fragment_user_details"
+        tools:layout="@layout/fragment_user_details" />
 </navigation>

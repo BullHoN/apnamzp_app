@@ -36,6 +36,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_profileFragment_to_userDetailsFragment);
+            }
+        });
+
         binding.aboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +81,7 @@ public class ProfileFragment extends Fragment {
         binding.contactUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openBussinessDetailsFragment("Contact Us",R.string.contact_us);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_profileFragment_to_contatUsFragment);
             }
         });
 

@@ -82,6 +82,13 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem = new OrderItem();
         gson = new Gson();
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).popBackStack();
+            }
+        });
+
         if(cart == null || cart.getCartSize() == 0){
             return root;
         }
@@ -96,13 +103,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.emptyCartView.setVisibility(View.GONE);
 
         Log.i(TAG, "onCreateView: " + cart.getShopName());
-
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(binding.getRoot()).popBackStack();
-            }
-        });
 
         binding.cartItems.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         cartItemsAdapter = new CartItemsAdapter(getContext(),cart.getCartItems(),this);

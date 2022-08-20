@@ -125,6 +125,11 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             }
         });
 
+        if(shopData.getFssaiCode() != null && shopData.getFssaiCode().length() != 0){
+            binding.fssaiContainer.setVisibility(View.VISIBLE);
+            binding.fssaiCode.setText("Lic. No. " + shopData.getFssaiCode());
+        }
+
         return root;
     }
 
