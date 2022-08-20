@@ -182,11 +182,23 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/main_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tutorial"
             android:orientation="vertical"
             android:padding="12dp">
+
+            <com.jama.carouselview.CarouselView
+                android:id="@+id/banner_carousel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:indicatorSelectedColor="@color/secondaryColor"
+                app:resource="@layout/image_carousel_item"
+                app:setAutoPlay="true"
+                app:setAutoPlayDelay="5000"
+                app:spacing="0" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -378,7 +390,41 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
+                android:id="@+id/pickUpPhoneNoWrapperView"
+                android:layout_marginTop="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pick Up Phone Number" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/pickUpPhoneNo"
+                        android:hint="Enter Pick Up Phone No"
+                        android:imeOptions="actionSend"
+                        android:minLines="4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/dropOffLocationWrapperView"
                 android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
@@ -401,6 +447,40 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/dropOffLocation"
                         android:hint="Enter Drop Off Location"
+                        android:imeOptions="actionSend"
+                        android:minLines="4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dropOffPhoneNoWrapperView"
+                android:layout_marginTop="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Drop Off Phone Number" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="5dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dropOffPhoneNo"
+                        android:hint="Enter Drop Off Phone Number"
                         android:imeOptions="actionSend"
                         android:minLines="4"
                         android:layout_width="match_parent"
@@ -467,6 +547,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/charges_message"
                         android:fontFamily="@font/roboto_medium"
                         android:layout_marginTop="5dp"
                         android:textColor="@color/primaryColor"
@@ -489,6 +570,12 @@
                 android:layout_height="100dp" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

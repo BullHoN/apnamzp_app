@@ -12,6 +12,7 @@ import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
+import com.avit.apnamzp.models.pickanddrop.PickAndDropDetails;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.ui.cart.GetDistanceResponse;
@@ -29,7 +30,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkApi {
-     String SERVER_URL = "http://192.168.48.85:5000/";
+     String SERVER_URL = "http://192.168.196.85:5000/";
 //     String SERVER_URL = "https://apnamzp.in/";
 
      @GET("/user/bannerImages")
@@ -88,5 +89,8 @@ public interface NetworkApi {
 
      @POST("/user/getOrderId")
      Call<PaymentMetadata> getOrderPaymentId(@Body OnlinePaymentOrderIdPostData postData);
+
+     @GET("/user/pickAndDropDetails")
+     Call<PickAndDropDetails> getPickAndDropDetails();
 
 }
