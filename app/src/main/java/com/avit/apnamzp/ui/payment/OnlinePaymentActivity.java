@@ -33,6 +33,7 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
     private String orderPaymentId;
     private OrderItem orderItem;
     private Gson gson;
+    private String TAG = "OnlinePaymentActivitys";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,9 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
         gson = new Gson();
 
         orderPaymentId = getIntent().getStringExtra("orderPaymentId");
+
+//        Log.i(TAG, "onCreate: " + orderPaymentId);
+
         String orderItemString = getIntent().getStringExtra("orderItem");
         orderItem = gson.fromJson(orderItemString,OrderItem.class);
 
@@ -56,7 +60,7 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
         try{
             JSONObject options = new JSONObject();
             options.put("name", "Apna MZP");
-            options.put("description", "Reference No. #123456");
+            options.put("description", "Reference No. " + orderPaymentId);
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             options.put("order_id", orderPaymentId);//from response of step 3.
             options.put("theme.color", "#3399cc");
@@ -84,7 +88,7 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
     public void onPaymentSuccess(String s) {
         Toasty.success(getApplicationContext(),"Payment is successfull",Toasty.LENGTH_SHORT)
                 .show();
-        checkout();
+        checkout(s);
     }
 
     @Override
@@ -94,10 +98,11 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
         finish();
     }
 
-    private void checkout(){
+    private void checkout(String paymentResponse){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
+        orderItem.setPaymentId(paymentResponse);
         Call<NetworkResponse> call = networkApi.checkout(orderItem);
         call.enqueue(new Callback<NetworkResponse>() {
             @Override

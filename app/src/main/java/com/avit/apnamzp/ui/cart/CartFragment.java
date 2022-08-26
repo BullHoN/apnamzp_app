@@ -405,6 +405,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
 //                payOnline(response.body().getPaymentId());
                 orderPaymentId = response.body().getPaymentId();
+//                Log.i(TAG, "onResponse: " + orderPaymentId);
                 checkout(true);
 
             }

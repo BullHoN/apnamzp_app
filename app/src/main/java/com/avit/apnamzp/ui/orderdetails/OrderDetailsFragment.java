@@ -89,7 +89,7 @@ public class OrderDetailsFragment extends Fragment {
                 // Vertical StepView
                 Log.i(TAG, "onChanged: " + orderItem.getCancelReason());
                 binding.orderStatus.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService(),orderItem.getAssignedDeliveryBoy());
+                OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService(),orderItem.getAssignedDeliveryBoy(),orderItem.getPaid());
                 binding.orderStatus.setAdapter(orderStatusAdapter);
 
                 if(orderItem.getBillingDetails().getDeliveryService() && orderItem.getAssignedDeliveryBoy() != null && orderItem.getAssignedDeliveryBoy().length() > 0){

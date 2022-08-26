@@ -22,15 +22,16 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     private String[] selfPickupMessages = {"Order Placed","Order Confirmed","Order In Preperation","Order Delivered","Order Cancelled"};
     private int size;
     private String cancelReason, assignedDeliveryBoy;
-    private boolean isDeliveryService;
+    private boolean isDeliveryService, isPaid;
 
-    public OrderStatusAdapter(Context context,int status){
+    public OrderStatusAdapter(Context context,int status,boolean isPaid){
         this.context = context;
         this.status = status;
         size = status == 7 ? 2 : 7;
+        this.isPaid = isPaid;
     }
 
-    public OrderStatusAdapter(Context context, int status, String cancelReason, boolean isDeliveryService,String assignedDeliveryBoy){
+    public OrderStatusAdapter(Context context, int status, String cancelReason, boolean isDeliveryService,String assignedDeliveryBoy,boolean isPaid){
         this.context = context;
         this.status = status;
         this.cancelReason = cancelReason;
@@ -43,6 +44,8 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         else {
             size = status == 7 ? 2 : 7;
         }
+
+        this.isPaid = isPaid;
     }
 
     @NonNull
@@ -66,7 +69,14 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
                 holder.statusImage.setImageResource(R.drawable.ic_cancel);
                 holder.statusMessageView.setText("Order Cancelled");
                 holder.statusCancelMessage.setVisibility(View.VISIBLE);
-                holder.statusCancelMessage.setText(cancelReason);
+
+                if(isPaid){
+                    holder.statusCancelMessage.setText(cancelReason + "\n" + "Your Money Will Be Refunded In 5-6 Business Days");
+                }
+                else {
+                    holder.statusCancelMessage.setText(cancelReason);
+                }
+
             }
 
             return;
