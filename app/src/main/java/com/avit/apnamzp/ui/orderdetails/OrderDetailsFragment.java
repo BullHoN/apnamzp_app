@@ -144,6 +144,14 @@ public class OrderDetailsFragment extends Fragment {
         binding.deliveryCharge.setText("₹" + orderItem.getBillingDetails().getDeliveryCharge() + ".00");
         binding.onTheWayItemsTotalCost.setText(PrettyStrings.getPriceInRupees(orderItem.getBillingDetails().getItemsOnTheWayTotalCost()));
         binding.onTheWayItemsTotalActualCost.setText(PrettyStrings.getPriceInRupees(orderItem.getBillingDetails().getItemsOnTheWayActualCost()));
+
+        if(orderItem.getBillingDetails().getProcessingFee() > 0){
+            binding.processingFeeContainer.setVisibility(View.VISIBLE);
+            binding.totalProcessingFee.setText(PrettyStrings.getPriceInRupees(orderItem.getBillingDetails().getProcessingFee()));
+        }else {
+            binding.processingFeeContainer.setVisibility(View.GONE);
+        }
+
         binding.totalDiscount.setText("₹" + (orderItem.getBillingDetails().getTotalDiscount() + orderItem.getBillingDetails().getOfferDiscountedAmount()) + ".00");
         binding.totalPriceToPay.setText("₹" + orderItem.getBillingDetails().getTotalPay() + ".00");
 

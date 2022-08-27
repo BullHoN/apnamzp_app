@@ -61,7 +61,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
                 .into(holder.shopImageView);
 
         float rating = Float.parseFloat(curr.getAverageRatings());
-        holder.noOfRatingView.setText(curr.getAverageRatings());
+        holder.noOfRatingView.setText("⭐ "  + curr.getAverageRatings());
         if(rating < 2){
             holder.ratingBackground.setBackgroundColor(context.getResources().getColor(R.color.quantum_googred));
         }

@@ -92,9 +92,7 @@ public class HomeActivity extends AppCompatActivity  {
                         String token = task.getResult();
                         Log.i(TAG, "onComplete: " + token);
 
-                        String prevFcmToken = User.getFCMToken(getApplicationContext());
-
-                        if(prevFcmToken == "" || token != prevFcmToken){
+                        if(true){
                             User.setFCMToken(getApplicationContext(),token);
                             updateFCMToken(token);
                         }

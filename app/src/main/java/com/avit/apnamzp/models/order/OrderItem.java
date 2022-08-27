@@ -46,6 +46,7 @@ public class OrderItem {
     private boolean userFeedBack;
     private static String TAG = "OrderItem";
     private String paymentId;
+    private ProcessingFee processingFee;
 
     public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, int itemOnTheWaySingleCost, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy, List<String> itemsOnTheWay, String actualDistance, boolean itemsOnTheWayCancelled, boolean adminShopService, boolean userFeedBack, String paymentId) {
         this.itemTotal = itemTotal;
@@ -289,6 +290,14 @@ public class OrderItem {
         this.cancelReason = cancelReason;
     }
 
+    public void setProcessingFee(ProcessingFee processingFee) {
+        this.processingFee = processingFee;
+    }
+
+    public int getTotalProcessingFee(){
+        return processingFee.getInit();
+    }
+
     public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
@@ -411,17 +420,19 @@ public class OrderItem {
     public void setBillingDetails(String taxPercentage) {
         this.billingDetails = new BillingDetails(deliveryCharge,itemTotal,offerDiscountedAmount,totalDiscount,totalTaxesAndPackingCharge,totalPay,getTotalFromItemsOnTheWay(),taxPercentage,isDeliveryService);
         this.billingDetails.setFreeDeliveryPrice(Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
+        this.billingDetails.setProcessingFee(getTotalProcessingFee());
     }
 
     public int calculateTotalPrice(){
         if(isDeliveryService){
-            totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge - totalDiscount - offerDiscountedAmount + getTotalFromItemsOnTheWay();
+            totalPay = itemTotal + totalTaxesAndPackingCharge + deliveryCharge -
+                    totalDiscount - offerDiscountedAmount + getTotalFromItemsOnTheWay() + getTotalProcessingFee();
             if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice())){
                 totalPay -= deliveryCharge;
             }
             return totalPay;
         }
-        totalPay = itemTotal + totalTaxesAndPackingCharge - totalDiscount - offerDiscountedAmount;
+        totalPay = itemTotal + totalTaxesAndPackingCharge - totalDiscount - offerDiscountedAmount + getTotalProcessingFee();
         return totalPay;
     }
 

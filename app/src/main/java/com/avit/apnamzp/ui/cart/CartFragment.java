@@ -28,6 +28,7 @@ import com.avit.apnamzp.models.cart.CartMetaData;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.BillingDetails;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.models.order.ProcessingFee;
 import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.models.shop.ShopItemData;
@@ -437,6 +438,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     binding.slurgeChargesContainer.setVisibility(View.GONE);
                 }
 
+                orderItem.setProcessingFee(response.body().getProcessingFee());
                 loadTheUI();
             }
 
@@ -560,6 +562,17 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 else {
                     openYouSavedDialog(calculateSavedAmount() + orderItem.getOfferDiscountedAmount(),"2 Offers Applied 🎉🎉 \n 1) 0% Commission (Menu Item Price) \n 2) " + orderItem.getOfferCode());
                 }
+
+                if(cart.getShopData().isAllowProcessingFees()){
+                    binding.processingFeeContainer.setVisibility(View.VISIBLE);
+                    binding.processingFee.setText(PrettyStrings.getPriceInRupees(orderItem.getTotalProcessingFee()));
+                }
+                else {
+                    orderItem.setProcessingFee(new ProcessingFee(0,0,0));
+                    binding.processingFeeContainer.setVisibility(View.GONE);
+                }
+
+                updateTheTotalPay();
 
             }
 

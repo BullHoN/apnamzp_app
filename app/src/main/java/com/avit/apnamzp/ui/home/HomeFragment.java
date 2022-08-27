@@ -232,7 +232,10 @@ public class HomeFragment extends Fragment {
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.i(TAG, "onClick: " + position);
+                                BannerData currData = bannerData.get(position);
+                                if(currData.getAction() != null){
+
+                                }
                             }
                         });
 
@@ -243,6 +246,9 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
+
     }
 
     private void showTheLocationDialog(){
