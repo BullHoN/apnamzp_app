@@ -80,6 +80,10 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 binding.tagLine.setText(shopData.getTagLine());
                 binding.minOrder.setText("Min Order - " + "₹" + shopData.getPricingDetails().getMinOrderPrice());
 
+                if(shopData.getPricingDetails().getMinOrderPrice().equals("0")){
+                    binding.minOrder.setVisibility(View.GONE);
+                }
+
                 if(shopData.getOpen()){
                     binding.notAcceptingOrdersContainer.setVisibility(View.GONE);
                 }

@@ -115,6 +115,7 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/minOrderDot"
                         android:layout_marginTop="1dp"
                         android:layout_marginHorizontal="4dp"
                         android:src="@drawable/seprator_ic"
@@ -122,6 +123,7 @@
                         android:layout_height="5dp"/>
 
                     <LinearLayout
+                        android:id="@+id/minOrderContainer"
                         android:layout_gravity="center_vertical"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"

@@ -268,17 +268,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/madeBY"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/primaryColor"
-            android:textSize="18sp"
-            android:fontFamily="@font/roboto_bold"
-            android:gravity="center"
-            android:text="MADE WITH 💓💓 By Apna MZP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="150dp" />

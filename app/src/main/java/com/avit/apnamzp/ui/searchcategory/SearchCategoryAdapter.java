@@ -56,6 +56,11 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
         holder.averageDeliveryTimeView.setText(curr.getAverageDeliveryTime());
         holder.minOrderView.setText("₹" + curr.getPricingDetails().getMinOrderPrice());
 
+        if(curr.getPricingDetails().getMinOrderPrice().equals("0")){
+            holder.minOrderContainer.setVisibility(View.GONE);
+            holder.minOrderDotView.setVisibility(View.GONE);
+        }
+
         Glide.with(context)
                 .load(curr.getBannerImage())
                 .into(holder.shopImageView);
@@ -103,9 +108,9 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
     public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,minOrderView,noOfRatingView,reviewsView,notAcceptingOrders;
-    public ImageView closedBackView,shopImageView;
+    public ImageView closedBackView,shopImageView, minOrderDotView;
     public MaterialCardView shopCardView;
-    public LinearLayout ratingBackground,reviewsBackground;
+    public LinearLayout ratingBackground,reviewsBackground, minOrderContainer;
 
     public SearchCategoryViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -123,5 +128,7 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         shopImageView = itemView.findViewById(R.id.shopImage);
 
         notAcceptingOrders = itemView.findViewById(R.id.not_accepting_orders);
+        minOrderContainer = itemView.findViewById(R.id.minOrderContainer);
+        minOrderDotView = itemView.findViewById(R.id.minOrderDot);
     }
 }

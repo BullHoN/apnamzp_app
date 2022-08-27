@@ -3,6 +3,7 @@ package com.avit.apnamzp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.IntentSender;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         appUpdateManager = AppUpdateManagerFactory.create(this);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         appUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
             @Override
@@ -125,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+
 
     }
 

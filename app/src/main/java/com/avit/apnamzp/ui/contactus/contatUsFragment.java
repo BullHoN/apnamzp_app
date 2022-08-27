@@ -35,10 +35,14 @@ public class contatUsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setData(Uri.parse("mailto:"));
                 intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"apnamzp63@gmail.com"});
 
-                startActivity(intent);
+                intent.setType("message/rfc822");
+
+                startActivity(
+                        Intent
+                                .createChooser(intent,
+                                        "Choose an Email client :"));
             }
         });
 

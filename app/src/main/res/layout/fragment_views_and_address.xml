@@ -111,11 +111,16 @@
                 android:layout_height="wrap_content"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:nestedScrollingEnabled="false"
                 android:id="@+id/reviewsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/item_showreview"
                 tools:itemCount="5" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
 
         </LinearLayout>
 
