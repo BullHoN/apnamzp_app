@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homeFragment_to_feedbackFragment"
             app:destination="@id/feedbackFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_shopDetailsFragment"
+            app:destination="@id/shopDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"

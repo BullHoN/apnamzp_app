@@ -93,4 +93,7 @@ public interface NetworkApi {
      @GET("/user/pickAndDropDetails")
      Call<PickAndDropDetails> getPickAndDropDetails();
 
+     @GET("/user/shop/{id}")
+     Call<ShopData> getShop(@Path("id") String shopId);
+
 }

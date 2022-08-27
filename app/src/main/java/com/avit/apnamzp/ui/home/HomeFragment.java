@@ -233,7 +233,11 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 BannerData currData = bannerData.get(position);
-                                if(currData.getAction() != null){
+                                if(currData.getAction() != null && currData.getAction().equals("open_shop")){
+                                    Bundle shopIdBundle = new Bundle();
+                                    shopIdBundle.putString("shopId", currData.getShopId());
+
+                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_shopDetailsFragment,shopIdBundle);
 
                                 }
                             }

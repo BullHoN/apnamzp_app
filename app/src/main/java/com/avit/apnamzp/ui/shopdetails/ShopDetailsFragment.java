@@ -62,75 +62,89 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
 //        binding.searchBar.setBackgroundColor(getResources().getColor(R.color.secondaryTextColor));
 
         String jsonString = getArguments().getString("shopData");
-        shopData = gson.fromJson(jsonString,ShopData.class);
 
-        Log.i(TAG, "onCreateView: " + shopData.getTaxPercentage());
-
-        binding.shopName.setText(shopData.getShopName());
-        binding.tagLine.setText(shopData.getTagLine());
-        binding.minOrder.setText("Min Order - " + "₹" + shopData.getPricingDetails().getMinOrderPrice());
-
-        if(shopData.getOpen()){
-           binding.notAcceptingOrdersContainer.setVisibility(View.GONE);
+        if(jsonString != null){
+            shopData = gson.fromJson(jsonString,ShopData.class);
+            viewModel.setShopData(shopData);
+        }else{
+            String shopId = getArguments().getString("shopId");
+            viewModel.getShopData(getContext(),shopId);
         }
 
-        Glide.with(getContext())
-                .load(shopData.getBannerImage())
-                .into(binding.backImage);
-
-        viewModel.getDataFromServer(getContext(),shopData.getMenuItemsID());
-
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
+        viewModel.getMutableShopLiveData().observe(getViewLifecycleOwner(), new Observer<ShopData>() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(root).popBackStack();
+            public void onChanged(ShopData currShopData) {
+                shopData = currShopData;
+
+                binding.shopName.setText(shopData.getShopName());
+                binding.tagLine.setText(shopData.getTagLine());
+                binding.minOrder.setText("Min Order - " + "₹" + shopData.getPricingDetails().getMinOrderPrice());
+
+                if(shopData.getOpen()){
+                    binding.notAcceptingOrdersContainer.setVisibility(View.GONE);
+                }
+
+                Glide.with(getContext())
+                        .load(shopData.getBannerImage())
+                        .into(binding.backImage);
+
+                viewModel.getDataFromServer(getContext(),shopData.getMenuItemsID());
+
+                binding.backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Navigation.findNavController(root).popBackStack();
+                    }
+                });
+
+                binding.menuList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+                float increasedPercentage = shopData.getIncreaseDisplayPricePercentage() * 0.01f;
+                shopDetailsAdapter = new ShopDetailsAdapter(new ArrayList<>(),getContext(),ShopDetailsFragment.this,(shopData.getOpen() && shopData.isAllowCheckout()),increasedPercentage);
+                binding.menuList.setAdapter(shopDetailsAdapter);
+
+                viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShopCategoryData>>() {
+                    @Override
+                    public void onChanged(ArrayList<ShopCategoryData> shopCategoryData) {
+                        shopDetailsAdapter.setItems(shopCategoryData);
+                    }
+                });
+
+                // Search Query
+                binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        filterCategories(newText.toLowerCase());
+                        return false;
+                    }
+                });
+
+                binding.openReviews.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("shopId", shopData.get_id());
+                        bundle.putString("shopName", shopData.getShopName());
+                        bundle.putString("shopAddress",shopData.getAddressData().getMainAddress());
+                        bundle.putString("latitude",shopData.getAddressData().getLatitude());
+                        bundle.putString("longitude",shopData.getAddressData().getLongitude());
+
+                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_shopDetailsFragment_to_viewsAndAddressFragment,bundle);
+                    }
+                });
+
+                if(shopData.getFssaiCode() != null && shopData.getFssaiCode().length() != 0){
+                    binding.fssaiContainer.setVisibility(View.VISIBLE);
+                    binding.fssaiCode.setText("Lic. No. " + shopData.getFssaiCode());
+                }
+
+
             }
         });
-
-        binding.menuList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        float increasedPercentage = shopData.getIncreaseDisplayPricePercentage() * 0.01f;
-        shopDetailsAdapter = new ShopDetailsAdapter(new ArrayList<>(),getContext(),this,(shopData.getOpen() && shopData.isAllowCheckout()),increasedPercentage);
-        binding.menuList.setAdapter(shopDetailsAdapter);
-
-        viewModel.getMutableLiveData().observe(getViewLifecycleOwner(), new Observer<ArrayList<ShopCategoryData>>() {
-            @Override
-            public void onChanged(ArrayList<ShopCategoryData> shopCategoryData) {
-                shopDetailsAdapter.setItems(shopCategoryData);
-            }
-        });
-
-        // Search Query
-        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterCategories(newText.toLowerCase());
-                return false;
-            }
-        });
-
-        binding.openReviews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("shopId", shopData.get_id());
-                bundle.putString("shopName", shopData.getShopName());
-                bundle.putString("shopAddress",shopData.getAddressData().getMainAddress());
-                bundle.putString("latitude",shopData.getAddressData().getLatitude());
-                bundle.putString("longitude",shopData.getAddressData().getLongitude());
-
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_shopDetailsFragment_to_viewsAndAddressFragment,bundle);
-            }
-        });
-
-        if(shopData.getFssaiCode() != null && shopData.getFssaiCode().length() != 0){
-            binding.fssaiContainer.setVisibility(View.VISIBLE);
-            binding.fssaiCode.setText("Lic. No. " + shopData.getFssaiCode());
-        }
 
         return root;
     }

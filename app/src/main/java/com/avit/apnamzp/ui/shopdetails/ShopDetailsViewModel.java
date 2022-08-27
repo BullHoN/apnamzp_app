@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
+import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.utils.ErrorUtils;
@@ -24,11 +25,48 @@ import retrofit2.Retrofit;
 public class ShopDetailsViewModel extends ViewModel {
     public ArrayList<ShopCategoryData> shopCategoryDataArrayList;
     private MutableLiveData<ArrayList<ShopCategoryData>> mutableLiveData;
+    private MutableLiveData<ShopData> mutableShopLiveData;
     private String TAG = "ShopDetailsViewModel";
 
     public ShopDetailsViewModel(){
         mutableLiveData = new MutableLiveData<>();
         shopCategoryDataArrayList = new ArrayList<>();
+        mutableShopLiveData = new MutableLiveData<>();
+    }
+
+    public void setShopData(ShopData shopData){
+        mutableShopLiveData.setValue(shopData);
+    }
+
+    public void getShopData(Context context,String shopId){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Call<ShopData> call = networkApi.getShop(shopId);
+        call.enqueue(new Callback<ShopData>() {
+            @Override
+            public void onResponse(Call<ShopData> call, Response<ShopData> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                mutableShopLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ShopData> call, Throwable t) {
+                Toasty.error(context,t.getMessage(),Toasty.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+    }
+
+    public MutableLiveData<ShopData> getMutableShopLiveData() {
+        return mutableShopLiveData;
     }
 
     public void getDataFromServer(Context context, String itemsID){
