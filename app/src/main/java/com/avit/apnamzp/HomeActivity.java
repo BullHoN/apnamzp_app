@@ -76,6 +76,14 @@ public class HomeActivity extends AppCompatActivity  {
             navController.navigate(R.id.successFragment);
         }
 
+        String shopId = getIntent().getStringExtra("shopId");
+
+        if(shopId != null){
+            Bundle bundle = new Bundle();
+            bundle.putString("shopId", shopId);
+            navController.navigate(R.id.shopDetailsFragment,bundle);
+        }
+
         updateTheCartBatch();
 
         // Firebase Token

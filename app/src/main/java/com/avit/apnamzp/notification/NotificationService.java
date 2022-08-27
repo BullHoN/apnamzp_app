@@ -58,10 +58,16 @@ public class NotificationService extends FirebaseMessagingService {
 
             manageOrderNotification(title,desc,orderId);
         }
+        else if(notificationType.contains("show_shop")){
+            String shopId = data.get("shopId");
+            String title = data.get("title");
+            String desc = data.get("desc");
+            showNewsNotification(title,desc,shopId);
+        }
         else {
             String title = data.get("title");
             String desc = data.get("desc");
-            showNewsNotification(title,desc);
+            showNewsNotification(title,desc,null);
         }
 
     }
@@ -131,9 +137,13 @@ public class NotificationService extends FirebaseMessagingService {
 
     }
 
-    private void showNewsNotification(String title, String desc){
+    private void showNewsNotification(String title, String desc, String shopId){
         Intent homeActivityIntent = new Intent(getApplicationContext(),HomeActivity.class);
         homeActivityIntent.setAction("com.avit.apnamzp_news_notification");
+
+        Log.i(TAG, "showNewsNotification: " + shopId);
+
+        if(shopId != null) homeActivityIntent.putExtra("shopId",shopId);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,homeActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 

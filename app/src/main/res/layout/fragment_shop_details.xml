@@ -256,6 +256,12 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
     </RelativeLayout>
 
 </com.amar.library.ui.StickyScrollView>

@@ -106,6 +106,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                     @Override
                     public void onChanged(ArrayList<ShopCategoryData> shopCategoryData) {
                         shopDetailsAdapter.setItems(shopCategoryData);
+                        binding.progressBar.setVisibility(View.GONE);
                     }
                 });
 

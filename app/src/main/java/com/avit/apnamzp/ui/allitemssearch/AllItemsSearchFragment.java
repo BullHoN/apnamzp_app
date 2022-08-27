@@ -77,6 +77,8 @@ public class AllItemsSearchFragment extends Fragment {
                 binding.progressBar.setVisibility(View.GONE);
                 if(shopData.size() == 0){
                     binding.emptyLayout.setVisibility(View.VISIBLE);
+                }else {
+                    binding.emptyLayout.setVisibility(View.GONE);
                 }
             }
         });
