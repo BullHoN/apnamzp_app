@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,10 @@ import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.gson.Gson;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -33,6 +37,7 @@ public class OrderDetailsFragment extends Fragment {
     private OrderItem orderItem;
     private String TAG = "OrderDetailsFragment";
     private OrderDetailsViewModel orderDetailsViewModel;
+    private long waitTime, minutes, seconds;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +63,92 @@ public class OrderDetailsFragment extends Fragment {
             public void onChanged(OrderItem orderItem1) {
                 orderItem = orderItem1;
 
+                // expected arrival time
+                if(orderItem.getOrderStatus() < 6){
+                    binding.countDownTimerContainer.setVisibility(View.VISIBLE);
+
+//                    Log.i(TAG, "onChanged: " + orderItem.getCreatedAt().toLocaleString().split(" ")[1]);
+
+                    SimpleDateFormat orderCreatedDate = new SimpleDateFormat("HH:mm:ss");
+
+                    Date currDate = new Date();
+                    Date orderCreated = new Date();
+                    try {
+                        orderCreated = orderCreatedDate.parse(orderItem.getCreatedAt().toLocaleString().split(" ")[1]);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    long differenceInMilliSeconds = Math.abs(currDate.getTime() - orderCreated.getTime());
+                    long diffMinutes = (differenceInMilliSeconds / (60 * 1000)) % 60;
+                    long differenceInSeconds = (differenceInMilliSeconds / 1000) % 60;
+
+                    waitTime = 1000 * 60;
+                    seconds = 60;
+                    if(orderItem.getExpectedDeliveryTime().equals("10min")){
+                        waitTime *= 25;
+                        minutes = 25;
+                    }
+                    else if(orderItem.getExpectedDeliveryTime().equals("15min")){
+                        waitTime *= 30;
+                        minutes = 30;
+                    }
+                    else if(orderItem.getExpectedDeliveryTime().equals("20min")){
+                        waitTime *= 35;
+                        minutes = 35;
+                    }
+                    else if(orderItem.getExpectedDeliveryTime().equals("30min")){
+                        waitTime *= 45;
+                        minutes = 45;
+                    }
+                    else if(orderItem.getExpectedDeliveryTime().equals("40min")){
+                        waitTime *= 55;
+                        minutes = 55;
+                    }
+                    else if(orderItem.getExpectedDeliveryTime().equals("60min")){
+                        waitTime *= 100;
+                        minutes = 100;
+                    }
+                    else {
+                        waitTime *= 150;
+                        minutes = 150;
+                    }
+
+                    waitTime -= diffMinutes * 60 * 1000;
+                    waitTime -= differenceInSeconds * 1000;
+                    minutes -= diffMinutes;
+                    seconds = differenceInSeconds;
+
+                    if(waitTime <= 0 || minutes <= 0){
+                        waitTime = 10 * 60 * 1000;
+                        minutes = 10;
+                    }
+
+                    CountDownTimer waitTimer =  new CountDownTimer(waitTime,1000){
+
+                        @Override
+                        public void onTick(long l) {
+                            seconds--;
+                            if (seconds == 0) {
+                                minutes--;
+                                seconds = 60;
+                            }
+
+                            if(minutes <= 0){
+                                cancel();
+                                Navigation.findNavController(binding.getRoot()).popBackStack();
+                            }
+
+                            binding.countDownTimer.setText("Your Order is Arriving in: " + minutes + ":" + seconds);
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            Navigation.findNavController(binding.getRoot()).popBackStack();
+                        }
+                    }.start();
+
+                }
 
                 if(!orderItem.isUserFeedBack() && orderItem.getOrderStatus() == 6){
 
@@ -190,6 +281,7 @@ public class OrderDetailsFragment extends Fragment {
         }
 
         binding.orderAt.setText(orderItem.getCreatedAt().toLocaleString());
+
 
     }
 

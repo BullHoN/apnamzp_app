@@ -102,6 +102,48 @@
                 tools:listitem="@layout/item_orderdetailsorderitems" />
 
             <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/count_down_timer_container"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:text="Expected Arrival Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:src="@drawable/ic_timer"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp" />
+
+                    <TextView
+                        android:id="@+id/count_down_timer"
+                        android:text="Your Order is Arriving In: 12:45 Mins"
+                        android:layout_marginLeft="12dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:textSize="20sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:isScrollContainer="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
