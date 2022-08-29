@@ -39,12 +39,12 @@ public class OrdersFragment extends Fragment {
         binding = FragmentOrdersBinding.inflate(inflater,container,false);
         viewModel = new ViewModelProvider(this).get(OrdersViewModel.class);
 
-        viewModel.getDataFromServer(getContext(), User.getPhoneNumber(getContext()));
+//        viewModel.getDataFromServer(getContext(), User.getPhoneNumber(getContext()));
 
         Gson gson = new Gson();
 
-        binding.loading.setAnimation(R.raw.orders_loading);
-        binding.loading.playAnimation();
+//        binding.loading.setAnimation(R.raw.orders_loading);
+//        binding.loading.playAnimation();
 
         binding.ordersList.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false));
         OrdersAdapter adapter = new OrdersAdapter(getContext(), new ArrayList<>(), new OrdersAdapter.openOrderDetailsInterface() {
@@ -90,5 +90,13 @@ public class OrdersFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.loading.setAnimation(R.raw.orders_loading);
+        binding.loading.playAnimation();
+        viewModel.getDataFromServer(getContext(), User.getPhoneNumber(getContext()));
     }
 }

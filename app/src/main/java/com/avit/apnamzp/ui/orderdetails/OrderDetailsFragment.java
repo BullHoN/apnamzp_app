@@ -64,20 +64,13 @@ public class OrderDetailsFragment extends Fragment {
                 orderItem = orderItem1;
 
                 // expected arrival time
-                if(orderItem.getOrderStatus() < 6){
+                if(orderItem.getOrderStatus() < 6 && orderItem.getExpectedDeliveryTime() != null){
                     binding.countDownTimerContainer.setVisibility(View.VISIBLE);
 
 //                    Log.i(TAG, "onChanged: " + orderItem.getCreatedAt().toLocaleString().split(" ")[1]);
 
-                    SimpleDateFormat orderCreatedDate = new SimpleDateFormat("HH:mm:ss");
-
                     Date currDate = new Date();
-                    Date orderCreated = new Date();
-                    try {
-                        orderCreated = orderCreatedDate.parse(orderItem.getCreatedAt().toLocaleString().split(" ")[1]);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+                    Date orderCreated = orderItem.getCreatedAt();
 
                     long differenceInMilliSeconds = Math.abs(currDate.getTime() - orderCreated.getTime());
                     long diffMinutes = (differenceInMilliSeconds / (60 * 1000)) % 60;
@@ -114,39 +107,41 @@ public class OrderDetailsFragment extends Fragment {
                         minutes = 150;
                     }
 
-                    waitTime -= diffMinutes * 60 * 1000;
-                    waitTime -= differenceInSeconds * 1000;
+                    waitTime -= differenceInMilliSeconds;
                     minutes -= diffMinutes;
                     seconds = differenceInSeconds;
 
                     if(waitTime <= 0 || minutes <= 0){
                         waitTime = 10 * 60 * 1000;
                         minutes = 10;
+                        seconds = 0;
                     }
 
-                    CountDownTimer waitTimer =  new CountDownTimer(waitTime,1000){
+                    binding.countDownTimer.setText("Your Order is Expected To Arriving in: " + minutes + " mins");
 
-                        @Override
-                        public void onTick(long l) {
-                            seconds--;
-                            if (seconds == 0) {
-                                minutes--;
-                                seconds = 60;
-                            }
-
-                            if(minutes <= 0){
-                                cancel();
-                                Navigation.findNavController(binding.getRoot()).popBackStack();
-                            }
-
-                            binding.countDownTimer.setText("Your Order is Arriving in: " + minutes + ":" + seconds);
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            Navigation.findNavController(binding.getRoot()).popBackStack();
-                        }
-                    }.start();
+//                    CountDownTimer waitTimer =  new CountDownTimer(waitTime,1000){
+//
+//                        @Override
+//                        public void onTick(long l) {
+//                            seconds--;
+//                            if (seconds <= 0) {
+//                                minutes--;
+//                                seconds = 60;
+//                            }
+//
+//                            if(minutes <= 0){
+//                                cancel();
+//                                Navigation.findNavController(binding.getRoot()).popBackStack();
+//                            }
+//
+//                            binding.countDownTimer.setText("Your Order is Arriving in: " + minutes + ":" + seconds);
+//                        }
+//
+//                        @Override
+//                        public void onFinish() {
+//                            Navigation.findNavController(binding.getRoot()).popBackStack();
+//                        }
+//                    }.start();
 
                 }
 
