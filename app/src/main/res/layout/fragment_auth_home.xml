@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Let's Explore The World Of \n 0%  Commission 😎😎"
+                android:text="Let's Explore The World Of \n 0%  Commission. "
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

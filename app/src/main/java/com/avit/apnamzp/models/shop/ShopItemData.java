@@ -1,5 +1,8 @@
 package com.avit.apnamzp.models.shop;
 
+import android.content.ClipData;
+import android.util.Log;
+
 import java.util.List;
 
 public class ShopItemData {
@@ -12,6 +15,20 @@ public class ShopItemData {
     public String discount;
     public Boolean available;
     private Boolean isVeg;
+    private ItemAvailableTimings availableTimings;
+
+    public ShopItemData(String name, String _id, List<ShopPricingData> pricings, String imageURL, int quantity, String taxOrPackigingPrice, String discount, Boolean available, Boolean isVeg, ItemAvailableTimings availableTimings) {
+        this.name = name;
+        this._id = _id;
+        this.pricings = pricings;
+        this.imageURL = imageURL;
+        this.quantity = quantity;
+        this.taxOrPackigingPrice = taxOrPackigingPrice;
+        this.discount = discount;
+        this.available = available;
+        this.isVeg = isVeg;
+        this.availableTimings = availableTimings;
+    }
 
     public ShopItemData(String name, List<ShopPricingData> pricings, String imageURL) {
         this.name = name;
@@ -19,8 +36,36 @@ public class ShopItemData {
         this.imageURL = imageURL;
     }
 
+    public ItemAvailableTimings getAvailableTimings() {
+        return availableTimings;
+    }
+
     public Boolean getAvailable() {
         return available;
+    }
+
+    public Boolean isAvailable(String currTime){
+        if(getAvailableTimings() == null) return available;
+        if(!available) return available;
+
+        if(convertTo24Hours(currTime).compareTo(convertTo24Hours(getAvailableTimings().getFrom())) >= 0
+        && convertTo24Hours(currTime).compareTo(convertTo24Hours(getAvailableTimings().getTo())) <= 0){
+            return true;
+        }
+
+        return false;
+    }
+
+    public String convertTo24Hours(String time){
+        int hours = Integer.parseInt(time.split(":")[0]);
+        String minutes = time.split(":")[1].split(" ")[0];
+        String unit = time.split(":")[1].split(" ")[1].toUpperCase();
+
+        if(unit.equals("PM")){
+            hours += 12;
+        }
+
+        return hours + "" + minutes;
     }
 
     public Boolean getVeg() {

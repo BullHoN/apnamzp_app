@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import com.avit.apnamzp.utils.PrettyStrings;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdapter.ShopMenuItemsViewHolder>{
@@ -83,11 +86,21 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
             holder.addButton.setVisibility(View.VISIBLE);
         }
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a");
+        Date currDate = new Date();
         Cart cart = Cart.getInstance(context);
         if(cart != null){
             ShopItemData cartItem =  cart.isPresentInCart(curr.get_id());
-            if(cartItem != null && !curr.getAvailable()){
-                holder.addButton.setText("Unavailable");
+            if(cartItem != null && !curr.isAvailable(simpleDateFormat.format(currDate))){
+                if(curr.getAvailableTimings() == null){
+                    holder.addButton.setText("Item Unavailable");
+                }
+                else {
+                    holder.addButton.setText("Available Time: \n" + curr.getAvailableTimings().getFrom()  +
+                            "-" + curr.getAvailableTimings().getTo());
+                }
+
+                holder.addButton.setTextSize(8);
                 holder.addButton.setCheckable(false);
                 holder.addButton.setFocusable(false);
 
@@ -95,8 +108,16 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
                 onAddButtonInterface.removeTheBatch();
                 return;
             }
-            else if(!curr.getAvailable()){
-                holder.addButton.setText("Unavailable");
+            else if(!curr.isAvailable(simpleDateFormat.format(currDate))){
+                if(curr.getAvailableTimings() == null){
+                    holder.addButton.setText("Item Unavailable");
+                }
+                else {
+                    holder.addButton.setText("Available Time: \n" + curr.getAvailableTimings().getFrom()  +
+                            "-" + curr.getAvailableTimings().getTo());
+                }
+
+                holder.addButton.setTextSize(8);
                 holder.addButton.setCheckable(false);
                 holder.addButton.setFocusable(false);
 

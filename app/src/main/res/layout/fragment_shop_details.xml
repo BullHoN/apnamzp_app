@@ -180,6 +180,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/menuList"
             android:layout_width="match_parent"
+            android:nestedScrollingEnabled="false"
             android:layout_height="wrap_content"
             android:layout_below="@id/search_bar_view"
             android:layout_marginTop="5dp"

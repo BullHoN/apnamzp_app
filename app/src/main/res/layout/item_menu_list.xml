@@ -41,6 +41,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:isScrollContainer="false"
+            android:nestedScrollingEnabled="false"
             android:id="@+id/menuItemsList"
             android:layout_width="match_parent"
             tools:listitem="@layout/item_menu"

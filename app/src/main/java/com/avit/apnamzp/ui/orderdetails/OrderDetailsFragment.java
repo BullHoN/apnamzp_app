@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOrderDetailsBinding;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.utils.InfoConstats;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.gson.Gson;
 
@@ -205,7 +206,22 @@ public class OrderDetailsFragment extends Fragment {
             }
         });
 
+        binding.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                call();
+            }
+        });
+
         return binding.getRoot();
+    }
+
+    private void call(){
+        String phoneNo = InfoConstats.CALLING_NUMBER;
+        Intent callingIntent = new Intent();
+        callingIntent.setAction(Intent.ACTION_DIAL);
+        callingIntent.setData(Uri.parse("tel: " + phoneNo));
+        startActivity(callingIntent);
     }
 
     private void setUpUI(){
