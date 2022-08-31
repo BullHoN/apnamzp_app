@@ -65,7 +65,7 @@ public class ShopItemData {
             hours += 12;
         }
 
-        return hours + "" + minutes;
+        return String.format("%02d",hours) + "" + minutes;
     }
 
     public Boolean getVeg() {
