@@ -56,6 +56,11 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
         holder.averageDeliveryTimeView.setText(curr.getAverageDeliveryTime());
         holder.minOrderView.setText("₹" + curr.getPricingDetails().getMinOrderPrice());
 
+        if(curr.getShopTimings() != null){
+            holder.shopTimingsView.setVisibility(View.VISIBLE);
+            holder.shopTimingsView.setText("Shop Timings: " + curr.getShopTimings());
+        }
+
         if(curr.getPricingDetails().getMinOrderPrice().equals("0")){
             holder.minOrderContainer.setVisibility(View.GONE);
             holder.minOrderDotView.setVisibility(View.GONE);
@@ -107,7 +112,8 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 
 class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
-    public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,minOrderView,noOfRatingView,reviewsView,notAcceptingOrders;
+    public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,
+            minOrderView,noOfRatingView,reviewsView,notAcceptingOrders, shopTimingsView;
     public ImageView closedBackView,shopImageView, minOrderDotView;
     public MaterialCardView shopCardView;
     public LinearLayout ratingBackground,reviewsBackground, minOrderContainer;
@@ -126,6 +132,7 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         ratingBackground = itemView.findViewById(R.id.ratingBackground);
         reviewsBackground = itemView.findViewById(R.id.reviewsBackground);
         shopImageView = itemView.findViewById(R.id.shopImage);
+        shopTimingsView = itemView.findViewById(R.id.shopTimings);
 
         notAcceptingOrders = itemView.findViewById(R.id.not_accepting_orders);
         minOrderContainer = itemView.findViewById(R.id.minOrderContainer);

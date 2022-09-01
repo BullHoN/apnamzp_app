@@ -320,10 +320,11 @@
                                 android:layout_height="50dp"/>
 
                             <TextView
+                                android:gravity="center"
                                 android:layout_marginTop="5dp"
                                 android:textSize="12sp"
                                 android:fontFamily="@font/roboto_medium"
-                                android:text="Sweets"
+                                android:text="Sweets &amp; Resturants"
                                 android:lines="2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>

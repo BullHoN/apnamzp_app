@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Sweets");
+                bundle.putString("categoryName","Sweets & Resturants");
                 bundle.putString("shopType","Sweets");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
