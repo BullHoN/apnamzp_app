@@ -392,8 +392,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        OnlinePaymentOrderIdPostData postData = new OnlinePaymentOrderIdPostData(orderItem.getTotalPay() * 100, User.getPhoneNumber(getContext()));
-        Call<PaymentMetadata> call = networkApi.getOrderPaymentId(postData);
+        OnlinePaymentOrderIdPostData postData = new OnlinePaymentOrderIdPostData(orderItem.getTotalPay() * 100,
+                User.getPhoneNumber(getContext()));
+        Call<PaymentMetadata> call = networkApi.getOrderPaymentId(postData,cart.getShopData().get_id());
         call.enqueue(new Callback<PaymentMetadata>() {
             @Override
             public void onResponse(Call<PaymentMetadata> call, Response<PaymentMetadata> response) {

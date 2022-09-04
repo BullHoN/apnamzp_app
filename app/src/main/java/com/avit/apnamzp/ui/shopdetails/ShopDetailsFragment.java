@@ -224,7 +224,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 ArrayList<ShopPricingData> selectedPrice = new ArrayList<>();
                 selectedPrice.add(shopPricingData);
 
-                ShopItemData cartItem = shopItemData;
+                ShopItemData cartItem = new ShopItemData(shopItemData);
                 cartItem.setPricings(selectedPrice);
                 cartItem.setQuantity(cartItem.getQuantity()+1);
 

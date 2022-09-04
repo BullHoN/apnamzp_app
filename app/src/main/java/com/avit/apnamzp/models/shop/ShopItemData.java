@@ -17,6 +17,19 @@ public class ShopItemData {
     private Boolean isVeg;
     private ItemAvailableTimings availableTimings;
 
+    public ShopItemData(ShopItemData shopItemData){
+        this.name = shopItemData.name;
+        this._id = shopItemData._id;
+        this.pricings = shopItemData.pricings;
+        this.imageURL = shopItemData.imageURL;
+        this.quantity = shopItemData.quantity;
+        this.taxOrPackigingPrice = shopItemData.taxOrPackigingPrice;
+        this.discount = shopItemData.discount;
+        this.available = shopItemData.available;
+        this.isVeg = shopItemData.isVeg;
+        this.availableTimings = shopItemData.availableTimings;
+    }
+
     public ShopItemData(String name, String _id, List<ShopPricingData> pricings, String imageURL, int quantity, String taxOrPackigingPrice, String discount, Boolean available, Boolean isVeg, ItemAvailableTimings availableTimings) {
         this.name = name;
         this._id = _id;

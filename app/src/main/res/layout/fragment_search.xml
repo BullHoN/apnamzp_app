@@ -63,11 +63,16 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:nestedScrollingEnabled="false"
                     android:id="@+id/shopsList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:itemCount="5"
                     tools:listitem="@layout/item_shopdetails"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
 
             </LinearLayout>
 

@@ -88,7 +88,7 @@ public interface NetworkApi {
      Call<NetworkResponse> postFeedback(@Body Feedback feedback);
 
      @POST("/user/getOrderId")
-     Call<PaymentMetadata> getOrderPaymentId(@Body OnlinePaymentOrderIdPostData postData);
+     Call<PaymentMetadata> getOrderPaymentId(@Body OnlinePaymentOrderIdPostData postData,@Query("shopId") String shopId);
 
      @GET("/user/pickAndDropDetails")
      Call<PickAndDropDetails> getPickAndDropDetails();
