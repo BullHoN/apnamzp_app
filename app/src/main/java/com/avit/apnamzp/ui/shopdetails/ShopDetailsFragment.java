@@ -143,8 +143,15 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 });
 
                 if(shopData.getFssaiCode() != null && shopData.getFssaiCode().length() != 0){
+
                     binding.fssaiContainer.setVisibility(View.VISIBLE);
-                    binding.fssaiCode.setText("Lic. No. " + shopData.getFssaiCode());
+                    if(shopData.getFssaiCode().contains("muncipal")){
+                        binding.licenceLogo.setImageResource(R.drawable.ic_muncipal);
+                        binding.fssaiCode.setText("Lic. No. " + shopData.getFssaiCode().split("-")[1]);
+                    }
+                    else {
+                        binding.fssaiCode.setText("Lic. No. " + shopData.getFssaiCode());
+                    }
                 }
 
 
