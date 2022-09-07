@@ -274,7 +274,7 @@ public class OrderDetailsFragment extends Fragment {
         }
 
         // Order Details
-        binding.orderNo.setText(orderItem.get_id());
+        binding.orderNo.setText("#" + orderItem.get_id().substring(orderItem.get_id().length()-5));
         binding.deliveryAddressView.setText(orderItem.getDeliveryAddress().getRawAddress());
 
         if(orderItem.getPaid()){

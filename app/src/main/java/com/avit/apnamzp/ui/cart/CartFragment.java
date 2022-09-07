@@ -2,6 +2,7 @@ package com.avit.apnamzp.ui.cart;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.net.Uri;
@@ -248,11 +249,34 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                choosePaymentType();
+                showFinalConformationDialog();
             }
         });
 
         return root;
+    }
+
+    private void showFinalConformationDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("are you sure, you want to place the order ?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                choosePaymentType();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toasty.error(getContext(),"Order Not Placed",Toasty.LENGTH_LONG)
+                .show();
+            }
+        });
+
+        builder.show();
+
     }
 
     private void openYouSavedDialog(int amount,String message){

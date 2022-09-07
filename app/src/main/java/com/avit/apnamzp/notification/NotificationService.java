@@ -114,7 +114,17 @@ public class NotificationService extends FirebaseMessagingService {
         viewOrderDetailsIntent.putExtra("action", "feedback");
         viewOrderDetailsIntent.setAction("com.avit.apnamzp_order_status_update");
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,viewOrderDetailsIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent;
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, viewOrderDetailsIntent, PendingIntent.FLAG_IMMUTABLE);
+        }
+        else
+        {
+            pendingIntent =  PendingIntent.getActivity
+                    (this,0,viewOrderDetailsIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ORDER_ID)
                 .setContentTitle(title)
@@ -145,7 +155,17 @@ public class NotificationService extends FirebaseMessagingService {
 
         if(shopId != null) homeActivityIntent.putExtra("shopId",shopId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,homeActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = null;
+        if (android.os.Build.VERSION.SDK_INT >= 31) {
+            pendingIntent = PendingIntent.getActivity
+                    (this, 0, homeActivityIntent, PendingIntent.FLAG_IMMUTABLE);
+        }
+        else
+        {
+            pendingIntent =  PendingIntent.getActivity
+                    (this,0,homeActivityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
 
         Notification notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_OFFERS_ID)
                 .setContentTitle(title)

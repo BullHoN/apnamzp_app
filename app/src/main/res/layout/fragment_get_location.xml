@@ -115,91 +115,120 @@
     </RelativeLayout>
 
 
-
     <LinearLayout
         android:id="@+id/footer"
-        android:layout_alignParentBottom="true"
-        android:padding="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <TextView
-            android:fontFamily="@font/roboto_bold"
-            android:textColor="@color/primaryColor"
-            android:text="Your Location"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Your Location"
+            android:textColor="@color/primaryColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/location_text"
                     android:id="@+id/rawAddress"
-                    android:textSize="16sp"
-                    android:text="Select Location"
+                    style="@style/location_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Select Location"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/findLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Finding Location"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:text="Finding Location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
 
             <TextView
                 android:id="@+id/change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
                 android:fontFamily="@font/roboto_bold"
-                android:textColor="@color/primaryColor"
-                android:layout_gravity="center_vertical"
                 android:text="Change"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/primaryColor" />
 
         </LinearLayout>
 
         <EditText
-            android:inputType="text"
             android:id="@+id/houseNo"
-            android:imeOptions="actionSend"
-            android:hint="Flat No/Floor/Building Name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Flat No/Floor/Building Name"
+            android:imeOptions="actionSend"
+            android:inputType="text" />
 
         <EditText
-            android:inputType="text"
             android:id="@+id/landMark"
-            android:imeOptions="actionSend"
-            android:hint="Nearby Landmark (Optional)"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:hint="Nearby Landmark (Optional)"
+            android:imeOptions="actionSend"
+            android:inputType="text" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/saveAddressButton"
-            android:text="Save Address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Save Address" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/loading"
+        android:layout_below="@id/header"
+        android:layout_above="@id/footer"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_gravity="center"
+            app:lottie_rawRes="@raw/location_loading_animation"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_width="300dp"
+            android:layout_height="300dp" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="22sp"
+            android:text="Please wait while we are finding your location..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

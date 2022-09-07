@@ -140,7 +140,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                 String landMark = binding.landMark.getText().toString();
 
                 if(houseNo.length() == 0) {
-                    Toasty.warning(getContext(),"Please Enter Your House No/Buiding Name",Toasty.LENGTH_SHORT)
+                    Toasty.warning(getContext(),"Please Enter Your House No/Building Name",Toasty.LENGTH_SHORT)
                             .show();
                     return;
                 }
@@ -162,6 +162,11 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void updateTheLocation(String address){
+
+        if(binding.loading.getVisibility() == View.VISIBLE){
+            return;
+        }
+
         binding.findLocation.setVisibility(View.GONE);
         binding.rawAddress.setVisibility(View.VISIBLE);
         binding.rawAddress.setText(address);
@@ -253,8 +258,8 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
         LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1000);
-        locationRequest.setFastestInterval(500);
+        locationRequest.setInterval(100);
+        locationRequest.setFastestInterval(50);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         fusedLocationProviderClient.requestLocationUpdates(locationRequest,new LocationCallback(){
@@ -266,9 +271,19 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                 }
 
                 Location location =  locationResult.getLocations().get(0);
+
+                for(Location location1 : locationResult.getLocations()){
+                    
+                    if(location1.getAccuracy() < 200){
+                        location = location1;
+                        fusedLocationProviderClient.removeLocationUpdates(this);
+                        binding.loading.setVisibility(View.GONE);
+                    }
+
+                }
+
                 // SAVE THE Location
                 changeTheLocationOfMarker(new LatLng(location.getLatitude(),location.getLongitude()),"");
-                fusedLocationProviderClient.removeLocationUpdates(this);
 
             }
         }, Looper.getMainLooper());
