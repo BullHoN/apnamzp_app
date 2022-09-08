@@ -29,6 +29,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
     private List<ShopData> shopDataList;
     private Context context;
     private openShopDetails openShopDetailsInterface;
+    private String TAG = "SearchCategoryAdapter";
 
     public SearchCategoryAdapter(Context context,List<ShopData> shopDataList,openShopDetails openShopDetailsInterface) {
         this.shopDataList = shopDataList;
@@ -47,8 +48,11 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
     public void onBindViewHolder(@NonNull SearchCategoryViewHolder holder, int position) {
         ShopData curr = shopDataList.get(position);
 
+        Log.i(TAG, "onBindViewHolder: " + curr.getOpen() + " " + curr.getName());
         if(!curr.getOpen()){
             holder.shopCardView.setAlpha(0.7f);
+        }else {
+            holder.shopCardView.setAlpha(1f);
         }
 
         holder.nameView.setText(curr.getShopName());
@@ -82,12 +86,16 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             holder.nameView.setTextColor(context.getResources().getColor(R.color.secondaryTextColor));
             holder.closedBackView.setVisibility(View.VISIBLE);
             holder.closedTextView.setVisibility(View.VISIBLE);
+        }else {
+            holder.nameView.setTextColor(context.getResources().getColor(R.color.primaryColor));
+            holder.closedBackView.setVisibility(View.INVISIBLE);
+            holder.closedTextView.setVisibility(View.INVISIBLE);
         }
 
         holder.shopCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openShopDetailsInterface.openShopDetails(curr);
+                openShopDetailsInterface.openShopDetails(new ShopData(curr));
             }
         });
 

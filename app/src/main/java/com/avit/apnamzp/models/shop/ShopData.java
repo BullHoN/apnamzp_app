@@ -24,6 +24,28 @@ public class ShopData {
     private boolean allowProcessingFees;
     private String shopTimings;
 
+    public ShopData(ShopData shopData) {
+        this.name = shopData.name;
+        this.tagLine = shopData.tagLine;
+        this.pricingDetails = shopData.pricingDetails;
+        this.addressData = shopData.addressData;
+        this.isOpen = shopData.isOpen;
+        this.averageDeliveryTime = shopData.averageDeliveryTime;
+        this.bannerImage = shopData.bannerImage;
+        this.averageRatings = shopData.averageRatings;
+        this.shopType = shopData.shopType;
+        this.reviews = shopData.reviews;
+        this.menuItemsID = shopData.menuItemsID;
+        this.taxPercentage = shopData.taxPercentage;
+        this._id = shopData._id;
+        this.allowCheckout = shopData.allowCheckout;
+        this.adminShopService = shopData.adminShopService;
+        this.increaseDisplayPricePercentage = shopData.increaseDisplayPricePercentage;
+        this.fssaiCode = shopData.fssaiCode;
+        this.allowProcessingFees = shopData.allowProcessingFees;
+        this.shopTimings = shopData.shopTimings;
+    }
+
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings) {
         this.name = name;
         this.tagLine = tagLine;
