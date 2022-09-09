@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -18,10 +19,12 @@ import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.utils.NotificationUtils;
+import com.bumptech.glide.Glide;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 public class NotificationService extends FirebaseMessagingService {
@@ -62,12 +65,14 @@ public class NotificationService extends FirebaseMessagingService {
             String shopId = data.get("shopId");
             String title = data.get("title");
             String desc = data.get("desc");
-            showNewsNotification(title,desc,shopId);
+            String image = data.get("imageUrl");
+            showNewsNotification(title,desc,shopId,image);
         }
         else {
             String title = data.get("title");
             String desc = data.get("desc");
-            showNewsNotification(title,desc,null);
+            String image = data.get("imageUrl");
+            showNewsNotification(title,desc,null,image);
         }
 
     }
@@ -147,7 +152,7 @@ public class NotificationService extends FirebaseMessagingService {
 
     }
 
-    private void showNewsNotification(String title, String desc, String shopId){
+    private void showNewsNotification(String title, String desc, String shopId, String imageUrl){
         Intent homeActivityIntent = new Intent(getApplicationContext(),HomeActivity.class);
         homeActivityIntent.setAction("com.avit.apnamzp_news_notification");
 
@@ -171,11 +176,46 @@ public class NotificationService extends FirebaseMessagingService {
                 .setContentTitle(title)
                 .setSmallIcon(R.drawable.removed_bg_main_icon)
                 .setContentText(desc)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(desc)
+                )
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setAutoCancel(true)
                 .build();
+
+
+        if(imageUrl != null){
+
+            Bitmap bitmap = null;
+            try {
+                bitmap = Glide.with(getApplicationContext())
+                        .asBitmap()
+                        .load(imageUrl)
+                        .submit()
+                        .get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            notification = new NotificationCompat.Builder(getApplicationContext(),CHANNEL_OFFERS_ID)
+                    .setContentTitle(title)
+                    .setSmallIcon(R.drawable.removed_bg_main_icon)
+                    .setContentText(desc)
+                    .setStyle(new NotificationCompat.BigPictureStyle()
+                            .bigLargeIcon(bitmap)
+                            .bigPicture(bitmap)
+                            .setSummaryText(desc)
+                    )
+                    .setContentIntent(pendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .setAutoCancel(true)
+                    .build();
+        }
 
         if(NEWS_NOTIFICATION_ID > 1073741824){
             NEWS_NOTIFICATION_ID = 0;
