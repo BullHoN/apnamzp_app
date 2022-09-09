@@ -63,6 +63,7 @@ public class HomeActivity extends AppCompatActivity  {
         Log.i(TAG, "onCreate: " + User.getPhoneNumber(getApplicationContext()));
 
         FirebaseCrashlytics.getInstance().setUserId(User.getPhoneNumber(getApplicationContext()));
+        FirebaseMessaging.getInstance().subscribeToTopic("apnamzp_user");
 
 
         String orderId = getIntent().getStringExtra("orderId");
