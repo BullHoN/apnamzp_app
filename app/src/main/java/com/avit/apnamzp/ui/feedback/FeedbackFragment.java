@@ -57,8 +57,11 @@ public class FeedbackFragment extends Fragment {
                 String userName = User.getUsername(getContext());
                 Log.i(TAG, "onClick: " + userName);
 
-                ReviewData foodFeedBack = new ReviewData(userName,foodRating,
-                        foodReview,"shop",shopName,orderId);
+                ReviewData foodFeedBack = null;
+                if(!foodRating.equals("0") || foodReview.length() != 0){
+                    foodFeedBack = new ReviewData(userName,foodRating,
+                            foodReview,"shop",shopName,orderId);
+                }
 
                 ReviewData deliverySathiFeedback = null;
                 if(!deliverySathiRating.equals("0") || deliverySathiRevew.length() != 0){

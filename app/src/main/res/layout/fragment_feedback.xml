@@ -161,7 +161,7 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:fontFamily="@font/roboto_bold"
-                        android:text="Overall Experience"
+                        android:text="Apna MZP Service rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
