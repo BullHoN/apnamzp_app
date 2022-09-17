@@ -181,7 +181,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         });
 
 
-        if(cart.getShopData().isAdminShopService()){
+        if(cart.getShopData().isAdminShopService() || !cart.getShopData().isAllowSelfPickup()){
             binding.selfPickUpServiceButton.setVisibility(View.GONE);
         }
 
@@ -373,6 +373,12 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     private void choosePaymentType(){
         BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(R.layout.dialog_paymenttype);
+
+        if(!cart.getShopData().isAllowCOD()){
+            dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
+        }else {
+            dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.VISIBLE);
+        }
 
         dialog.findViewById(R.id.cashOnDeliveryButton).setOnClickListener(new View.OnClickListener() {
             @Override

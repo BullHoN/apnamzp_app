@@ -23,6 +23,8 @@ public class ShopData {
     private String fssaiCode;
     private boolean allowProcessingFees;
     private String shopTimings;
+    private boolean allowCOD;
+    private boolean allowSelfPickup;
 
     public ShopData(ShopData shopData) {
         this.name = shopData.name;
@@ -44,6 +46,32 @@ public class ShopData {
         this.fssaiCode = shopData.fssaiCode;
         this.allowProcessingFees = shopData.allowProcessingFees;
         this.shopTimings = shopData.shopTimings;
+        this.allowCOD = shopData.allowCOD;
+        this.allowSelfPickup = shopData.allowSelfPickup;
+    }
+
+    public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup) {
+        this.name = name;
+        this.tagLine = tagLine;
+        this.pricingDetails = pricingDetails;
+        this.addressData = addressData;
+        this.isOpen = isOpen;
+        this.averageDeliveryTime = averageDeliveryTime;
+        this.bannerImage = bannerImage;
+        this.averageRatings = averageRatings;
+        this.shopType = shopType;
+        this.reviews = reviews;
+        this.menuItemsID = menuItemsID;
+        this.taxPercentage = taxPercentage;
+        this._id = _id;
+        this.allowCheckout = allowCheckout;
+        this.adminShopService = adminShopService;
+        this.increaseDisplayPricePercentage = increaseDisplayPricePercentage;
+        this.fssaiCode = fssaiCode;
+        this.allowProcessingFees = allowProcessingFees;
+        this.shopTimings = shopTimings;
+        this.allowCOD = allowCOD;
+        this.allowSelfPickup = allowSelfPickup;
     }
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings) {
@@ -205,6 +233,14 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public boolean isAllowCOD() {
+        return allowCOD;
+    }
+
+    public boolean isAllowSelfPickup() {
+        return allowSelfPickup;
     }
 
     public String getShopTimings() {

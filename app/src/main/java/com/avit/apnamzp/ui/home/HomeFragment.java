@@ -28,6 +28,7 @@ import com.avit.apnamzp.models.ServiceStatus;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.CheckNetwork;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.bumptech.glide.Glide;
@@ -63,6 +64,7 @@ public class HomeFragment extends Fragment {
 
         View root = binding.getRoot();
 
+        CheckNetwork.isConnectedToInternet(getContext());
         setUpBannerImages();
         getServiceStatus();
 

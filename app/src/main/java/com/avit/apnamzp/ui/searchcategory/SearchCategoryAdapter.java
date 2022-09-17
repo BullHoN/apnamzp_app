@@ -48,7 +48,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
     public void onBindViewHolder(@NonNull SearchCategoryViewHolder holder, int position) {
         ShopData curr = shopDataList.get(position);
 
-        Log.i(TAG, "onBindViewHolder: " + curr.getOpen() + " " + curr.getName());
+        Log.i(TAG, "onBindViewHolder: " + curr.getOpen() + " " + curr.getName() + " " + curr.isAllowSelfPickup());
         if(!curr.getOpen()){
             holder.shopCardView.setAlpha(0.7f);
         }else {

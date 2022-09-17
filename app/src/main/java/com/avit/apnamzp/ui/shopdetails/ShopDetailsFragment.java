@@ -76,6 +76,11 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             public void onChanged(ShopData currShopData) {
                 shopData = currShopData;
 
+                Log.i(TAG, "onChanged: " + shopData.isAllowSelfPickup());
+                if(shopData.isAdminShopService()){
+                    shopStallServiceDialog();
+                }
+
                 binding.shopName.setText(shopData.getShopName());
                 binding.tagLine.setText(shopData.getTagLine());
                 binding.minOrder.setText("Min Order - " + "₹" + shopData.getPricingDetails().getMinOrderPrice());
@@ -157,8 +162,6 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
 
             }
         });
-
-        shopStallServiceDialog();
 
         return root;
     }
