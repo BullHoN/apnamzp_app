@@ -3,6 +3,7 @@ package com.avit.apnamzp.network;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.BannerData;
 import com.avit.apnamzp.models.ReviewData;
+import com.avit.apnamzp.models.ServiceStatus;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.cart.CartItemData;
 import com.avit.apnamzp.models.cart.CartMetaData;
@@ -95,5 +96,8 @@ public interface NetworkApi {
 
      @GET("/user/shop/{id}")
      Call<ShopData> getShop(@Path("id") String shopId);
+
+     @GET("/user/serviceStatus")
+     Call<ServiceStatus> getServiceStatus();
 
 }

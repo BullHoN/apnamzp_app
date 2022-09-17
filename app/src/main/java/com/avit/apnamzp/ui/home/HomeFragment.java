@@ -17,14 +17,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentHomeBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.BannerData;
+import com.avit.apnamzp.models.ServiceStatus;
+import com.avit.apnamzp.models.network.NetworkResponse;
+import com.avit.apnamzp.network.NetworkApi;
+import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.bumptech.glide.Glide;
+import com.google.android.datatransport.runtime.retries.Retries;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jama.carouselview.CarouselView;
@@ -32,6 +39,12 @@ import com.jama.carouselview.CarouselViewListener;
 
 import java.util.List;
 import java.util.Locale;
+
+import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
 
@@ -51,6 +64,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         setUpBannerImages();
+        getServiceStatus();
 
         // Location Button
         binding.changeLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -256,12 +270,44 @@ public class HomeFragment extends Fragment {
         });
 
 
-        showServiceClosedDialog();
     }
 
-    private void showServiceClosedDialog(){
+    private void getServiceStatus(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Call<ServiceStatus> call = networkApi.getServiceStatus();
+        call.enqueue(new Callback<ServiceStatus>() {
+            @Override
+            public void onResponse(Call<ServiceStatus> call, Response<ServiceStatus> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                ServiceStatus serviceStatus = response.body();
+                if(!serviceStatus.isServiceOpen()){
+                    showServiceClosedDialog(serviceStatus.getMessage());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ServiceStatus> call, Throwable t) {
+                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_LONG)
+                        .show();
+            }
+        });
+
+    }
+
+    private void showServiceClosedDialog(String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_service_closed,null,false);
+        TextView textView =  view.findViewById(R.id.service_closed_message);
+        textView.setText(message);
         builder.setView(view);
 
         builder.setPositiveButton("Okay",null);
