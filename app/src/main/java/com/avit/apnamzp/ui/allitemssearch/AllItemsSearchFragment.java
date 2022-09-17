@@ -43,6 +43,12 @@ public class AllItemsSearchFragment extends Fragment {
 
         Gson gson = new Gson();
 
+        if(getArguments() != null && getArguments().containsKey("searchKey")){
+            String searchKey = getArguments().getString("searchKey");
+            binding.progressBar.setVisibility(View.VISIBLE);
+            viewModel.getSearchDataFromServer(getContext(),searchKey.toLowerCase());
+        }
+        
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

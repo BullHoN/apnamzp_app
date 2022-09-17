@@ -219,8 +219,6 @@ public class HomeFragment extends Fragment {
                 carouselView = binding.bannerCarousel;
                 carouselView.setSize(bannerData.size());
 
-                Log.i(TAG, "onChanged: " + bannerData.size());
-
                 carouselView.setCarouselViewListener(new CarouselViewListener() {
                     @Override
                     public void onBindView(View view, int position) {
@@ -240,6 +238,12 @@ public class HomeFragment extends Fragment {
                                     Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_shopDetailsFragment,shopIdBundle);
 
                                 }
+                                else if(currData.getAction() != null && currData.getAction().equals("open_search")){
+                                    Bundle shopCategoryBundle = new Bundle();
+                                    shopCategoryBundle.putString("searchKey", currData.getShopId());
+
+                                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_allItemsSearchFragment,shopCategoryBundle);
+                                }
                             }
                         });
 
@@ -252,7 +256,16 @@ public class HomeFragment extends Fragment {
         });
 
 
+        showServiceClosedDialog();
+    }
 
+    private void showServiceClosedDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_service_closed,null,false);
+        builder.setView(view);
+
+        builder.setPositiveButton("Okay",null);
+        builder.show();
     }
 
     private void showTheLocationDialog(){

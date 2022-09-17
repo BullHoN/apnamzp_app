@@ -158,7 +158,24 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             }
         });
 
+        shopStallServiceDialog();
+
         return root;
+    }
+
+    private void shopStallServiceDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_stall_shop_delay,null,false);
+        builder.setView(view);
+
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
     }
 
     private void filterCategories(String query){
