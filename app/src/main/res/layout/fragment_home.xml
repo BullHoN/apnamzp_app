@@ -111,6 +111,8 @@
 
         </LinearLayout>
 
+
+
         <LinearLayout
             android:id="@+id/carousel"
             android:layout_width="match_parent"
@@ -130,7 +132,38 @@
                             app:setAutoPlayDelay="5000"
                             app:spacing="0" />
 
+            <LinearLayout
+                android:paddingHorizontal="12dp"
+                android:id="@+id/filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:textColor="@color/primaryColor"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Trending Search 🔥🔥"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/trending_searches_container"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flexWrap="wrap"
+                    app:justifyContent="space_between"
+                    android:orientation="horizontal" >
+
+                </com.google.android.flexbox.FlexboxLayout>
+
+
+            </LinearLayout>
+
             <com.google.android.material.card.MaterialCardView
+                android:layout_marginTop="8dp"
                 style="@style/shadow_theme"
                 app:cardUseCompatPadding="true"
                 android:layout_width="match_parent"

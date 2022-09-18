@@ -13,18 +13,18 @@
 
         <LinearLayout
             android:id="@+id/header"
-            android:weightSum="1"
-            android:padding="12dp"
-            android:background="@color/primaryColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/primaryColor"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:weightSum="1">
 
             <LinearLayout
-                android:gravity="center_vertical"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -36,15 +36,15 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.SearchView
-                android:layout_marginTop="12dp"
                 android:id="@+id/search_bar"
+                style="@style/search_styles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:iconifiedByDefault="false"
+                android:layout_marginTop="12dp"
                 android:focusedByDefault="true"
+                app:iconifiedByDefault="false"
                 app:queryBackground="@android:color/transparent"
                 app:queryHint="Search Shops, Items etc."
-                style="@style/search_styles"
                 app:submitBackground="@android:color/transparent" />
 
         </LinearLayout>
@@ -56,6 +56,26 @@
             android:layout_height="wrap_content"
             android:id="@+id/body"
             android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/primaryColor"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Trending Search 🔥🔥"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/trending_searches_container"
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap"
+                app:justifyContent="space_between"
+                android:orientation="horizontal" >
+
+            </com.google.android.flexbox.FlexboxLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:nestedScrollingEnabled="false"

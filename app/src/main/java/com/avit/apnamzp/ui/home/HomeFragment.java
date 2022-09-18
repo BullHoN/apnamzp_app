@@ -13,6 +13,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jama.carouselview.CarouselView;
 import com.jama.carouselview.CarouselViewListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         CheckNetwork.isConnectedToInternet(getContext());
+        setUpTrendingSearches();
         setUpBannerImages();
         getServiceStatus();
 
@@ -124,6 +127,40 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void setUpTrendingSearches(){
+        List<Pair<String,Integer>>  trendingSearches = new ArrayList<>();
+        trendingSearches.add(new Pair<>("burger",R.drawable.ic_burger));
+        trendingSearches.add(new Pair<>("pizza",R.drawable.ic_pizza));
+        trendingSearches.add(new Pair<>("Dosa",R.drawable.ic_dosa));
+        trendingSearches.add(new Pair<>("Chaat",R.drawable.ic_chaat));
+        trendingSearches.add(new Pair<>("Biryani",R.drawable.ic_biryani));
+        trendingSearches.add(new Pair<>("Thali",R.drawable.ic_thali));
+        trendingSearches.add(new Pair<>("Chowmein",R.drawable.ic_chowmein));
+        trendingSearches.add(new Pair<>("Paneer",R.drawable.ic_paneer));
+
+        for(Pair<String,Integer> search : trendingSearches){
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_trending_search,null,false);
+            TextView textView = view.findViewById(R.id.filter);
+            ImageView imageView = view.findViewById(R.id.icon);
+
+            textView.setText(search.first);
+            imageView.setImageResource(search.second);
+
+            binding.trendingSearchesContainer.addView(view);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle shopCategoryBundle = new Bundle();
+                    shopCategoryBundle.putString("searchKey", search.first);
+
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_allItemsSearchFragment,shopCategoryBundle);
+                }
+            });
+        }
+
     }
 
     private void shareApp(){
