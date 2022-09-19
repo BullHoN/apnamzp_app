@@ -50,12 +50,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:padding="12dp"
             android:layout_below="@id/header"
+            android:padding="12dp"
+            android:id="@+id/filters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/body"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <TextView
                 android:textColor="@color/primaryColor"
@@ -76,6 +76,16 @@
                 android:orientation="horizontal" >
 
             </com.google.android.flexbox.FlexboxLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
+            android:layout_below="@id/filters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/body"
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:nestedScrollingEnabled="false"
@@ -99,6 +109,7 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
+            android:layout_below="@id/filters"
             android:visibility="gone"
             android:id="@+id/emptyLayout"
             android:padding="12dp"
