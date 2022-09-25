@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentHomeBinding;
 import com.avit.apnamzp.localdb.Cart;
@@ -328,7 +329,7 @@ public class HomeFragment extends Fragment {
 
                 ServiceStatus serviceStatus = response.body();
                 if(!serviceStatus.isServiceOpen()){
-                    showServiceClosedDialog(serviceStatus.getMessage());
+                    showServiceClosedDialog(serviceStatus.getMessage(),serviceStatus.getType());
                 }
 
             }
@@ -342,11 +343,28 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void showServiceClosedDialog(String message){
+    private void showServiceClosedDialog(String message, String type){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_service_closed,null,false);
         TextView textView =  view.findViewById(R.id.service_closed_message);
         textView.setText(message);
+
+        LottieAnimationView animationView = view.findViewById(R.id.status_animation);
+
+        if(type.equals("rain")){
+            animationView.setVisibility(View.VISIBLE);
+            animationView.setAnimation(R.raw.raining_animation);
+            animationView.playAnimation();
+        }
+        else if(type.equals("occasion")){
+            animationView.setVisibility(View.VISIBLE);
+            animationView.setAnimation(R.raw.occasion_animation);
+            animationView.playAnimation();
+        }
+        else {
+            view.findViewById(R.id.status_image).setVisibility(View.VISIBLE);
+        }
+
         builder.setView(view);
 
         builder.setPositiveButton("Okay",null);

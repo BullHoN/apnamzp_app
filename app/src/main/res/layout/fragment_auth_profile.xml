@@ -1,225 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".auth.profile.AuthProfileFragment">
+    tools:context=".auth.profile.AuthProfileFragment"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:weightSum="1"
-        android:padding="12dp"
-        android:background="@color/primaryColor"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:id="@+id/header"
+            android:weightSum="1"
+            android:padding="12dp"
+            android:background="@color/primaryColor"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/categoryName"
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Finish Your Profile"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/categoryName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Finish Your Profile"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:padding="12dp"
-        android:layout_below="@id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
         <LinearLayout
+            android:padding="12dp"
+            android:layout_below="@id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="16sp"
-                android:text="Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:hintAnimationEnabled="false"
-                app:hintEnabled="false"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameView"
-                    android:hint="Enter Name"
-                    android:imeOptions="actionSend"
-                    android:inputType="text"
+                <TextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    android:layout_height="wrap_content">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameView"
+                        android:hint="Enter Name"
+                        android:imeOptions="actionSend"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            </LinearLayout>
 
-            <TextView
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="16sp"
-                android:text="Phone Number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8dp"
+            <LinearLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:hintAnimationEnabled="false"
-                app:hintEnabled="false"
-                android:enabled="false"
-                android:focusable="false"
-                android:clickable="false"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <com.google.android.material.textfield.TextInputEditText
+                <TextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:text="Phone Number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    android:enabled="false"
                     android:focusable="false"
                     android:clickable="false"
-                    android:inputType="number"
-                    android:enabled="false"
-                    android:id="@+id/phoneNoView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:inputType="number"
+                        android:enabled="false"
+                        android:id="@+id/phoneNoView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            </LinearLayout>
 
-            <TextView
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="16sp"
-                android:text="Password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8dp"
+            <LinearLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:hintAnimationEnabled="false"
-                app:passwordToggleEnabled="true"
-                app:hintEnabled="false"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/passwordView"
-                    android:imeOptions="actionSend"
-                    android:inputType="textPassword"
-                    android:hint="Enter Password"
+                <TextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:text="Password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:hintAnimationEnabled="false"
+                    app:passwordToggleEnabled="true"
+                    app:hintEnabled="false"
+                    android:layout_height="wrap_content">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordView"
+                        android:imeOptions="actionSend"
+                        android:inputType="textPassword"
+                        android:hint="Enter Password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            </LinearLayout>
 
-            <TextView
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="16sp"
-                android:text="Confirm Password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="8dp"
+            <LinearLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                app:hintAnimationEnabled="false"
-                app:hintEnabled="false"
-                app:passwordToggleEnabled="true"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/conformPasswordView"
-                    android:imeOptions="actionSend"
-                    android:inputType="textPassword"
-                    android:hint="Confirm Password"
+                <TextView
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="16sp"
+                    android:text="Confirm Password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="8dp"
                     android:layout_width="match_parent"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/conformPasswordView"
+                        android:imeOptions="actionSend"
+                        android:inputType="textPassword"
+                        android:hint="Confirm Password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:text="I agree to the "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
+                <TextView
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Terms of Service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+                <TextView
+                    android:text=" and "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Privacy Policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-            <TextView
-                android:text="I agree to the "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            </LinearLayout>
 
-            <TextView
-                android:fontFamily="@font/roboto_bold"
-                android:text="Terms of Service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:text=" and "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:fontFamily="@font/roboto_bold"
-                android:text="Privacy Policy"
-                android:layout_width="wrap_content"
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginTop="12dp"
+                android:id="@+id/signUpButton"
+                android:text="Continue"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/signUpButton"
-            android:text="Continue"
-            android:padding="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>

@@ -117,6 +117,20 @@ public class PickUpAndDropFragment extends Fragment {
 
         // Item List
         currItem = new CartItemData();
+
+        binding.submitPickupItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currItem.setName(binding.menuItemInput.getText().toString());
+                pickAndDropAdapter.addItem(currItem);
+
+                // Clear Everything
+                currItem = new CartItemData();
+                binding.menuItemInput.setText("");
+                binding.quantityText.setText(String.valueOf(1));
+            }
+        });
+
         binding.menuItemInput.setOnEditorActionListener(new TextView.OnEditorActionListener(){
 
             @Override

@@ -249,11 +249,15 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFinalConformationDialog();
+//                showFinalConformationDialog();
             }
         });
 
         return root;
+    }
+
+    private void chooseAddressDialog(){
+
     }
 
     private void showFinalConformationDialog(){

@@ -27,6 +27,7 @@ import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.avit.apnamzp.models.shop.ShopPricingData;
+import com.avit.apnamzp.utils.StallDelayShow;
 import com.bumptech.glide.Glide;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -77,7 +78,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 shopData = currShopData;
 
                 Log.i(TAG, "onChanged: " + shopData.isAllowSelfPickup());
-                if(shopData.isAdminShopService()){
+                if(shopData.isAdminShopService() && !StallDelayShow.isDisplayed(currShopData.getShopName())){
                     shopStallServiceDialog();
                 }
 
