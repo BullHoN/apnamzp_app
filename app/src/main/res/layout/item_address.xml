@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true" >
+
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/address_view" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Home"
+                android:textColor="@color/primaryColor"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/houseNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hgsdkjhjsdjsdgsj, jsdgjj" />
+
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/rawAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mirzapur, Uttar Pradesh, India" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:text="Select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:text="Edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

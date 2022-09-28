@@ -8,6 +8,12 @@ public class SharedPrefNames {
     public static String USER_STREET_ADDRESS = "MYMZP_USER_STREET_ADDRESS";
     public static String USER_HOUSE_NO = "MYMZP_USER_HOUSE_NO";
     public static String USER_LANDMARK = "MYMZP_USER_LANDMARK";
+
+    public static String USER_SECONDARY_LATLANG = "MYMZP_USER_SECONDARY_LOCATION";
+    public static String USER_SECONDARY_STREET_ADDRESS = "MYMZP_USER_STREET_SECONDARY_ADDRESS";
+    public static String USER_SECONDARY_HOUSE_NO = "MYMZP_USER_SECONDARY_HOUSE_NO";
+    public static String USER_SECONDARY_LANDMARK = "MYMZP_USER_SECONDARY_LANDMARK";
+
     public static String USER_NAME = "MYMZP_USER_NAME";
     public static String USER_PHONE = "MYMZP_USER_PHONENO";
     public static String USER_FCM_TOKEN = "MYMZP_USER_FCMTOKEN";

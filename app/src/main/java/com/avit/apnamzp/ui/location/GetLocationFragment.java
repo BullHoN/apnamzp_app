@@ -78,6 +78,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
     private Geocoder geocoder;
     private GoogleMap mMap;
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
+    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,6 +86,8 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
         binding = FragmentGetLocationBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
+
+        bundle = getArguments();
 
         // Map Initilization
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
@@ -145,8 +148,14 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                     return;
                 }
 
-                User.setHomeDetails(getContext(),houseNo);
-                User.setLandMark(getContext(),landMark);
+                if(bundle != null && bundle.containsKey("second_address")){
+                    User.setSecondaryHomeDetails(getContext(),houseNo);
+                    User.setSecondaryLandMark(getContext(),landMark);
+                }
+                else {
+                    User.setHomeDetails(getContext(),houseNo);
+                    User.setLandMark(getContext(),landMark);
+                }
 
                 Toasty.success(getContext(),"Address Saved Successfully",Toasty.LENGTH_SHORT).show();
                 Navigation.findNavController(root).popBackStack();
@@ -185,9 +194,17 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
             if (resultCode == Activity.RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
 
-                // Save The Location
-                User.setGoogleMapStreetAddress(getContext(),place.getAddress());
-                User.setLatLang(getContext(),place.getLatLng());
+                if(bundle != null && bundle.containsKey("second_address")){
+                    // Save The Location
+                    User.setSecondaryGoogleMapStreetAddress(getContext(),place.getAddress());
+                    User.setSecondaryLatLang(getContext(),place.getLatLng());
+                }
+                else {
+                    // Save The Location
+                    User.setGoogleMapStreetAddress(getContext(),place.getAddress());
+                    User.setLatLang(getContext(),place.getLatLng());
+                }
+
 
                 updateTheLocation(place.getAddress());
                 changeTheLocationOfMarker(place.getLatLng(),place.getAddress());
@@ -229,9 +246,17 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
                     Address address = getStreetAddressFromLatlan(latlng);
 
-                    // Save The Location
-                    User.setGoogleMapStreetAddress(getContext(),address.getAddressLine(0));
-                    User.setLatLang(getContext(),latlng);
+                    if(bundle != null && bundle.containsKey("second_address")){
+                        // Save The Location
+                        User.setSecondaryGoogleMapStreetAddress(getContext(),address.getAddressLine(0));
+                        User.setSecondaryLatLang(getContext(),latlng);
+                    }
+                    else {
+                        // Save The Location
+                        User.setGoogleMapStreetAddress(getContext(),address.getAddressLine(0));
+                        User.setLatLang(getContext(),latlng);
+                    }
+
 
                     updateTheLocation(address.getAddressLine(0));
 

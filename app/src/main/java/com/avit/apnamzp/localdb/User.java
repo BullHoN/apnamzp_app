@@ -72,6 +72,15 @@ public class User {
         return gson.fromJson(latLangString,LatLng.class);
     }
 
+    public static LatLng getSecondaryLatLang(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,Context.MODE_PRIVATE);
+        String latLangString = sharedPreferences.getString(SharedPrefNames.USER_SECONDARY_LATLANG,null);
+        if(latLangString == null) return null;
+
+        Gson gson = new Gson();
+        return gson.fromJson(latLangString,LatLng.class);
+    }
+
     public static void setLatLang(Context context,LatLng latLng){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -82,10 +91,26 @@ public class User {
         editor.apply();
     }
 
+    public static void setSecondaryLatLang(Context context,LatLng latLng){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String latLangString = gson.toJson(latLng,LatLng.class);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(SharedPrefNames.USER_SECONDARY_LATLANG,latLangString);
+        editor.apply();
+    }
+
     public static String getGoogleMapStreetAddress(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(SharedPrefNames.USER_STREET_ADDRESS,"");
     }
+
+    public static String getSecondaryGoogleMapStreetAddress(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(SharedPrefNames.USER_SECONDARY_STREET_ADDRESS,"");
+    }
+
 
     public static void setGoogleMapStreetAddress(Context context,String address){
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
@@ -95,9 +120,22 @@ public class User {
         editor.apply();
     }
 
+    public static void setSecondaryGoogleMapStreetAddress(Context context,String address){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_SECONDARY_STREET_ADDRESS,address);
+        editor.apply();
+    }
+
     public static String getHomeDetails(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(SharedPrefNames.USER_HOUSE_NO,"");
+    }
+
+    public static String getSecondaryHomeDetails(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(SharedPrefNames.USER_SECONDARY_HOUSE_NO,"");
     }
 
     public static void setHomeDetails(Context context,String address){
@@ -108,9 +146,22 @@ public class User {
         editor.apply();
     }
 
+    public static void setSecondaryHomeDetails(Context context,String address){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_SECONDARY_HOUSE_NO,address);
+        editor.apply();
+    }
+
     public static String getLandMark(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(SharedPrefNames.USER_LANDMARK,"");
+    }
+
+    public static String getSecondaryLandMark(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(SharedPrefNames.USER_SECONDARY_LANDMARK,"");
     }
 
     public static void setLandMark(Context context,String address){
@@ -121,10 +172,25 @@ public class User {
         editor.apply();
     }
 
+    public static void setSecondaryLandMark(Context context,String address){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_SECONDARY_LANDMARK,address);
+        editor.apply();
+    }
+
     public static DeliveryAddress getDeliveryAddress(Context context){
         LatLng latLng = User.getLatLng(context);
 
         return new DeliveryAddress(String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),User.getGoogleMapStreetAddress(context),User.getHomeDetails(context),User.getLandMark(context));
     }
+
+    public static DeliveryAddress getSecondaryDeliveryAddress(Context context){
+        LatLng latLng = User.getSecondaryLatLang(context);
+
+        return new DeliveryAddress(String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),User.getSecondaryGoogleMapStreetAddress(context),User.getSecondaryHomeDetails(context),User.getSecondaryLandMark(context));
+    }
+
 
 }

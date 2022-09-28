@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_cartFragment_to_successFragment"
             app:destination="@id/successFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_getLocationFragment2"
+            app:destination="@id/getLocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"

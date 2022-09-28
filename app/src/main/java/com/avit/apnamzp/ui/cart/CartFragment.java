@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avit.apnamzp.R;
@@ -42,6 +44,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
@@ -249,7 +252,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                showFinalConformationDialog();
+                showFinalConformationDialog();
+//                chooseAddressDialog();
             }
         });
 
@@ -257,7 +261,102 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     }
 
     private void chooseAddressDialog(){
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_choose_address,null,false);
 
+        TextView mainAddressHouseNo, mainAddressrawAddress;
+        MaterialButton mainAddressSelectButton, mainAddressEditButton;
+
+        mainAddressHouseNo = view.findViewById(R.id.main_address_houseNo);
+        mainAddressrawAddress = view.findViewById(R.id.main_address_raw_address);
+        mainAddressSelectButton = view.findViewById(R.id.main_address_select_button);
+        mainAddressEditButton = view.findViewById(R.id.main_address_edit_button);
+
+        mainAddressHouseNo.setText(User.getHomeDetails(getContext()));
+        mainAddressrawAddress.setText(User.getGoogleMapStreetAddress(getContext()));
+
+        mainAddressSelectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderItem.setDeliveryAddress(User.getDeliveryAddress(getContext()));
+
+                String originAddress = cart.getShopData().getAddressData().getLatitude() + "%2C" + cart.getShopData().getAddressData().getLongitude();
+                LatLng userLatLang = User.getLatLng(getContext());
+                String destinationAddress = String.valueOf(userLatLang.latitude) + "%2C" + String.valueOf(userLatLang.longitude);
+
+                calculateDistance(originAddress, destinationAddress);
+
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        mainAddressEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_getLocationFragment);
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        if(User.getSecondaryLatLang(getContext()) != null){
+            view.findViewById(R.id.add_address_button).setVisibility(View.GONE);
+            CardView secondAddressCardView = view.findViewById(R.id.second_address_view);
+            secondAddressCardView.setVisibility(View.VISIBLE);
+
+            TextView secondaryAddressHouseNo, secondaryAddressrawAddress;
+            MaterialButton secondaryAddressSelectButton, secondaryAddressEditButton;
+
+            secondaryAddressHouseNo = view.findViewById(R.id.second_address_houseNo);
+            secondaryAddressrawAddress = view.findViewById(R.id.second_address_rawAddress);
+
+            secondaryAddressEditButton = view.findViewById(R.id.second_address_edit_button);
+            secondaryAddressSelectButton = view.findViewById(R.id.second_address_select_button);
+
+            secondaryAddressHouseNo.setText(User.getSecondaryHomeDetails(getContext()));
+            secondaryAddressrawAddress.setText(User.getSecondaryGoogleMapStreetAddress(getContext()));
+
+            secondaryAddressEditButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("second_address",true);
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_getLocationFragment,bundle);
+                    bottomSheetDialog.dismiss();
+                }
+            });
+
+            secondaryAddressSelectButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    orderItem.setDeliveryAddress(User.getSecondaryDeliveryAddress(getContext()));
+
+                    String originAddress = cart.getShopData().getAddressData().getLatitude() + "%2C" + cart.getShopData().getAddressData().getLongitude();
+                    LatLng userLatLang = User.getSecondaryLatLang(getContext());
+                    String destinationAddress = String.valueOf(userLatLang.latitude) + "%2C" + String.valueOf(userLatLang.longitude);
+
+                    calculateDistance(originAddress, destinationAddress);
+
+                    bottomSheetDialog.dismiss();
+                }
+            });
+
+        }
+        else {
+            LinearLayout addAddressButton = view.findViewById(R.id.add_address_button);
+            addAddressButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("second_address",true);
+                    Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_getLocationFragment,bundle);
+                    bottomSheetDialog.dismiss();
+                }
+            });
+        }
+
+
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
     }
 
     private void showFinalConformationDialog(){
@@ -498,7 +597,6 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setShopID(cart.getShopID());
         orderItem.setShopCategory(cart.getShopData().getShopType());
         orderItem.setUserId(User.getPhoneNumber(getContext()));
-        orderItem.setDeliveryAddress(User.getDeliveryAddress(getContext()));
         orderItem.setPaid(isPaid);
         orderItem.setBillingDetails(cart.getShopData().getTaxPercentage());
         orderItem.setOrderType(0);
@@ -606,6 +704,10 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     orderItem.setProcessingFee(new ProcessingFee(0,0,0));
                     binding.processingFeeContainer.setVisibility(View.GONE);
                 }
+
+                binding.houseNo.setText(orderItem.getDeliveryAddress().getHouseNo());
+                binding.rawAddress.setText(orderItem.getDeliveryAddress().getRawAddress());
+                binding.shopAddress.setText(cart.getShopData().getAddressData().getMainAddress());
 
                 updateTheTotalPay();
 
@@ -723,11 +825,13 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         if(isServiceTypeDelivery) {
             // Distance API
-            String originAddress = cart.getShopData().getAddressData().getLatitude() + "%2C" + cart.getShopData().getAddressData().getLongitude();
-            LatLng userLatLang = User.getLatLng(getContext());
-            String destinationAddress = String.valueOf(userLatLang.latitude) + "%2C" + String.valueOf(userLatLang.longitude);
+//            String originAddress = cart.getShopData().getAddressData().getLatitude() + "%2C" + cart.getShopData().getAddressData().getLongitude();
+//            LatLng userLatLang = User.getLatLng(getContext());
+//            String destinationAddress = String.valueOf(userLatLang.latitude) + "%2C" + String.valueOf(userLatLang.longitude);
+//
+//            calculateDistance(originAddress, destinationAddress);
 
-            calculateDistance(originAddress, destinationAddress);
+            chooseAddressDialog();
 
         }
         else {
