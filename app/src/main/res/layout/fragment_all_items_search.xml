@@ -66,16 +66,24 @@
                 android:layout_height="wrap_content" />
 
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/trending_searches_container"
-                android:layout_marginTop="12dp"
+            <HorizontalScrollView
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexWrap="wrap"
-                app:justifyContent="space_between"
-                android:orientation="horizontal" >
+                android:layout_height="wrap_content" >
 
-            </com.google.android.flexbox.FlexboxLayout>
+                <GridLayout
+                    android:id="@+id/trending_searches_container"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flexWrap="wrap"
+                    android:columnCount="5"
+                    android:useDefaultMargins="true"
+                    android:layout_gravity="fill_horizontal"
+                    app:justifyContent="space_between"
+                    android:orientation="horizontal" />
+
+            </HorizontalScrollView>
 
         </LinearLayout>
 

@@ -140,6 +140,9 @@ public class HomeFragment extends Fragment {
         trendingSearches.add(new Pair<>("Thali",R.drawable.ic_thali));
         trendingSearches.add(new Pair<>("Chowmein",R.drawable.ic_chowmein));
         trendingSearches.add(new Pair<>("Paneer",R.drawable.ic_paneer));
+        trendingSearches.add(new Pair<>("Cake",R.drawable.ic_cake));
+        trendingSearches.add(new Pair<>("Sweets",R.drawable.ic_sweets_trendign));
+
 
         for(Pair<String,Integer> search : trendingSearches){
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_trending_search,null,false);
@@ -203,7 +206,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Non veg Resturants");
+                bundle.putString("categoryName","Veg & Non veg Resturants");
                 bundle.putString("shopType","Non veg Resturants");
 
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);

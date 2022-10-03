@@ -87,16 +87,18 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem = new OrderItem();
         gson = new Gson();
 
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(binding.getRoot()).popBackStack();
-            }
-        });
-
         if(cart == null || cart.getCartSize() == 0){
             return root;
         }
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("shopId",cart.getShopID());
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.shopDetailsFragment,bundle);
+            }
+        });
 
         binding.loading.setAnimation(R.raw.cart_loading_animation);
         binding.loading.playAnimation();
@@ -262,6 +264,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
     private void chooseAddressDialog(){
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setCancelable(false);
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_choose_address,null,false);
 
         TextView mainAddressHouseNo, mainAddressrawAddress;
