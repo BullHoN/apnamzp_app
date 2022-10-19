@@ -111,8 +111,6 @@
 
         </LinearLayout>
 
-
-
         <LinearLayout
             android:id="@+id/carousel"
             android:layout_width="match_parent"
@@ -618,6 +616,17 @@
                 android:layout_height="150dp" />
 
         </LinearLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation2"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 

@@ -3,6 +3,7 @@ package com.avit.apnamzp.models.shop;
 import android.content.ClipData;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ShopItemData {
@@ -61,9 +62,24 @@ public class ShopItemData {
         if(getAvailableTimings() == null) return available;
         if(!available) return available;
 
-        if(convertTo24Hours(currTime).compareTo(convertTo24Hours(getAvailableTimings().getFrom())) >= 0
-        && convertTo24Hours(currTime).compareTo(convertTo24Hours(getAvailableTimings().getTo())) <= 0){
-            return true;
+        try {
+            SimpleDateFormat hour12Format = new SimpleDateFormat("hh:mm a");
+            SimpleDateFormat hour24Format = new SimpleDateFormat("HH:mm");
+
+            Log.i("AvailableTime", "isAvailable: " + hour24Format.format(hour12Format.parse(currTime)) + "-" + hour24Format.format(hour12Format.parse(getAvailableTimings().getFrom())));
+
+            String currTimeIn24 = hour24Format.format(hour12Format.parse(currTime));
+            String startTimeIn24 = hour24Format.format(hour12Format.parse(getAvailableTimings().getFrom()));
+            String endTimeIn24 = hour24Format.format(hour12Format.parse(getAvailableTimings().getTo()));
+
+            if(currTimeIn24.compareTo(startTimeIn24) >= 0
+                    && currTimeIn24.compareTo(endTimeIn24) <= 0){
+                return true;
+            }
+
+        }
+        catch(Exception e){
+            return false;
         }
 
         return false;

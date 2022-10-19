@@ -1,5 +1,6 @@
 package com.avit.apnamzp.models.shop;
 
+import com.avit.apnamzp.models.order.ProcessingFee;
 import com.avit.apnamzp.models.shop.ShopAddressData;
 import com.avit.apnamzp.models.shop.ShopCostData;
 
@@ -25,6 +26,32 @@ public class ShopData {
     private String shopTimings;
     private boolean allowCOD;
     private boolean allowSelfPickup;
+    private ProcessingFee processingFees;
+
+    public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup, ProcessingFee processingFees) {
+        this.name = name;
+        this.tagLine = tagLine;
+        this.pricingDetails = pricingDetails;
+        this.addressData = addressData;
+        this.isOpen = isOpen;
+        this.averageDeliveryTime = averageDeliveryTime;
+        this.bannerImage = bannerImage;
+        this.averageRatings = averageRatings;
+        this.shopType = shopType;
+        this.reviews = reviews;
+        this.menuItemsID = menuItemsID;
+        this.taxPercentage = taxPercentage;
+        this._id = _id;
+        this.allowCheckout = allowCheckout;
+        this.adminShopService = adminShopService;
+        this.increaseDisplayPricePercentage = increaseDisplayPricePercentage;
+        this.fssaiCode = fssaiCode;
+        this.allowProcessingFees = allowProcessingFees;
+        this.shopTimings = shopTimings;
+        this.allowCOD = allowCOD;
+        this.allowSelfPickup = allowSelfPickup;
+        this.processingFees = processingFees;
+    }
 
     public ShopData(ShopData shopData) {
         this.name = shopData.name;
@@ -48,6 +75,7 @@ public class ShopData {
         this.shopTimings = shopData.shopTimings;
         this.allowCOD = shopData.allowCOD;
         this.allowSelfPickup = shopData.allowSelfPickup;
+        this.processingFees = shopData.processingFees;
     }
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup) {
@@ -233,6 +261,10 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public ProcessingFee getProcessingFees() {
+        return processingFees;
     }
 
     public boolean isAllowCOD() {

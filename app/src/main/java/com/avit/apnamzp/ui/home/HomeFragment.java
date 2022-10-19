@@ -32,6 +32,7 @@ import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.utils.CheckNetwork;
 import com.avit.apnamzp.utils.ErrorUtils;
+import com.avit.apnamzp.utils.HomeDisplayAnimation;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.bumptech.glide.Glide;
 import com.google.android.datatransport.runtime.retries.Retries;
@@ -165,6 +166,16 @@ public class HomeFragment extends Fragment {
             });
         }
 
+    }
+
+    private void setUpFireWorks(){
+        if(!HomeDisplayAnimation.isDisplayed()){
+            binding.animation1.setAnimation(R.raw.firework1_animation);
+            binding.animation2.setAnimation(R.raw.firework1_animation);
+
+            binding.animation1.playAnimation();
+            binding.animation2.playAnimation();
+        }
     }
 
     private void shareApp(){
@@ -308,6 +319,7 @@ public class HomeFragment extends Fragment {
                 });
 
                 carouselView.show();
+                setUpFireWorks();
 
             }
         });

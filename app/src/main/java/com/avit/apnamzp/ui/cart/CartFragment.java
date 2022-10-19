@@ -471,6 +471,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     }
 
     private void updateTheTotalPay(){
+        binding.processingFee.setText(PrettyStrings.getPriceInRupees(orderItem.getTotalProcessingFee()));
         binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
         binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
         binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
@@ -575,7 +576,12 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     binding.slurgeChargesContainer.setVisibility(View.GONE);
                 }
 
-                orderItem.setProcessingFee(response.body().getProcessingFee());
+                if(cart.getShopData().getProcessingFees() == null){
+                    orderItem.setProcessingFee(response.body().getProcessingFee());
+                }
+                else {
+                    orderItem.setProcessingFee(cart.getShopData().getProcessingFees());
+                }
                 loadTheUI();
             }
 
@@ -704,7 +710,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     binding.processingFee.setText(PrettyStrings.getPriceInRupees(orderItem.getTotalProcessingFee()));
                 }
                 else {
-                    orderItem.setProcessingFee(new ProcessingFee(0,0,0));
+                    orderItem.setProcessingFee(new ProcessingFee(0,0,1));
                     binding.processingFeeContainer.setVisibility(View.GONE);
                 }
 
