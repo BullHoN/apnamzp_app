@@ -335,7 +335,9 @@ public class OrderItem {
     }
 
     public int getTotalProcessingFee(){
-        int total_fees = processingFee.getInit() + Math.round((itemTotal/processingFee.getJump()) - 1) * processingFee.getInc();
+        int extra = (Math.round((itemTotal/processingFee.getJump()) - 1) * processingFee.getInc());
+        if(extra < 0) extra = 0;
+        int total_fees = processingFee.getInit() + extra;
         if(total_fees <= 0) return processingFee.getInit();
         else return total_fees;
     }
