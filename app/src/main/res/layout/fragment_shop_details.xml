@@ -141,41 +141,76 @@
             android:id="@+id/search_bar_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/relativeLayout"
+            android:layout_below="@id/offers_container"
             android:background="@color/primaryColor"
             android:orientation="vertical"
             android:padding="12dp">
 
             <LinearLayout
                 android:id="@+id/not_accepting_orders_container"
-                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/errorColor"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:padding="8dp">
 
                 <TextView
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:text="Currently not accepting orders"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Currently not accepting orders"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_bar"
+                style="@style/search_styles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@android:color/transparent"
                 app:queryHint="Search Item"
-                style="@style/search_styles"
                 app:submitBackground="@android:color/transparent" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:paddingHorizontal="5dp"
+            android:layout_below="@id/relativeLayout"
+            android:id="@+id/offers_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <HorizontalScrollView
+                android:fillViewport="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/mini_offers_recycler_view"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:itemCount="4"
+                        tools:listitem="@layout/item_shop_details_offerts" />
+
+                </RelativeLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/menuList"
@@ -254,9 +289,9 @@
         </LinearLayout>
 
         <View
-            android:layout_below="@id/fssai_container"
             android:layout_width="match_parent"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            android:layout_below="@id/fssai_container" />
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -319,7 +319,7 @@ public class HomeFragment extends Fragment {
                 });
 
                 carouselView.show();
-                setUpFireWorks();
+//                setUpFireWorks();
 
             }
         });

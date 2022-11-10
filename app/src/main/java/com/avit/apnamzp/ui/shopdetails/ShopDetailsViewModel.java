@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.avit.apnamzp.models.network.NetworkResponse;
+import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.network.NetworkApi;
@@ -15,6 +16,7 @@ import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -26,12 +28,46 @@ public class ShopDetailsViewModel extends ViewModel {
     public ArrayList<ShopCategoryData> shopCategoryDataArrayList;
     private MutableLiveData<ArrayList<ShopCategoryData>> mutableLiveData;
     private MutableLiveData<ShopData> mutableShopLiveData;
+    private MutableLiveData<List<OfferItem>> offersMutableLiveData;
     private String TAG = "ShopDetailsViewModel";
 
     public ShopDetailsViewModel(){
         mutableLiveData = new MutableLiveData<>();
         shopCategoryDataArrayList = new ArrayList<>();
         mutableShopLiveData = new MutableLiveData<>();
+        offersMutableLiveData = new MutableLiveData<>();
+    }
+
+    public MutableLiveData<List<OfferItem>> getOffersMutableLiveData() {
+        return offersMutableLiveData;
+    }
+
+    public void getOffersOfShop(Context context, String shopId){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Call<List<OfferItem>> call = networkApi.getOffersOfShop(shopId);
+        call.enqueue(new Callback<List<OfferItem>>() {
+            @Override
+            public void onResponse(Call<List<OfferItem>> call, Response<List<OfferItem>> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+
+                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                offersMutableLiveData.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<OfferItem>> call, Throwable t) {
+                Toasty.error(context,t.getMessage(),Toasty.LENGTH_LONG)
+                        .show();
+            }
+        });
+
     }
 
     public void setShopData(ShopData shopData){

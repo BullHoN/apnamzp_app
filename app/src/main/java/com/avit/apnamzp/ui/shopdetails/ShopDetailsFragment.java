@@ -23,6 +23,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentShopDetailsBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.localdb.Cart;
+import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
@@ -48,6 +49,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
     private String TAG = "ShopDetailsFragment";
     private ShopData shopData;
     private LoadingDialog loadingDialog;
+    private MiniReviewsAdapter miniReviewsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,9 +69,11 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         if(jsonString != null){
             shopData = gson.fromJson(jsonString,ShopData.class);
             viewModel.setShopData(shopData);
+            viewModel.getOffersOfShop(getContext(),shopData.get_id());
         }else{
             String shopId = getArguments().getString("shopId");
             viewModel.getShopData(getContext(),shopId);
+            viewModel.getOffersOfShop(getContext(),shopId);
         }
 
         viewModel.getMutableShopLiveData().observe(getViewLifecycleOwner(), new Observer<ShopData>() {
@@ -160,7 +164,26 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                     }
                 }
 
+                List<OfferItem> initialOfferItems = new ArrayList<>();
+                initialOfferItems.add(OfferItem.getDiscountOffer("100",
+                        shopData.getPricingDetails().getMinFreeDeliveryPrice(),
+                        shopData.getShopName().toUpperCase().replace(" ","")
+                        ));
 
+                miniReviewsAdapter.replaceItems(initialOfferItems);
+
+            }
+        });
+
+        binding.miniOffersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        miniReviewsAdapter = new MiniReviewsAdapter(new ArrayList<>(),getContext());
+        binding.miniOffersRecyclerView.setAdapter(miniReviewsAdapter);
+
+        viewModel.getOffersMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<OfferItem>>() {
+            @Override
+            public void onChanged(List<OfferItem> offerItems) {
+                miniReviewsAdapter.replaceItems(offerItems);
             }
         });
 
