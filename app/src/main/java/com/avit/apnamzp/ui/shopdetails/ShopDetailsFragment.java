@@ -50,6 +50,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
     private ShopData shopData;
     private LoadingDialog loadingDialog;
     private MiniReviewsAdapter miniReviewsAdapter;
+    private List<OfferItem> currOffers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -172,6 +173,8 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
 
                 miniReviewsAdapter.replaceItems(initialOfferItems);
 
+                if(currOffers != null) shopData.setAvailableOffers(currOffers.size());
+
             }
         });
 
@@ -183,6 +186,8 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
         viewModel.getOffersMutableLiveData().observe(getViewLifecycleOwner(), new Observer<List<OfferItem>>() {
             @Override
             public void onChanged(List<OfferItem> offerItems) {
+                currOffers = offerItems;
+                shopData.setAvailableOffers(offerItems.size());
                 miniReviewsAdapter.replaceItems(offerItems);
             }
         });

@@ -31,8 +31,8 @@
             <TextView
                 android:id="@+id/max_discount"
                 android:textSize="16sp"
-                android:textColor="#5A5A5A"
-                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/primaryColor"
+                android:fontFamily="@font/roboto_bold"
                 android:text="Flat $30 OFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

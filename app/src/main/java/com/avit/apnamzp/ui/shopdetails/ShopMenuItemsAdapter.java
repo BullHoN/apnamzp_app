@@ -66,6 +66,10 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
         int increasedPrice = Integer.parseInt(curr.getPricings().get(0).getPrice()) + Math.round(Integer.parseInt(curr.getPricings().get(0).getPrice()) * increasedPercentage);
         holder.increasePriceTextView.setText(PrettyStrings.getPriceInRupees((increasedPrice)));
 
+        if(curr.isBestSeller()){
+            holder.bestsellerView.setVisibility(View.VISIBLE);
+        }
+
         if(curr.getImageURL() != null && curr.getImageURL().length() > 0){
             Glide.with(context)
                     .load(curr.getImageURL())
@@ -191,6 +195,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
         public ImageView itemImageView,isVegView;
         public MaterialButton addButton;
         public LinearLayout addButtonView,quantityView, increaseQuantityButton, decreaseQuantityButton;
+        public TextView bestsellerView;
 
         public ShopMenuItemsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -206,6 +211,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
             decreaseQuantityButton = itemView.findViewById(R.id.decreaseQuantity);
             quantityTextView = itemView.findViewById(R.id.quantityText);
             increasePriceTextView = itemView.findViewById(R.id.increasedPrice);
+            bestsellerView = itemView.findViewById(R.id.bestseller_view);
 
         }
     }

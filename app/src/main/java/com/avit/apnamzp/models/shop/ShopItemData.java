@@ -17,6 +17,7 @@ public class ShopItemData {
     public Boolean available;
     private Boolean isVeg;
     private ItemAvailableTimings availableTimings;
+    private boolean isBestSeller;
 
     public ShopItemData(ShopItemData shopItemData){
         this.name = shopItemData.name;
@@ -29,9 +30,28 @@ public class ShopItemData {
         this.available = shopItemData.available;
         this.isVeg = shopItemData.isVeg;
         this.availableTimings = shopItemData.availableTimings;
+        this.isBestSeller = shopItemData.isBestSeller;
     }
 
-    public ShopItemData(String name, String _id, List<ShopPricingData> pricings, String imageURL, int quantity, String taxOrPackigingPrice, String discount, Boolean available, Boolean isVeg, ItemAvailableTimings availableTimings) {
+    public ShopItemData(String name, String _id, List<ShopPricingData> pricings, String imageURL, int quantity,
+                        String taxOrPackigingPrice, String discount, Boolean available,
+                        Boolean isVeg, ItemAvailableTimings availableTimings, boolean isBestSeller) {
+        this.name = name;
+        this._id = _id;
+        this.pricings = pricings;
+        this.imageURL = imageURL;
+        this.quantity = quantity;
+        this.taxOrPackigingPrice = taxOrPackigingPrice;
+        this.discount = discount;
+        this.available = available;
+        this.isVeg = isVeg;
+        this.availableTimings = availableTimings;
+        this.isBestSeller = isBestSeller;
+    }
+
+    public ShopItemData(String name, String _id, List<ShopPricingData> pricings, String imageURL, int quantity,
+                        String taxOrPackigingPrice, String discount, Boolean available,
+                        Boolean isVeg, ItemAvailableTimings availableTimings) {
         this.name = name;
         this._id = _id;
         this.pricings = pricings;
@@ -48,6 +68,10 @@ public class ShopItemData {
         this.name = name;
         this.pricings = pricings;
         this.imageURL = imageURL;
+    }
+
+    public boolean isBestSeller() {
+        return isBestSeller;
     }
 
     public ItemAvailableTimings getAvailableTimings() {

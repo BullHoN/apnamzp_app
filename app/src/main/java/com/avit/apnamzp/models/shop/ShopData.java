@@ -27,6 +27,7 @@ public class ShopData {
     private boolean allowCOD;
     private boolean allowSelfPickup;
     private ProcessingFee processingFees;
+    private int availableOffers;
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup, ProcessingFee processingFees) {
         this.name = name;
@@ -51,6 +52,7 @@ public class ShopData {
         this.allowCOD = allowCOD;
         this.allowSelfPickup = allowSelfPickup;
         this.processingFees = processingFees;
+        this.availableOffers = availableOffers;
     }
 
     public ShopData(ShopData shopData) {
@@ -76,6 +78,7 @@ public class ShopData {
         this.allowCOD = shopData.allowCOD;
         this.allowSelfPickup = shopData.allowSelfPickup;
         this.processingFees = shopData.processingFees;
+        this.availableOffers = availableOffers;
     }
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup) {
@@ -261,6 +264,14 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public int getAvailableOffers() {
+        return availableOffers;
+    }
+
+    public void setAvailableOffers(int availableOffers) {
+        this.availableOffers = availableOffers;
     }
 
     public ProcessingFee getProcessingFees() {

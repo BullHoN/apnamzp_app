@@ -268,9 +268,10 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:src="@drawable/ic_discount" />
+                            android:src="@drawable/ic_short_offer" />
 
                         <TextView
+                            android:id="@+id/availableOffers"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto_bold"

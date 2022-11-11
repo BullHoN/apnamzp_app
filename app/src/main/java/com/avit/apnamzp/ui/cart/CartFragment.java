@@ -807,6 +807,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         if(cart.getAppliedOffer() == null){
             binding.addCouponView.setVisibility(View.VISIBLE);
+            if(cart.getShopData().getAvailableOffers() != 0){
+                binding.availableOffers.setText(cart.getShopData().getAvailableOffers() + " OFFERS AVAILABLE");
+            }
             binding.offerBodyView.setVisibility(View.GONE);
         }
         else {

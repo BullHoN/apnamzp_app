@@ -20,12 +20,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/isVeg"
-                android:scaleType="centerInside"
-                android:src="@drawable/veg_item_icon"
-                android:layout_width="25dp"
-                android:layout_height="25dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/isVeg"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/veg_item_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/bestseller_view"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"
+                    android:background="@color/quantum_orange"
+                    android:paddingVertical="3dp"
+                    android:paddingHorizontal="5dp"
+                    android:text="BestSeller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/itemName"
