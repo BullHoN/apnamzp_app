@@ -103,4 +103,7 @@ public interface NetworkApi {
      @GET("/getOffers")
      Call<List<OfferItem>> getOffersOfShop(@Query("shopId") String shopName);
 
+     @GET("/user/shop-data/{shopId}")
+     Call<User> getShopPhoneNo(@Path("shopId") String shopId);
+
 }

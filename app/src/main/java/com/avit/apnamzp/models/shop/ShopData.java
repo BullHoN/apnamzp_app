@@ -28,8 +28,10 @@ public class ShopData {
     private boolean allowSelfPickup;
     private ProcessingFee processingFees;
     private int availableOffers;
+    private boolean allowSelfPickupCOD;
+    private String phoneNO;
 
-    public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup, ProcessingFee processingFees) {
+    public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup, ProcessingFee processingFees,int availableOffers, boolean allowSelfPickupCOD, String phoneNO) {
         this.name = name;
         this.tagLine = tagLine;
         this.pricingDetails = pricingDetails;
@@ -53,6 +55,8 @@ public class ShopData {
         this.allowSelfPickup = allowSelfPickup;
         this.processingFees = processingFees;
         this.availableOffers = availableOffers;
+        this.allowSelfPickupCOD = allowSelfPickupCOD;
+        this.phoneNO = phoneNO;
     }
 
     public ShopData(ShopData shopData) {
@@ -78,7 +82,9 @@ public class ShopData {
         this.allowCOD = shopData.allowCOD;
         this.allowSelfPickup = shopData.allowSelfPickup;
         this.processingFees = shopData.processingFees;
-        this.availableOffers = availableOffers;
+        this.availableOffers = shopData.availableOffers;
+        this.allowSelfPickupCOD = shopData.allowSelfPickupCOD;
+        this.phoneNO = shopData.phoneNO;
     }
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup) {
@@ -264,6 +270,14 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public String getPhoneNO() {
+        return phoneNO;
+    }
+
+    public boolean isAllowSelfPickupCOD() {
+        return allowSelfPickupCOD;
     }
 
     public int getAvailableOffers() {

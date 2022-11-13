@@ -45,6 +45,8 @@ import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
@@ -468,11 +470,105 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             }
         });
 
+        binding.itemsOnTheWayChoices.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ChipGroup group, int checkedId) {
+
+                String itemOnTheWay = "";
+                if(checkedId == R.id.cold_drink_choice){
+                    itemOnTheWay = "Cold Drink";
+                    addItemOnTheWay(itemOnTheWay);
+                }
+                else if(checkedId == R.id.disposals_choice){
+                    itemOnTheWay = "Disposals";
+                    addItemOnTheWay(itemOnTheWay);
+                }
+                else if(checkedId == R.id.water_bottle_choice){
+                    itemOnTheWay = "Water Bottle";
+                    addItemOnTheWay(itemOnTheWay);
+                }
+                else if(checkedId == R.id.chips_choice){
+                    itemOnTheWay = "Chips";
+                    addItemOnTheWay(itemOnTheWay);
+                }
+                else {
+                    addCustomItemOnWay();
+                }
+
+            }
+        });
+
+    }
+
+    private void addCustomItemOnWay(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Add Custom Item On Way");
+
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_custom_item_on_way,null,false);
+        TextInputEditText editText = view.findViewById(R.id.custom_item_on_way);
+        builder.setView(view);
+
+        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String newItemOnWay = editText.getText().toString();
+                addItemOnTheWay(newItemOnWay);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.show();
+
+    }
+
+    private void addItemOnTheWay(String newItemOnWay){
+        // add items in the list
+        List<String> newItemsOnTheWay = cart.getItemsOnTheWay();
+        newItemsOnTheWay.add(newItemOnWay);
+
+        cart.addItemsOnTheWay(getContext(),newItemsOnTheWay);
+
+        cartItemsOnTheWayAdapter.updateItemsOnTheWay(newItemsOnTheWay);
+        orderItem.setItemsOnTheWay(newItemsOnTheWay);
+
+        binding.addItemsOnTheWay.setText("");
+        binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+        // hide the keyboard
+
+        updateTheTotalPay();
     }
 
     private void updateTheTotalPay(){
         binding.processingFee.setText(PrettyStrings.getPriceInRupees(orderItem.getTotalProcessingFee()));
-        binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
+
+        if(orderItem.getDeliveryCharge() <= 0){
+            binding.deliveryCharge.setText("FREE DELIVERY");
+        }
+        else {
+            binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
+        }
+
+        if(orderItem.getDeliveryCharge() != 0){
+            binding.freeDeliveryChargeText.setVisibility(View.VISIBLE);
+
+            int min_items_for_free_delivery = Integer.parseInt(cart.getShopData().getPricingDetails().getMinFreeDeliveryPrice());
+            int diff = min_items_for_free_delivery - orderItem.getItemTotal();
+
+            if(diff > 0){
+                binding.freeDeliveryChargeText.setText("Add " + PrettyStrings.getPriceInRupees(diff) + " more to get FREE delivery");
+            }
+
+        }
+        else {
+            binding.freeDeliveryChargeText.setVisibility(View.GONE);
+        }
+
         binding.totalPriceToPay.setText("₹" + orderItem.calculateTotalPrice() + ".00");
         binding.paymentButton.setText("Proceed to pay ₹" + orderItem.calculateTotalPrice() + ".00");
     }
@@ -481,7 +577,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(R.layout.dialog_paymenttype);
 
-        if(!cart.getShopData().isAllowCOD()){
+        if(!cart.getShopData().isAllowSelfPickupCOD()){
             dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
         }else {
             dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.VISIBLE);
@@ -520,10 +616,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         dialog.show();
     }
 
-    private void showIncreasedPriceDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//        builder.setTitle("")
-    }
+
 
     private void getOrderPaymentId(){
         Retrofit retrofit = RetrofitClient.getInstance();

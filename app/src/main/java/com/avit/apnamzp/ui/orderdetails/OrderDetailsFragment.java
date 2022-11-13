@@ -19,7 +19,12 @@ import android.view.ViewGroup;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOrderDetailsBinding;
+import com.avit.apnamzp.models.User;
+import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.OrderItem;
+import com.avit.apnamzp.network.NetworkApi;
+import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.gson.Gson;
@@ -31,6 +36,10 @@ import java.util.Date;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class OrderDetailsFragment extends Fragment {
 
@@ -209,15 +218,15 @@ public class OrderDetailsFragment extends Fragment {
         binding.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                call();
+                call(null);
             }
         });
 
         return binding.getRoot();
     }
 
-    private void call(){
-        String phoneNo = InfoConstats.CALLING_NUMBER;
+    private void call(String callingNo){
+        String phoneNo = callingNo == null ? InfoConstats.CALLING_NUMBER : callingNo;
         Intent callingIntent = new Intent();
         callingIntent.setAction(Intent.ACTION_DIAL);
         callingIntent.setData(Uri.parse("tel: " + phoneNo));
@@ -293,6 +302,44 @@ public class OrderDetailsFragment extends Fragment {
 
         binding.orderAt.setText(orderItem.getCreatedAt().toLocaleString());
 
+        if(!orderItem.isAdminShopService()){
+            binding.shopDetailsView.setVisibility(View.VISIBLE);
+
+            binding.callShop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getShopPhoneNo();
+                }
+            });
+        }
+
+    }
+
+    private void getShopPhoneNo(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Call<User> call = networkApi.getShopPhoneNo(orderItem.getShopID());
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(!response.isSuccessful()){
+                    NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
+                call(response.body().getPhoneNo());
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_LONG)
+                        .show();
+            }
+        });
 
     }
 

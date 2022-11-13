@@ -50,4 +50,19 @@
         <item name="android:textColor">@color/primaryColor</item>
     </style>
 
+    <style name="My_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <!-- Chip background color selector -->
+        <item name="chipBackgroundColor">@drawable/chip_state</item>
+        <!-- Border color -->
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/primaryColor</item>
+
+        <!-- Chip text color selector -->
+        <item name="android:textColor">@drawable/chip_state_text</item>
+        <!-- Chip close icon color selector -->
+        <item name="closeIconTint">@color/primaryColor</item>
+
+    </style>
+
+
 </resources>
