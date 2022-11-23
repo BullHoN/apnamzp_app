@@ -53,13 +53,13 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
 
         Bundle bundle = getArguments();
         if(bundle == null){
-            viewModel.getDataFromServer(getContext(),true,"");
+            viewModel.getDataFromServer(getContext(),true,"",true);
             offersAdapter = new OffersAdapter(getContext(),false,new ArrayList<>(),this);
             binding.offersList.setAdapter(offersAdapter);
         }
         else {
             Log.i(TAG, "onCreateView: " + bundle.getString("shopName"));
-            viewModel.getDataFromServer(getContext(),false,bundle.getString("shopName"));
+            viewModel.getDataFromServer(getContext(),false,bundle.getString("shopName"),false);
             offersAdapter = new OffersAdapter(getContext(),true,new ArrayList<>(),this);
             binding.offersList.setAdapter(offersAdapter);
         }
@@ -87,5 +87,16 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
 
         cart.setAppliedOffer(getContext(),offerItem);
         Navigation.findNavController(binding.getRoot()).popBackStack();
+    }
+
+    @Override
+    public void openShop(String shopId) {
+        if (shopId == null) return;
+
+        Bundle bundle = new Bundle();
+        bundle.putString("shopId",shopId);
+
+        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_offersFragment_to_shopDetailsFragment,bundle);
+
     }
 }

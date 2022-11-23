@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzp.R;
@@ -20,6 +21,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
 
     public interface applyOfferInterface{
         void applyOffer(OfferItem offerItem);
+        void openShop(String shopId);
     }
 
     private Context context;
@@ -73,6 +75,14 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
                 }
             });
         }
+        else {
+            holder.offerViewContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    applyOfferInterface.openShop(offerItem.getShopId());
+                }
+            });
+        }
 
     }
 
@@ -91,6 +101,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
         public TextView discountTypeView,offerConditionsView,codeView;
         public MaterialButton applyButton;
         public ImageView offerImageView;
+        public CardView offerViewContainer;
 
         public OffersViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +111,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
 
             applyButton = itemView.findViewById(R.id.applyButton);
             offerImageView = itemView.findViewById(R.id.offerImage);
+
+            offerViewContainer = itemView.findViewById(R.id.offer_view);
         }
     }
 

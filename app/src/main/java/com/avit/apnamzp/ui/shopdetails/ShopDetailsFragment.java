@@ -187,7 +187,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             @Override
             public void onChanged(List<OfferItem> offerItems) {
                 currOffers = offerItems;
-                shopData.setAvailableOffers(offerItems.size());
+                if(shopData != null) shopData.setAvailableOffers(offerItems.size());
                 miniReviewsAdapter.replaceItems(offerItems);
             }
         });

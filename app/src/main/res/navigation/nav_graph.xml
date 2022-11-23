@@ -69,7 +69,11 @@
         android:id="@+id/offersFragment"
         android:name="com.avit.apnamzp.ui.offers.OffersFragment"
         android:label="fragment_offers"
-        tools:layout="@layout/fragment_offers" />
+        tools:layout="@layout/fragment_offers" >
+        <action
+            android:id="@+id/action_offersFragment_to_shopDetailsFragment"
+            app:destination="@id/shopDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pickUpAndDropFragment"
         android:name="com.avit.apnamzp.ui.pickupanddrop.PickUpAndDropFragment"

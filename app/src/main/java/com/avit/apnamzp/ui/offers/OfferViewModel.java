@@ -28,11 +28,11 @@ public class OfferViewModel extends ViewModel {
 
     }
 
-    public void getDataFromServer(Context context,Boolean onlyAdmin,String shopName){
+    public void getDataFromServer(Context context,Boolean onlyAdmin,String shopName,boolean allOffers){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        Call<List<OfferItem>> call = networkApi.getOffers(onlyAdmin,shopName);
+        Call<List<OfferItem>> call = networkApi.getOffers(onlyAdmin,shopName,allOffers);
         call.enqueue(new Callback<List<OfferItem>>() {
             @Override
             public void onResponse(Call<List<OfferItem>> call, Response<List<OfferItem>> response) {
