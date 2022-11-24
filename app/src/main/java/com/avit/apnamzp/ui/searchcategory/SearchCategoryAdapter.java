@@ -99,6 +99,13 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             }
         });
 
+        if(curr.isNewShop()){
+            holder.newTagView.setVisibility(View.VISIBLE);
+        }
+        else if(curr.getShopDiscountTag() != null && !curr.getShopDiscountTag().equals("0")){
+
+        }
+
     }
 
     @Override
@@ -121,8 +128,8 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
     public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,
-            minOrderView,noOfRatingView,reviewsView,notAcceptingOrders, shopTimingsView;
-    public ImageView closedBackView,shopImageView, minOrderDotView;
+            minOrderView,noOfRatingView,reviewsView,notAcceptingOrders, shopTimingsView, offerTagView;
+    public ImageView closedBackView,shopImageView, minOrderDotView, newTagView;
     public MaterialCardView shopCardView;
     public LinearLayout ratingBackground,reviewsBackground, minOrderContainer;
 
@@ -145,5 +152,8 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         notAcceptingOrders = itemView.findViewById(R.id.not_accepting_orders);
         minOrderContainer = itemView.findViewById(R.id.minOrderContainer);
         minOrderDotView = itemView.findViewById(R.id.minOrderDot);
+
+        newTagView = itemView.findViewById(R.id.shop_new_tag);
+        offerTagView = itemView.findViewById(R.id.offer_tag);
     }
 }

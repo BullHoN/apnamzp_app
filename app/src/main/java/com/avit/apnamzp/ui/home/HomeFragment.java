@@ -128,6 +128,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        binding.offersBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.offersFragment);
+            }
+        });
+
         return root;
     }
 
