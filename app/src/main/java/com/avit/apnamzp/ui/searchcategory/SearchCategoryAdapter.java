@@ -103,7 +103,8 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             holder.newTagView.setVisibility(View.VISIBLE);
         }
         else if(curr.getShopDiscountTag() != null && !curr.getShopDiscountTag().equals("0")){
-
+            holder.offerTagView.setVisibility(View.VISIBLE);
+            holder.offerTagView.setText(curr.getShopDiscountTag());
         }
 
     }

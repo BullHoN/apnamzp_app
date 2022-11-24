@@ -240,6 +240,7 @@
             android:layout_height="50dp" />
 
         <TextView
+            android:visibility="gone"
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/white"
             android:textSize="12dp"
