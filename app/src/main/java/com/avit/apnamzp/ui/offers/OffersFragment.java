@@ -54,7 +54,7 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
         Bundle bundle = getArguments();
         if(bundle == null){
             viewModel.getDataFromServer(getContext(),true,"",true);
-            offersAdapter = new OffersAdapter(getContext(),false,new ArrayList<>(),this);
+            offersAdapter = new OffersAdapter(getContext(),false,new ArrayList<>(),this,true);
             binding.offersList.setAdapter(offersAdapter);
         }
         else {

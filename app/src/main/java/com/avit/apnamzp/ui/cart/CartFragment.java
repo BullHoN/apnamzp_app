@@ -577,11 +577,16 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(R.layout.dialog_paymenttype);
 
-        if(!cart.getShopData().isAllowSelfPickupCOD()){
+        if(!cart.getShopData().isAllowSelfPickupCOD() && !orderItem.getDeliveryService()){
             dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
-        }else {
+        }
+        else if(!cart.getShopData().isAllowCOD() && orderItem.getDeliveryService()){
+            dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
+        }
+        else {
             dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.VISIBLE);
         }
+
 
         dialog.findViewById(R.id.cashOnDeliveryButton).setOnClickListener(new View.OnClickListener() {
             @Override

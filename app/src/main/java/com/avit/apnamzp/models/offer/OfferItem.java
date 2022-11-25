@@ -5,6 +5,7 @@ public class OfferItem {
     private String offerType;
     private Boolean isApnaMzpDiscount;
     private String shopName;
+    private String bannerImage;
     private String shopId;
     private String discountAbove;
 
@@ -23,6 +24,10 @@ public class OfferItem {
         offerItem.setDiscountAbove(discountAbove);
 
         return offerItem;
+    }
+
+    public String getBannerImage() {
+        return bannerImage;
     }
 
     public void setCode(String code) {

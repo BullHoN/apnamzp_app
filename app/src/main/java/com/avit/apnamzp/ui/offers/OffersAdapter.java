@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.models.offer.OfferItem;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
@@ -28,12 +29,24 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
     private List<OfferItem> offerItemList;
     private Boolean displayApplyButton;
     private applyOfferInterface applyOfferInterface;
+    private boolean showingAllOrders;
 
-    public OffersAdapter(Context context,Boolean displayApplyButton ,List<OfferItem> offerItemList,applyOfferInterface applyOfferInterface) {
+    public OffersAdapter(Context context,Boolean displayApplyButton ,
+                         List<OfferItem> offerItemList,applyOfferInterface applyOfferInterface) {
         this.context = context;
         this.offerItemList = offerItemList;
         this.displayApplyButton = displayApplyButton;
         this.applyOfferInterface = applyOfferInterface;
+        this.showingAllOrders = false;
+    }
+
+    public OffersAdapter(Context context,Boolean displayApplyButton ,
+                         List<OfferItem> offerItemList,applyOfferInterface applyOfferInterface,boolean showingAllOrders) {
+        this.context = context;
+        this.offerItemList = offerItemList;
+        this.displayApplyButton = displayApplyButton;
+        this.applyOfferInterface = applyOfferInterface;
+        this.showingAllOrders = showingAllOrders;
     }
 
     @NonNull
@@ -49,7 +62,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
         String offerType = offerItem.getOfferType();
 
         if(offerType.equals("percent")){
-            holder.discountTypeView.setText(offerItem.getDiscountPercentage() + "% Discount");
+            if(showingAllOrders && offerItem.getShopName() != null)  holder.discountTypeView.setText(offerItem.getShopName());
+            else holder.discountTypeView.setText(offerItem.getDiscountPercentage() + "% Discount");
 
             String descOfOffer = "Get " + offerItem.getDiscountPercentage() + "% Discount on your Orders above Rs. " + offerItem.getDiscountAbove() + "\n"
                     + "Maximum Discount Cap: Rs" + offerItem.getMaxDiscount();
@@ -57,7 +71,8 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
 
         }
         else if(offerType.equals("flat")){
-            holder.discountTypeView.setText("Flat ₹" + offerItem.getDiscountAmount() + " Discount");
+            if(showingAllOrders && offerItem.getShopName() != null)  holder.discountTypeView.setText(offerItem.getShopName());
+            else holder.discountTypeView.setText("Flat ₹" + offerItem.getDiscountAmount() + " Discount");
 
             String descOfOffer = "Get Flat " + offerItem.getDiscountAmount() + " Rupees Discount on orders above Rs." + offerItem.getDiscountAbove();
             holder.offerConditionsView.setText(descOfOffer);
@@ -82,6 +97,12 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OffersView
                     applyOfferInterface.openShop(offerItem.getShopId());
                 }
             });
+        }
+
+        if(offerItem.getBannerImage() != null && offerItem.getBannerImage().length() > 0){
+            Glide.with(context)
+                    .load(offerItem.getBannerImage())
+                    .into(holder.offerImageView);
         }
 
     }
