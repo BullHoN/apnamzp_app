@@ -31,7 +31,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkApi {
-     String SERVER_URL = "http://192.168.1.3:5000/";
+     String SERVER_URL = "http://192.168.1.4:5000/";
 //     String SERVER_URL = "https://apnamzp.in/";
 
      @GET("/user/bannerImages")
@@ -44,7 +44,9 @@ public interface NetworkApi {
      Call<ArrayList<ShopCategoryData>> getShopData(@Path("itemsId") String itemsId);
 
      @GET("/getDistance")
-     Call<GetDistanceResponse> getDistance(@Query("destinations") String destinations, @Query("origins") String origins, @Query("key") String key);
+     Call<GetDistanceResponse> getDistance(@Query("destinations") String destinations,
+                                           @Query("origins") String origins,
+                                           @Query("key") String key);
 
      @GET("/getOffers")
      Call<List<OfferItem>> getOffers(@Query("onlyAdmin") Boolean onlyAdmin,

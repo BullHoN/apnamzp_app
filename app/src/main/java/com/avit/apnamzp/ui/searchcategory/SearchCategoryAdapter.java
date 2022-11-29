@@ -106,6 +106,10 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             holder.offerTagView.setVisibility(View.VISIBLE);
             holder.offerTagView.setText(curr.getShopDiscountTag());
         }
+        else {
+            holder.newTagView.setVisibility(View.GONE);
+            holder.offerTagView.setVisibility(View.GONE);
+        }
 
     }
 

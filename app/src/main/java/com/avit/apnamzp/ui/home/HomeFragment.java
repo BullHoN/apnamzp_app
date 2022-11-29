@@ -1,5 +1,7 @@
 package com.avit.apnamzp.ui.home;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -72,6 +75,7 @@ public class HomeFragment extends Fragment {
         setUpTrendingSearches();
         setUpBannerImages();
         getServiceStatus();
+        setUpAnimation();
 
         // Location Button
         binding.changeLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -175,13 +179,31 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void setUpFireWorks(){
+    private void setUpAnimation(){
         if(!HomeDisplayAnimation.isDisplayed()){
-            binding.animation1.setAnimation(R.raw.firework1_animation);
-            binding.animation2.setAnimation(R.raw.firework1_animation);
+            String url = NetworkApi.SERVER_URL + "user/banner-animation";
+            binding.animation1.setAnimationFromUrl(url);
+            binding.animation2.setAnimationFromUrl(url);
+            binding.animation3.setAnimationFromUrl(url);
 
             binding.animation1.playAnimation();
             binding.animation2.playAnimation();
+            binding.animation3.playAnimation();
+
+            new CountDownTimer(5000, 1000) {
+                @Override
+                public void onTick(long l) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    binding.animation1.setVisibility(View.GONE);
+                    binding.animation2.setVisibility(View.GONE);
+                    binding.animation3.setVisibility(View.GONE);
+                }
+            }.start();
+
         }
     }
 

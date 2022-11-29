@@ -625,15 +625,24 @@
         </LinearLayout>
 
         <com.airbnb.lottie.LottieAnimationView
+            app:lottie_loop="false"
             android:id="@+id/animation1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="400dp" />
 
         <com.airbnb.lottie.LottieAnimationView
+            app:lottie_loop="false"
             android:id="@+id/animation2"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="400dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_marginTop="200dp"
+            app:lottie_loop="false"
+            android:id="@+id/animation3"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
 
     </RelativeLayout>
 
