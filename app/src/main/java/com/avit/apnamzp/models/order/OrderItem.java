@@ -576,7 +576,8 @@ public class OrderItem {
 
     public int getDeliveryCharge() {
 //        Log.i(TAG, "getDeliveryCharge: " + itemTotal + " " + Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
-        if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()) && !isEdgeLocation()){
+        if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice())
+                && !isEdgeLocation() && deliveryCharge <= 35){
             return 0;
         }
         return deliveryCharge;

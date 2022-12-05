@@ -118,9 +118,9 @@ public class AllItemsSearchFragment extends Fragment {
         trendingSearches.add(new Pair<>("pizza",R.drawable.ic_pizza));
         trendingSearches.add(new Pair<>("Dosa",R.drawable.ic_dosa));
         trendingSearches.add(new Pair<>("Chaat",R.drawable.ic_chaat));
-        trendingSearches.add(new Pair<>("Biryani",R.drawable.ic_biryani));
-        trendingSearches.add(new Pair<>("Thali",R.drawable.ic_thali));
         trendingSearches.add(new Pair<>("Chowmein",R.drawable.ic_chowmein));
+        trendingSearches.add(new Pair<>("Thali",R.drawable.ic_thali));
+        trendingSearches.add(new Pair<>("Biryani",R.drawable.ic_biryani));
         trendingSearches.add(new Pair<>("Paneer",R.drawable.ic_paneer));
         trendingSearches.add(new Pair<>("Cake",R.drawable.ic_cake));
         trendingSearches.add(new Pair<>("Sweets",R.drawable.ic_sweets_trendign));
