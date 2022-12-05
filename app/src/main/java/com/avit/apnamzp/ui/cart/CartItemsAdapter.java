@@ -61,6 +61,13 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
         int increasedPrice = Integer.parseInt(curr.getPricings().get(0).getPrice()) + Math.round(Integer.parseInt(curr.getPricings().get(0).getPrice()) * increasedPercentage);
         holder.increasePriceTextView.setText(PrettyStrings.getPriceInRupees((increasedPrice)));
 
+        if(curr.getVeg()){
+            holder.isVegImageView.setImageResource(R.drawable.veg_item_icon);
+        }
+        else {
+            holder.isVegImageView.setImageResource(R.drawable.ic_nonveg);
+        }
+
         holder.increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +121,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
 
         public TextView nameView,priceView,quantityView,increasePriceTextView;
         public LinearLayout increaseQuantityButton,decreaseQuantityButton;
-        public ImageView removeButton;
+        public ImageView removeButton, isVegImageView;
 
         public CartItemsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -126,6 +133,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
             removeButton = itemView.findViewById(R.id.removeButton);
             quantityView = itemView.findViewById(R.id.quantityText);
             increasePriceTextView = itemView.findViewById(R.id.increasedPrice);
+            isVegImageView = itemView.findViewById(R.id.is_veg_view);
 
         }
     }

@@ -6,10 +6,16 @@ public class GetDistanceResponse {
 
     private String distance;
     private String actualDistance;
+    private boolean edgeLocation;
 
-    public GetDistanceResponse(String distance, String actualDistance) {
+    public GetDistanceResponse(String distance, String actualDistance, boolean edgeLocation) {
         this.distance = distance;
         this.actualDistance = actualDistance;
+        this.edgeLocation = edgeLocation;
+    }
+
+    public boolean isEdgeLocation() {
+        return edgeLocation;
     }
 
     public GetDistanceResponse(String distance) {

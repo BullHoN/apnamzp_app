@@ -27,6 +27,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/is_veg_view"
                     android:scaleType="centerInside"
                     android:src="@drawable/veg_item_icon"
                     android:layout_width="20dp"

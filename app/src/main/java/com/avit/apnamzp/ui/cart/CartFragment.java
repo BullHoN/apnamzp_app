@@ -77,6 +77,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
     private Cart cart;
     private Gson gson;
     private String orderPaymentId;
+    private GetDistanceResponse distanceResponse;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -554,7 +555,10 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             binding.deliveryCharge.setText(PrettyStrings.getPriceInRupees(orderItem.getDeliveryCharge()));
         }
 
-        if(orderItem.getDeliveryCharge() != 0){
+        if(orderItem.isEdgeLocation()){
+            binding.freeDeliveryChargeText.setText("Offer not available at your location");
+        }
+        else if(orderItem.getDeliveryCharge() != 0){
             binding.freeDeliveryChargeText.setVisibility(View.VISIBLE);
 
             int min_items_for_free_delivery = Integer.parseInt(cart.getShopData().getPricingDetails().getMinFreeDeliveryPrice());
@@ -581,6 +585,9 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
         }
         else if(!cart.getShopData().isAllowCOD() && orderItem.getDeliveryService()){
+            dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
+        }
+        else if(orderItem.isEdgeLocation()){
             dialog.findViewById(R.id.cashOnDeliveryButton).setVisibility(View.GONE);
         }
         else {
@@ -769,7 +776,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     return;
                 }
 
-                GetDistanceResponse distanceResponse = response.body();
+                distanceResponse = response.body();
 
                 int deliveryCharge = Integer.parseInt(distanceResponse.getDistance());
 
@@ -785,6 +792,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 else {
                     orderItem.setDeliveryCharge(deliveryCharge + cartMetaData.getSlurgeCharges());
                 }
+
+                orderItem.setEdgeLocation(distanceResponse.isEdgeLocation());
 
                 orderItem.setActualDistance(distanceResponse.getActualDistance());
 

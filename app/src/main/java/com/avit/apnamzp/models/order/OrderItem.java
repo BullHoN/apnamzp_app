@@ -48,6 +48,7 @@ public class OrderItem {
     private String paymentId;
     private ProcessingFee processingFee;
     private String expectedDeliveryTime;
+    private boolean isEdgeLocation;
 
     public OrderItem(int itemTotal, int totalTaxesAndPackingCharge, int deliveryCharge, int totalDiscount, int totalPay, int itemOnTheWaySingleCost, Boolean isDeliveryService, String specialInstructions, Boolean isPaid, String shopID, String shopCategory, List<ShopItemData> orderItems, String userId, DeliveryAddress deliveryAddress, int offerDiscountedAmount, String offerCode, BillingDetails billingDetails, ShopData shopData, String _id, int orderStatus, Date createdAt, int orderType, String cancelReason, String assignedDeliveryBoy, List<String> itemsOnTheWay, String actualDistance, boolean itemsOnTheWayCancelled, boolean adminShopService, boolean userFeedBack, String paymentId, ProcessingFee processingFee, String expectedDeliveryTime) {
         this.itemTotal = itemTotal;
@@ -326,6 +327,14 @@ public class OrderItem {
         this.cancelReason = cancelReason;
     }
 
+    public boolean isEdgeLocation() {
+        return isEdgeLocation;
+    }
+
+    public void setEdgeLocation(boolean edgeLocation) {
+        isEdgeLocation = edgeLocation;
+    }
+
     public String getExpectedDeliveryTime() {
         return expectedDeliveryTime;
     }
@@ -567,7 +576,7 @@ public class OrderItem {
 
     public int getDeliveryCharge() {
 //        Log.i(TAG, "getDeliveryCharge: " + itemTotal + " " + Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
-        if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice())){
+        if(itemTotal >= Integer.parseInt(getShopData().getPricingDetails().getMinFreeDeliveryPrice()) && !isEdgeLocation()){
             return 0;
         }
         return deliveryCharge;
