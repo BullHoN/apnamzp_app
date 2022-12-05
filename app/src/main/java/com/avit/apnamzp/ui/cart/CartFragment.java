@@ -556,7 +556,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         }
 
         if(orderItem.isEdgeLocation()){
-            binding.freeDeliveryChargeText.setText("Offer not available at your location");
+            binding.freeDeliveryChargeText.setText("Free delivery offer not available at your location");
         }
         else if(orderItem.getDeliveryCharge() != 0){
             binding.freeDeliveryChargeText.setVisibility(View.VISIBLE);
