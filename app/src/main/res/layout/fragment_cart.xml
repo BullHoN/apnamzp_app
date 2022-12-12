@@ -686,7 +686,7 @@
                             android:id="@+id/free_delivery_Charge_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Add $20 more to get free delivery" />
+                            android:text="" />
 
                     </LinearLayout>
 

@@ -70,6 +70,11 @@ public class ShopItemData {
         this.imageURL = imageURL;
     }
 
+    public int totalPriceForItem(){
+        return Integer.parseInt(getPricings().get(0).getPrice()) * quantity
+                + Integer.parseInt(taxOrPackigingPrice) - Integer.parseInt(discount) * quantity;
+    }
+
     public boolean isBestSeller() {
         return isBestSeller;
     }

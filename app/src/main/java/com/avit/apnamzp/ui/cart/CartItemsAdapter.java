@@ -103,6 +103,19 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int priceAboveOnOffer = 0;
+                if(cart.getAppliedOffer() != null){
+                    priceAboveOnOffer = Integer.parseInt(cart.getAppliedOffer().getDiscountAbove());
+                }
+
+                int itemPrice = curr.totalPriceForItem();
+                if(cart.getTotalOfItems()- itemPrice <= priceAboveOnOffer){
+                    Toasty.error(context,"Please Remove The Offer",Toasty.LENGTH_LONG)
+                            .show();
+                    return;
+                }
+
                 cart.removeFromCart(context,curr.get_id());
                 cartItems.remove(curr);
                 updateBadgeInterface.updateBadge(cart.getCartSize());

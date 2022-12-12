@@ -243,6 +243,10 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 orderItem.setOfferDiscountedAmount(0);
                 orderItem.setOfferCode(null);
 
+                if(cart.getShopData().getAvailableOffers() != 0){
+                    binding.availableOffers.setText(cart.getShopData().getAvailableOffers() + " OFFERS AVAILABLE");
+                }
+
                 binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
                 binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 

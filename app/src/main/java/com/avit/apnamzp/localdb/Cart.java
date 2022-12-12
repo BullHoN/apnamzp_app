@@ -39,6 +39,7 @@ public class Cart {
         this.cartItems = shopItemDataList;
         this.shopData = shopData;
         this.itemsOnTheWay = new ArrayList<>();
+        appliedOffer = null;
         saveToSharedPref(context);
     }
 
@@ -47,6 +48,7 @@ public class Cart {
         this.shopID = shopID;
         this.shopData = shopData;
         this.itemsOnTheWay = new ArrayList<>();
+        appliedOffer = null;
         saveToSharedPref(context);
     }
 
