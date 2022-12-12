@@ -100,9 +100,17 @@ public class OrderDetailsFragment extends Fragment {
                         waitTime *= 35;
                         minutes = 35;
                     }
+                    else if(orderItem.getExpectedDeliveryTime().equals("25min")){
+                        waitTime *= 40;
+                        minutes = 40;
+                    }
                     else if(orderItem.getExpectedDeliveryTime().equals("30min")){
                         waitTime *= 45;
                         minutes = 45;
+                    }
+                    else if(orderItem.getExpectedDeliveryTime().equals("35min")){
+                        waitTime *= 50;
+                        minutes = 50;
                     }
                     else if(orderItem.getExpectedDeliveryTime().equals("40min")){
                         waitTime *= 55;

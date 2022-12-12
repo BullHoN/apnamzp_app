@@ -110,7 +110,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
                 }
 
                 int itemPrice = curr.totalPriceForItem();
-                if(cart.getTotalOfItems()- itemPrice <= priceAboveOnOffer){
+                if(priceAboveOnOffer > 0 && cart.getTotalOfItems()- itemPrice <= priceAboveOnOffer){
                     Toasty.error(context,"Please Remove The Offer",Toasty.LENGTH_LONG)
                             .show();
                     return;
