@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -145,21 +146,32 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         // Set All The Bill Details
 
-        int itemTotal = cart.getTotalOfItems();
-        binding.itemsTotal.setText("₹" + itemTotal + ".00");
-        orderItem.setItemTotal(itemTotal);
+        updateItemTotal();
 
         int totalDiscount = cart.getTotalDiscount();
-        binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(totalDiscount));
+        if(totalDiscount > 0){
+            binding.extraDiscountContainer.setVisibility(View.VISIBLE);
+            binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(totalDiscount));
+        }
+        else {
+            binding.extraDiscountContainer.setVisibility(View.GONE);
+        }
         binding.savedView.setText(PrettyStrings.getPriceInRupees(totalDiscount + calculateSavedAmount()));
         orderItem.setTotalDiscount(totalDiscount);
 
         int totalTaxesAndPackingCharge = cart.getTotalPackingCharge() + cart.getTotalTaxDeduction();
 
-        binding.taxes.setText("₹" + totalTaxesAndPackingCharge + ".00");
+        if(totalTaxesAndPackingCharge > 0){
+            binding.taxesContainer.setVisibility(View.VISIBLE);
+            binding.taxes.setText(PrettyStrings.getPriceInRupees(totalTaxesAndPackingCharge));
+        }
+        else {
+            binding.taxesContainer.setVisibility(View.GONE);
+        }
+
         orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
 
-        binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+        updateTotalItemsOnTheWayCost();
 
         binding.minPriceForFreeDelivery.setText(PrettyStrings.getPriceInRupees(orderItem.getShopData().getPricingDetails().getMinFreeDeliveryPrice()));
 
@@ -247,7 +259,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     binding.availableOffers.setText(cart.getShopData().getAvailableOffers() + " OFFERS AVAILABLE");
                 }
 
-                binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+                updateExtraDiscountView();
                 binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 
                 updateTheTotalPay();
@@ -427,7 +439,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         binding.itemsOnTheWay.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         orderItem.setItemsOnTheWay(cart.getItemsOnTheWay());
 
-        binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+        updateTotalItemsOnTheWayCost();
 
         cartItemsOnTheWayAdapter = new CartItemsOnTheWayAdapter(getContext(), cart.getItemsOnTheWay(), new CartItemsOnTheWayAdapter.ActionsOnTheWayInterface() {
             @Override
@@ -440,7 +452,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 orderItem.setItemsOnTheWay(newItemsOnTheWay);
                 updateTheTotalPay();
 
-                binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+                updateTotalItemsOnTheWayCost();
 
             }
         });
@@ -467,7 +479,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 orderItem.setItemsOnTheWay(newItemsOnTheWay);
 
                 binding.addItemsOnTheWay.setText("");
-                binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+                updateTotalItemsOnTheWayCost();
                 // hide the keyboard
 
                 updateTheTotalPay();
@@ -543,10 +555,20 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setItemsOnTheWay(newItemsOnTheWay);
 
         binding.addItemsOnTheWay.setText("");
-        binding.totalItemsToPickCost.setText("₹" + orderItem.getTotalFromItemsOnTheWay() + ".00");
+        updateTotalItemsOnTheWayCost();
         // hide the keyboard
 
         updateTheTotalPay();
+    }
+
+    private void updateTotalItemsOnTheWayCost(){
+        if(orderItem.getTotalFromItemsOnTheWay() > 0){
+            binding.totalItemsOnTheWayCostContainer.setVisibility(View.VISIBLE);
+            binding.totalItemsToPickCost.setText(PrettyStrings.getPriceInRupees(orderItem.getTotalFromItemsOnTheWay()));
+        }
+        else {
+            binding.totalItemsOnTheWayCostContainer.setVisibility(View.GONE);
+        }
     }
 
     private void updateTheTotalPay(){
@@ -863,9 +885,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             badge.setVisible(true);
             badge.setNumber(value);
 
-            int itemTotal = cart.getTotalOfItems();
-            orderItem.setItemTotal(itemTotal);
-            binding.itemsTotal.setText("₹" + orderItem.getItemTotal() + ".00");
+            updateItemTotal();
 
 
             int totalDiscount = cart.getTotalDiscount();
@@ -874,7 +894,14 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
             int totalTaxesAndPackingCharge = cart.getTotalPackingCharge() + cart.getTotalTaxDeduction();
             orderItem.setTotalTaxesAndPackingCharge(totalTaxesAndPackingCharge);
-            binding.taxes.setText("₹" + orderItem.getTotalTaxesAndPackingCharge() + ".00");
+
+            if(totalTaxesAndPackingCharge > 0){
+                binding.taxesContainer.setVisibility(View.VISIBLE);
+                binding.taxes.setText(PrettyStrings.getPriceInRupees(orderItem.getTotalTaxesAndPackingCharge()));
+            }
+            else {
+                binding.taxesContainer.setVisibility(View.GONE);
+            }
 
 
             if(cart.getAppliedOffer() != null) {
@@ -891,7 +918,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 }
             }
 
-            binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+            updateExtraDiscountView();
             binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 
         }
@@ -904,6 +931,27 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         updateTheTotalPay();
 
+    }
+
+    private void updateItemTotal(){
+        int itemTotal = cart.getTotalOfItems();
+        int increasedTotal = cart.getTotalItemsIncreasedPrice();
+
+        orderItem.setItemTotal(itemTotal);
+        binding.itemsTotal.setText(PrettyStrings.getPriceInRupees(orderItem.getItemTotal()));
+        binding.increasedItemsTotal.setText(PrettyStrings.getPriceInRupees(increasedTotal));
+        binding.increasedItemsTotal.setPaintFlags(binding.increasedItemsTotal.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+    }
+
+    private void updateExtraDiscountView(){
+        if(orderItem.getDiscountWithOffer() > 0){
+            binding.extraDiscountContainer.setVisibility(View.VISIBLE);
+            binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+        }
+        else {
+            binding.extraDiscountContainer.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -943,7 +991,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         }
 
-        binding.totalDiscount.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer()));
+        updateExtraDiscountView();
         binding.savedView.setText(PrettyStrings.getPriceInRupees(orderItem.getDiscountWithOffer() + calculateSavedAmount()));
 
         if(isServiceTypeDelivery) {

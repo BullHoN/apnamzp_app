@@ -196,7 +196,7 @@ public class OrderDetailsFragment extends Fragment {
                 OrderStatusAdapter orderStatusAdapter = new OrderStatusAdapter(getContext(), orderItem.getOrderStatus(),orderItem.getCancelReason(),orderItem.getBillingDetails().getDeliveryService(),orderItem.getAssignedDeliveryBoy(),orderItem.getPaid());
                 binding.orderStatus.setAdapter(orderStatusAdapter);
 
-                if(orderItem.getBillingDetails().getDeliveryService() && orderItem.getAssignedDeliveryBoy() != null && orderItem.getAssignedDeliveryBoy().length() > 0){
+                if(orderItem.getOrderStatus() < 6 && orderItem.getBillingDetails().getDeliveryService() && orderItem.getAssignedDeliveryBoy() != null && orderItem.getAssignedDeliveryBoy().length() > 0){
                     binding.deliveryBoyDetailsView.setVisibility(View.VISIBLE);
                     binding.deliverySathiPhoneNo.setText("+91 " + orderItem.getAssignedDeliveryBoy());
 
@@ -310,7 +310,7 @@ public class OrderDetailsFragment extends Fragment {
 
         binding.orderAt.setText(orderItem.getCreatedAt().toLocaleString());
 
-        if(!orderItem.isAdminShopService()){
+        if(!orderItem.isAdminShopService() && orderItem.getOrderStatus() < 6){
             binding.shopDetailsView.setVisibility(View.VISIBLE);
 
             binding.callShop.setOnClickListener(new View.OnClickListener() {

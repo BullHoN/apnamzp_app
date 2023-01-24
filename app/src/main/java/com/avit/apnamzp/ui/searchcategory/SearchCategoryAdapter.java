@@ -60,7 +60,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
         holder.averageDeliveryTimeView.setText(curr.getAverageDeliveryTime());
         holder.minOrderView.setText("₹" + curr.getPricingDetails().getMinOrderPrice());
 
-        if(curr.getShopTimings() != null){
+        if(curr.getShopTimings() != null && curr.getShopTimings().length() > 1){
             holder.shopTimingsView.setVisibility(View.VISIBLE);
             holder.shopTimingsView.setText("Shop Timings: " + curr.getShopTimings());
         }

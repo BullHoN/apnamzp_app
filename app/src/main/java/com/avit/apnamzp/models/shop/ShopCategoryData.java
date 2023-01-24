@@ -7,6 +7,12 @@ public class ShopCategoryData {
     private List<ShopItemData> shopItemDataList;
     public Boolean expanded;
 
+    public ShopCategoryData(String categoryName, List<ShopItemData> shopItemDataList,boolean expanded) {
+        this.categoryName = categoryName;
+        this.shopItemDataList = shopItemDataList;
+        this.expanded = expanded;
+    }
+
     public ShopCategoryData(String categoryName, List<ShopItemData> shopItemDataList) {
         this.categoryName = categoryName;
         this.shopItemDataList = shopItemDataList;

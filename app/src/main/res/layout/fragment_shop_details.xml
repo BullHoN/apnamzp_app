@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:isScrollContainer="true"
-    app:stickyHeader="@id/search_bar_view"
     app:stickyFooter="@id/cartView"
     tools:context=".ui.shopdetails.ShopDetailsFragment">
 

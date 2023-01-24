@@ -182,6 +182,9 @@ public class HomeFragment extends Fragment {
     private void setUpAnimation(){
         if(!HomeDisplayAnimation.isDisplayed()){
             String url = NetworkApi.SERVER_URL + "user/banner-animation";
+
+            Log.i(TAG, "setUpAnimation: " + url);
+
             binding.animation1.setAnimationFromUrl(url);
             binding.animation2.setAnimationFromUrl(url);
             binding.animation3.setAnimationFromUrl(url);

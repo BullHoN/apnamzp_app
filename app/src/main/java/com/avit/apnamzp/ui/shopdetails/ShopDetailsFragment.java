@@ -1,6 +1,7 @@
 package com.avit.apnamzp.ui.shopdetails;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -216,14 +217,35 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
             return;
         }
 
+//        new AsyncTask<List<ShopCategoryData>,Void,List<ShopCategoryData>>(){
+//
+//            @Override
+//            protected List<ShopCategoryData> doInBackground(List<ShopCategoryData>... lists) {
+//                List<ShopCategoryData> curr = lists[0];
+//
+//            }
+//
+//            @Override
+//            protected void onPostExecute(List<ShopCategoryData> shopCategoryData) {
+//                super.onPostExecute(shopCategoryData);
+//            }
+//        }.execute(viewModel.shopCategoryDataArrayList);
+
         ArrayList<ShopCategoryData> filteredList = new ArrayList<>();
         for(ShopCategoryData shopCategoryData : viewModel.shopCategoryDataArrayList){
+            List<ShopItemData> filteredItems = new ArrayList<>();
+
             for(ShopItemData shopItemData : shopCategoryData.getShopItemDataList()){
                 if(shopItemData.getName().toLowerCase().contains(query)){
-                    filteredList.add(shopCategoryData);
-                    break;
+                    filteredItems.add(shopItemData);
                 }
             }
+
+            if(filteredItems.size() > 0){
+                ShopCategoryData curr = new ShopCategoryData(shopCategoryData.getCategoryName(),filteredItems,true);
+                filteredList.add(curr);
+            }
+
         }
 
         shopDetailsAdapter.setItems(filteredList);

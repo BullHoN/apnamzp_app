@@ -2,6 +2,7 @@ package com.avit.apnamzp.localdb;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -129,6 +131,18 @@ public class Cart {
 
         editor.putString(SharedPrefNames.CART_NAME,null);
         editor.apply();
+    }
+
+    public int getTotalItemsIncreasedPrice(){
+        float increasedPercentage = getShopData().getIncreaseDisplayPricePercentage() * 0.01f;
+
+        int total = 0;
+        for(ShopItemData shopItemData : cartItems){
+            int currPrice = Integer.parseInt(shopItemData.getPricings().get(0).getPrice());
+            total += shopItemData.getQuantity() * (currPrice + Math.round(currPrice * increasedPercentage));
+        }
+
+        return total;
     }
 
     public int getTotalOfItems(){

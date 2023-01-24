@@ -65,7 +65,7 @@ public class ShopDetailsAdapter extends RecyclerView.Adapter<ShopDetailsAdapter.
             else curr.setExpanded(false);
         }
 
-        holder.categoryNameView.setText(curr.getCategoryName() + " (" + curr.getShopItemDataList().size() + ") ");
+        holder.categoryNameView.setText(curr.getCategoryName().toUpperCase() + " (" + curr.getShopItemDataList().size() + ") ");
 
         holder.menuItemsListView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         adapter = new ShopMenuItemsAdapter(context, shopCategoryDataList.get(position).getShopItemDataList(), new ShopMenuItemsAdapter.onAddButtonInterface() {
