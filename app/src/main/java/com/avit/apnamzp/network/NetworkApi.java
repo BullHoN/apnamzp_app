@@ -14,6 +14,7 @@ import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.models.pickanddrop.PickAndDropDetails;
+import com.avit.apnamzp.models.shop.DeliveryPricings;
 import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.ui.cart.GetDistanceResponse;
@@ -31,7 +32,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkApi {
-     String SERVER_URL = "http://192.168.1.4:5000/";
+     String SERVER_URL = "http://192.168.1.6:5000/";
 //     String SERVER_URL = "https://apnamzp.in/";
 
      @GET("/user/bannerImages")
@@ -43,10 +44,11 @@ public interface NetworkApi {
      @GET("/getShopItems/{itemsId}")
      Call<ArrayList<ShopCategoryData>> getShopData(@Path("itemsId") String itemsId);
 
-     @GET("/getDistance")
+     @POST("/getDistance")
      Call<GetDistanceResponse> getDistance(@Query("destinations") String destinations,
                                            @Query("origins") String origins,
-                                           @Query("key") String key);
+                                           @Query("key") String key,
+                                           @Body DeliveryPricings deliveryPricings);
 
      @GET("/getOffers")
      Call<List<OfferItem>> getOffers(@Query("onlyAdmin") Boolean onlyAdmin,

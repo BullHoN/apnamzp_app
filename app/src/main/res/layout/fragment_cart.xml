@@ -305,7 +305,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="8dp">
 
                     <LinearLayout
                         android:id="@+id/addCouponView"
@@ -318,15 +319,25 @@
                             android:layout_height="30dp"
                             android:src="@drawable/ic_short_offer" />
 
-                        <TextView
-                            android:textSize="18sp"
-                            android:id="@+id/availableOffers"
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/offer_shimmer_container"
+                            app:shimmer_intensity="1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/roboto_bold"
-                            android:gravity="center"
-                            android:text="Apply Coupon"
-                            android:textColor="@color/primaryColor" />
+                            android:layout_height="wrap_content" >
+
+                            <TextView
+                                android:textSize="20sp"
+                                android:id="@+id/availableOffers"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/roboto_bold"
+                                android:gravity="center"
+                                android:text="Apply Coupon"
+                                android:textColor="@color/successColor" />
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
                     </LinearLayout>
 

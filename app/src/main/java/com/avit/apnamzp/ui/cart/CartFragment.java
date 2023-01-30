@@ -130,6 +130,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             }
         });
 
+        binding.offerShimmerContainer.startShimmer();
         binding.openCouponFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -790,7 +791,8 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         Retrofit retrofit = RetrofitClient.getInstance();
 
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
-        Call<GetDistanceResponse> call = networkApi.getDistance(destinationAddress,originAddress,"AIzaSyCjGoldXj1rERZHuTyT9iebSRFc_O3YHX4");
+
+        Call<GetDistanceResponse> call = networkApi.getDistance(destinationAddress,originAddress,"AIzaSyCjGoldXj1rERZHuTyT9iebSRFc_O3YHX4",cart.getShopData().getDeliveryPricings());
         call.enqueue(new Callback<GetDistanceResponse>() {
             @Override
             public void onResponse(Call<GetDistanceResponse> call, Response<GetDistanceResponse> response) {
@@ -857,7 +859,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
             @Override
             public void onFailure(Call<GetDistanceResponse> call, Throwable t) {
-                Toasty.error(getContext(),"Some Error Occured",Toasty.LENGTH_SHORT)
+                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
                         .show();
                 Navigation.findNavController(binding.getRoot()).popBackStack();
             }

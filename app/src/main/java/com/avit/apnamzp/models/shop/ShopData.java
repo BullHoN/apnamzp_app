@@ -32,11 +32,11 @@ public class ShopData {
     private String phoneNO;
     private boolean isNewShop;
     private String shopDiscountTag;
-
+    private DeliveryPricings deliveryPricings;
 
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup, ProcessingFee processingFees,int availableOffers, boolean allowSelfPickupCOD,
-                    String phoneNO, boolean isNewShop, String shopDiscountTag) {
+                    String phoneNO, boolean isNewShop, String shopDiscountTag, DeliveryPricings deliveryPricings) {
         this.name = name;
         this.tagLine = tagLine;
         this.pricingDetails = pricingDetails;
@@ -64,6 +64,7 @@ public class ShopData {
         this.phoneNO = phoneNO;
         this.isNewShop = isNewShop;
         this.shopDiscountTag = shopDiscountTag;
+        this.deliveryPricings = deliveryPricings;
     }
 
     public ShopData(ShopData shopData) {
@@ -94,6 +95,7 @@ public class ShopData {
         this.phoneNO = shopData.phoneNO;
         this.isNewShop = shopData.isNewShop;
         this.shopDiscountTag = shopData.shopDiscountTag;
+        this.deliveryPricings = shopData.deliveryPricings;
     }
 
     public ShopData(String name, String tagLine, ShopCostData pricingDetails, ShopAddressData addressData, Boolean isOpen, String averageDeliveryTime, String bannerImage, String averageRatings, String shopType, String reviews, String menuItemsID, String taxPercentage, String _id, boolean allowCheckout, boolean adminShopService, int increaseDisplayPricePercentage, String fssaiCode, boolean allowProcessingFees, String shopTimings, boolean allowCOD, boolean allowSelfPickup) {
@@ -279,6 +281,10 @@ public class ShopData {
         this.shopType = shopType;
         this.reviews = reviews;
         this.menuItemsID = menuItemsID;
+    }
+
+    public DeliveryPricings getDeliveryPricings() {
+        return deliveryPricings;
     }
 
     public boolean isNewShop() {
