@@ -3,6 +3,7 @@ package com.avit.apnamzp.ui.cart;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +28,13 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
 
     public interface updateBadge{
         void updateBadge(int val);
+        void insertNewItem(ShopItemData shopItemData);
     }
 
     private Context context;
     private List<ShopItemData> cartItems;
     private updateBadge updateBadgeInterface;
+    private String TAG = "CartItemsAdapterTag";
 
     public CartItemsAdapter(Context context, List<ShopItemData> cartItems,updateBadge updateBadgeInterface) {
         this.context = context;
@@ -71,9 +74,8 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
         holder.increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cart.updateAnItem(context,curr.get_id(),1);
-                updateBadgeInterface.updateBadge(cart.getCartSize());
-                notifyItemChanged(position);
+//                cart.updateAnItem(context,curr.get_id(),1);
+                updateBadgeInterface.insertNewItem(curr);
             }
         });
 
@@ -86,12 +88,13 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
                     priceAboveOnOffer = Integer.parseInt(cart.getAppliedOffer().getDiscountAbove());
                 }
 
-                cart.justUpdate(context,curr.get_id(),-1);
+                cart.updateCartItem(context,curr,curr.getPricings().get(0), -1);
 
                 if(cart.getTotalOfItems() <= priceAboveOnOffer){
                     Toasty.warning(context,"Remove The Offer To Decrease Quantity",Toasty.LENGTH_SHORT)
                             .show();
-                    cart.justUpdate(context,curr.get_id(),1);
+//                    cart.updateCartItem(context,curr,curr.getPricings().get(0), -1);
+//                    cart.justUpdate(context,curr.get_id(),1);
                     return;
                 }
 
@@ -116,13 +119,19 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
                     return;
                 }
 
-                cart.removeFromCart(context,curr.get_id());
+                cart.removeFromCart(context,curr.get_id(),curr.getPricings().get(0).getType());
                 cartItems.remove(curr);
                 updateBadgeInterface.updateBadge(cart.getCartSize());
                 notifyDataSetChanged();
             }
         });
 
+    }
+
+    public void updateCartItems(){
+        Cart cart = Cart.getInstance(context);
+        cartItems = cart.getCartItems();
+        notifyDataSetChanged();
     }
 
     @Override

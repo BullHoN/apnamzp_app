@@ -9,7 +9,7 @@ import java.util.List;
 public class ShopItemData {
     private String name;
     private String _id;
-    private List<ShopPricingData> pricings;
+    private List<ShopPricingData> pricings, allPricings;
     private String imageURL;
     public int quantity;
     public String taxOrPackigingPrice;
@@ -31,6 +31,7 @@ public class ShopItemData {
         this.isVeg = shopItemData.isVeg;
         this.availableTimings = shopItemData.availableTimings;
         this.isBestSeller = shopItemData.isBestSeller;
+        this.allPricings = shopItemData.allPricings;
     }
 
     public ShopItemData(String name, String _id, List<ShopPricingData> pricings, String imageURL, int quantity,
@@ -68,6 +69,14 @@ public class ShopItemData {
         this.name = name;
         this.pricings = pricings;
         this.imageURL = imageURL;
+    }
+
+    public void setAllPricings(List<ShopPricingData> allPricings) {
+        this.allPricings = allPricings;
+    }
+
+    public List<ShopPricingData> getAllPricings() {
+        return allPricings;
     }
 
     public int totalPriceForItem(){

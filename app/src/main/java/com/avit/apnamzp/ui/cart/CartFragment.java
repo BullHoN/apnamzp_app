@@ -36,9 +36,11 @@ import com.avit.apnamzp.models.order.ProcessingFee;
 import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.avit.apnamzp.models.shop.ShopPricingData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.ui.payment.OnlinePaymentActivity;
+import com.avit.apnamzp.ui.shopdetails.ShopItemsTypeDialogAdapter;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.android.gms.maps.model.LatLng;
@@ -882,6 +884,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
 
         Cart cart = Cart.getInstance(getContext());
+        cartItemsAdapter.updateCartItems();
 
         if(value != 0) {
             badge.setVisible(true);
@@ -932,6 +935,40 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         }
 
         updateTheTotalPay();
+
+    }
+
+    @Override
+    public void insertNewItem(ShopItemData shopItemData) {
+        if(shopItemData.getAllPricings().size() == 1){
+            cart.updateCartItem(getContext(),shopItemData,shopItemData.getPricings().get(0),1);
+            updateBadge(cart.getCartSize());
+            cartItemsAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_choosedishtype);
+
+        TextView titleView =  bottomSheetDialog.findViewById(R.id.itemName);
+        titleView.setText("Choose The Type For " + shopItemData.getName());
+
+
+        RecyclerView itemPricingType = bottomSheetDialog.findViewById(R.id.pricingType);
+        itemPricingType.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        ShopItemsTypeDialogAdapter adapter = new ShopItemsTypeDialogAdapter(getContext(), shopItemData.getAllPricings(), new ShopItemsTypeDialogAdapter.onPriceSelectedInterface() {
+            @Override
+            public void selectedPrice(ShopPricingData shopPricingData) {
+                cart.updateCartItem(getContext(),shopItemData,shopPricingData,1);
+                updateBadge(cart.getCartSize());
+                cartItemsAdapter.notifyDataSetChanged();
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        itemPricingType.setAdapter(adapter);
+        bottomSheetDialog.show();
 
     }
 

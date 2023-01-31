@@ -303,6 +303,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 selectedPrice.add(shopPricingData);
 
                 ShopItemData cartItem = new ShopItemData(shopItemData);
+                cartItem.setAllPricings(cartItem.getPricings());
                 cartItem.setPricings(selectedPrice);
                 cartItem.setQuantity(cartItem.getQuantity()+1);
 

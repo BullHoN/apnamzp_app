@@ -108,7 +108,7 @@ public class ShopMenuItemsAdapter extends RecyclerView.Adapter<ShopMenuItemsAdap
                 holder.addButton.setCheckable(false);
                 holder.addButton.setFocusable(false);
 
-                cart.removeFromCart(context, curr.get_id());
+                cart.removeFromCart(context, curr.get_id(),curr.getPricings().get(0).getType());
                 onAddButtonInterface.removeTheBatch();
                 return;
             }

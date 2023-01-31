@@ -3,6 +3,7 @@ package com.avit.apnamzp.localdb;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.avit.apnamzp.models.shop.ShopPricingData;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.gson.Gson;
 
@@ -71,12 +73,13 @@ public class Cart {
         return true;
     }
 
-    public void removeFromCart(Context context,String itemID){
+    public void removeFromCart(Context context,String itemID, String pricingType){
         ArrayList<ShopItemData> newCartItems = new ArrayList<>();
         for(ShopItemData shopItemData : cartItems){
-            if(!shopItemData.get_id().equals(itemID)) newCartItems.add(shopItemData);
+            if(!(shopItemData.get_id().equals(itemID) && shopItemData.getPricings().get(0).getType().equals(pricingType))) newCartItems.add(shopItemData);
         }
 
+        Log.i("CartItemsAdapterTag", "removeFromCart: " + newCartItems.size());
         this.cartItems = newCartItems;
         saveToSharedPref(context);
     }
@@ -85,7 +88,7 @@ public class Cart {
         for(ShopItemData shopItemData : cartItems){
             if(shopItemData.get_id().equals(itemID)){
                 if(shopItemData.quantity == 1 && val == -1){
-                    removeFromCart(context,itemID);
+                    removeFromCart(context,itemID,shopItemData.getPricings().get(0).getType());
                     return;
                 }
                 shopItemData.quantity += val;
@@ -107,6 +110,36 @@ public class Cart {
         }
         saveToSharedPref(context);
     }
+
+    public void updateCartItem(Context context, ShopItemData curr, ShopPricingData pricingData, int val){
+        boolean isNew = true;
+        String itemID = curr.get_id();
+        String pricingType = pricingData.getType();
+        for(ShopItemData shopItemData : cartItems){
+            if(shopItemData.get_id().equals(itemID) && shopItemData.getPricings().get(0).getType().equals(pricingType)){
+                if(shopItemData.quantity == 1 && val == -1){
+                    removeFromCart(context,itemID,pricingType);
+                    return;
+                }
+                shopItemData.quantity += val;
+                isNew = false;
+                break;
+            }
+        }
+
+        if(isNew){
+            ShopItemData newItem = new ShopItemData(curr);
+            List<ShopPricingData> newPricing = new ArrayList<>();
+            newPricing.add(pricingData);
+            newItem.setPricings(newPricing);
+            newItem.setQuantity(1);
+            cartItems.add(newItem);
+        }
+
+        saveToSharedPref(context);
+    }
+
+
 
     public ShopItemData isPresentInCart(String itemID){
         for(ShopItemData shopItemData : cartItems){
