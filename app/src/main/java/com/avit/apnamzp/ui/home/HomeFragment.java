@@ -34,6 +34,7 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.utils.CheckNetwork;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.HomeDisplayAnimation;
 import com.avit.apnamzp.utils.InfoConstats;
@@ -369,8 +370,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<ServiceStatus> call, Response<ServiceStatus> response) {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -383,8 +383,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ServiceStatus> call, Throwable t) {
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_LONG)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

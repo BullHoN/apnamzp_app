@@ -26,6 +26,7 @@ import com.avit.apnamzp.MainActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentGetLocationBinding;
 import com.avit.apnamzp.localdb.User;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Result;
@@ -143,8 +144,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                 String landMark = binding.landMark.getText().toString();
 
                 if(houseNo.length() == 0) {
-                    Toasty.warning(getContext(),"Please Enter Your House No/Building Name",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.warningMessage(getContext(),"Please Enter Your House No/Building Name",Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -157,7 +157,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                     User.setLandMark(getContext(),landMark);
                 }
 
-                Toasty.success(getContext(),"Address Saved Successfully",Toasty.LENGTH_SHORT).show();
+                DisplayMessage.successMessage(getContext(),"Address Saved Successfully",Toasty.LENGTH_SHORT);
                 Navigation.findNavController(root).popBackStack();
             }
         });
@@ -326,8 +326,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-                        Toasty.error(getContext(),"Permission Denied",Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.errorMessage(getContext(),"Permission Denied",Toasty.LENGTH_SHORT);
                     }
 
                     @Override

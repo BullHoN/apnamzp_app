@@ -12,6 +12,7 @@ import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.ArrayList;
@@ -53,8 +54,7 @@ public class ShopDetailsViewModel extends ViewModel {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
 
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_LONG)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -63,8 +63,7 @@ public class ShopDetailsViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<OfferItem>> call, Throwable t) {
-                Toasty.error(context,t.getMessage(),Toasty.LENGTH_LONG)
-                        .show();
+                DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 
@@ -84,8 +83,7 @@ public class ShopDetailsViewModel extends ViewModel {
             public void onResponse(Call<ShopData> call, Response<ShopData> response) {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -94,8 +92,7 @@ public class ShopDetailsViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ShopData> call, Throwable t) {
-                Toasty.error(context,t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 
@@ -116,8 +113,7 @@ public class ShopDetailsViewModel extends ViewModel {
 
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -128,8 +124,7 @@ public class ShopDetailsViewModel extends ViewModel {
             @Override
             public void onFailure(Call<ArrayList<ShopCategoryData>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
-                Toasty.error(context,t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

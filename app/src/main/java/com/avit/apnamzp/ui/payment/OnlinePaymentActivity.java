@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 
 import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
@@ -15,6 +16,7 @@ import com.avit.apnamzp.models.payment.OnlinePaymentOrderIdPostData;
 import com.avit.apnamzp.models.payment.PaymentMetadata;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.google.gson.Gson;
 import com.razorpay.Checkout;
@@ -78,23 +80,20 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
             checkout.open(this,options);
         }
         catch(Exception e){
-            Toasty.error(this,"Error in payment " + e.getMessage(),Toasty.LENGTH_SHORT)
-                    .show();
+            DisplayMessage.errorMessage(this,"Error in pyament " + e.getMessage(),Toasty.LENGTH_SHORT);
         }
 
     }
 
     @Override
     public void onPaymentSuccess(String s) {
-        Toasty.success(getApplicationContext(),"Payment is successfull",Toasty.LENGTH_SHORT)
-                .show();
+        DisplayMessage.successMessage(getApplicationContext(),"Payment is Successfull",Toasty.LENGTH_SHORT);
         checkout(s);
     }
 
     @Override
     public void onPaymentError(int i, String s) {
-        Toasty.error(getApplicationContext(),"Payment failed",Toasty.LENGTH_SHORT)
-                .show();
+        DisplayMessage.errorMessage(getApplicationContext(),"Payment Failed",Toasty.LENGTH_SHORT);
         finish();
     }
 
@@ -107,8 +106,8 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<NetworkResponse>() {
             @Override
             public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
-                Toasty.success(getApplicationContext(),"checkout successfull",Toasty.LENGTH_SHORT)
-                        .show();
+
+                DisplayMessage.successMessage(getApplicationContext(),"Checkout Successfull",Toasty.LENGTH_SHORT);
 
                 Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -121,8 +120,7 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
 
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
-                Toasty.error(getApplicationContext(),"Some Error Occured",Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getApplicationContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

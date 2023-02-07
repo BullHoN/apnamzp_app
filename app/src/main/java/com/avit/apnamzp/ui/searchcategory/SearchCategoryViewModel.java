@@ -10,6 +10,7 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.ArrayList;
@@ -47,15 +48,14 @@ public class SearchCategoryViewModel extends ViewModel {
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                 }
 
             }
 
             @Override
             public void onFailure(Call<ArrayList<ShopData>> call, Throwable t) {
-                Log.i(TAG, "onFailure: " + t.getMessage());
+                DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

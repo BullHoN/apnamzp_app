@@ -17,6 +17,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentOffersBinding;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.offer.OfferItem;
+import com.avit.apnamzp.utils.DisplayMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public class OffersFragment extends Fragment implements OffersAdapter.applyOffer
         Cart cart = Cart.getInstance(getContext());
 
         if(cart.getTotalOfItems() - cart.getTotalDiscount() <= Integer.parseInt(offerItem.getDiscountAbove())){
-            Toasty.warning(getContext(),"Items Total Must Be Greater Than Rs." + offerItem.getDiscountAbove()).show();
+            DisplayMessage.warningMessage(getContext(),"Items Total Must Be Greater Than Rs." + offerItem.getDiscountAbove(),Toasty.LENGTH_SHORT);
             return;
         }
 

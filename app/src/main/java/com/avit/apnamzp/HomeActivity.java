@@ -22,6 +22,7 @@ import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -137,14 +138,14 @@ public class HomeActivity extends AppCompatActivity  {
                 }
                 else {
                     NetworkResponse errorResponse = response.body();
-                    Toasty.error(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getApplicationContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                 }
             }
 
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 Log.e(TAG, "onFailure: token not saved", t);
+                DisplayMessage.errorMessage(getApplicationContext(),"onFailure: token not saved",Toasty.LENGTH_SHORT);
             }
         });
 

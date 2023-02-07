@@ -10,6 +10,7 @@ import com.avit.apnamzp.models.BannerData;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.ArrayList;
@@ -45,8 +46,7 @@ public class HomeViewModel extends ViewModel {
             public void onResponse(Call<List<BannerData>> call, Response<List<BannerData>> response) {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 

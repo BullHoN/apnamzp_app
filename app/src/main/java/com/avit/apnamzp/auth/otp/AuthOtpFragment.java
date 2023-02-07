@@ -18,6 +18,7 @@ import com.avit.apnamzp.dialogs.LoadingDialog;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.goodiebag.pinview.Pinview;
 import com.mukesh.OnOtpCompletionListener;
@@ -98,13 +99,11 @@ public class AuthOtpFragment extends Fragment {
                 loadingDialog.dismissDialog();
 
                 if(response.isSuccessful()){
-                    Toasty.success(getContext(),"Otp Successfully send",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.successMessage(getContext(),"Otp Successfully Send",Toasty.LENGTH_SHORT);
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(), errorResponse.getDesc(), Toasty.LENGTH_SHORT);
                 }
 
             }
@@ -112,8 +111,7 @@ public class AuthOtpFragment extends Fragment {
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
     }
@@ -131,20 +129,18 @@ public class AuthOtpFragment extends Fragment {
                 if(response.isSuccessful()){
                     NetworkResponse successResponse = response.body();
                     if(successResponse.isSuccess()){
-                        Toasty.success(getContext(),"Successfully Verified",Toasty.LENGTH_SHORT)
-                                .show();
+
+                        DisplayMessage.successMessage(getContext(),"Successfully Verified",Toasty.LENGTH_SHORT);
 
                         Navigation.findNavController(binding.getRoot()).navigate(R.id.action_authOtpFragment_to_authProfileFragment,getArguments());
                     }
                     else {
-                        Toasty.error(getContext(),"Incorrect OTP",Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.errorMessage(getContext(),"Incorrect OTP",Toasty.LENGTH_SHORT);
                     }
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(), errorResponse.getDesc(), Toasty.LENGTH_SHORT);
                 }
 
 
@@ -153,8 +149,7 @@ public class AuthOtpFragment extends Fragment {
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
     }

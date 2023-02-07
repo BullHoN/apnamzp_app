@@ -10,6 +10,7 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.google.gson.Gson;
 
@@ -47,16 +48,14 @@ public class OrdersViewModel extends ViewModel {
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<OrderItem>> call, Throwable t) {
-                Toasty.error(context,t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
     }

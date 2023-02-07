@@ -41,6 +41,7 @@ import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.ui.payment.OnlinePaymentActivity;
 import com.avit.apnamzp.ui.shopdetails.ShopItemsTypeDialogAdapter;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.PrettyStrings;
 import com.google.android.gms.maps.model.LatLng;
@@ -398,8 +399,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toasty.error(getContext(),"Order Not Placed",Toasty.LENGTH_LONG)
-                .show();
+                DisplayMessage.errorMessage(getContext(),"Order Not Placed",Toasty.LENGTH_SHORT);
             }
         });
 
@@ -468,7 +468,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 // TODO: validate items
                 String itemOnTheWay = binding.addItemsOnTheWay.getText().toString();
                 if(itemOnTheWay.length() < 3){
-                    Toasty.error(getContext(),"Enter Valid Items",Toasty.LENGTH_SHORT).show();
+                    DisplayMessage.errorMessage(getContext(),"Enter Valid Items",Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -641,13 +641,11 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 //                        .show();
 
                 //  Price will increase dialog
-//
-                Toasty.warning(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG)
-                        .show();
+
+                DisplayMessage.warningMessage(getContext(),"Extra Charges Upto 2% Will Be Applied If Paid Online",Toasty.LENGTH_LONG);
 
                 if(orderItem.getItemsOnTheWay().size() > 0){
-                    Toasty.error(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT);
                     return;
                 }
                 getOrderPaymentId();
@@ -671,8 +669,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             public void onResponse(Call<PaymentMetadata> call, Response<PaymentMetadata> response) {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -721,8 +718,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
             @Override
             public void onFailure(Call<CartMetaData> call, Throwable t) {
-                Toasty.error(getContext(),"Some Error Occurred",Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
                 // TODO: do not allow to add items on the way
             }
         });
@@ -762,8 +758,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
 
                 if(response.isSuccessful()){
-                    Toasty.success(getContext(),"Order Successfull",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.successMessage(getContext(),"Order Successfull",Toasty.LENGTH_SHORT);
 //                      change this
                     updateBadge(0);
 
@@ -771,17 +766,14 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                 }
 
             }
 
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
-                Log.i(TAG, "onFailure: " +  t.getMessage());
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
     }
@@ -801,8 +793,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -811,8 +802,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 int deliveryCharge = Integer.parseInt(distanceResponse.getDistance());
 
                 if(deliveryCharge == -1){
-                    Toasty.error(getContext(),"Service Not Available At This Long Distance",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Service Not Available At This Long Distance",Toasty.LENGTH_SHORT);
                     binding.paymentButton.setEnabled(false);
                 }
 
@@ -861,8 +851,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
             @Override
             public void onFailure(Call<GetDistanceResponse> call, Throwable t) {
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
                 Navigation.findNavController(binding.getRoot()).popBackStack();
             }
         });

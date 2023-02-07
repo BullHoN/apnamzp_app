@@ -18,6 +18,7 @@ import com.avit.apnamzp.R;
 import com.avit.apnamzp.localdb.Cart;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.avit.apnamzp.ui.shopdetails.ShopMenuItemsAdapter;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.PrettyStrings;
 
 import java.util.List;
@@ -91,8 +92,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
                 cart.updateCartItem(context,curr,curr.getPricings().get(0), -1);
 
                 if(cart.getTotalOfItems() <= priceAboveOnOffer){
-                    Toasty.warning(context,"Remove The Offer To Decrease Quantity",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.warningMessage(context,"Remove The Offer To Decrease Quantity",Toasty.LENGTH_SHORT);
 //                    cart.updateCartItem(context,curr,curr.getPricings().get(0), -1);
 //                    cart.justUpdate(context,curr.get_id(),1);
                     return;
@@ -114,8 +114,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.Cart
 
                 int itemPrice = curr.totalPriceForItem();
                 if(priceAboveOnOffer > 0 && cart.getTotalOfItems()- itemPrice <= priceAboveOnOffer){
-                    Toasty.error(context,"Please Remove The Offer",Toasty.LENGTH_LONG)
-                            .show();
+                    DisplayMessage.errorMessage(context,"Please Remove The Offer",Toasty.LENGTH_LONG);
                     return;
                 }
 

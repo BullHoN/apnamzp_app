@@ -18,6 +18,7 @@ import com.avit.apnamzp.models.feedback.Feedback;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 
 import es.dmoral.toasty.Toasty;
@@ -93,13 +94,11 @@ public class FeedbackFragment extends Fragment {
             public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
-                Toasty.success(getContext(),"Thanks for providing feedback",Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.successMessage(getContext(),"Thanks for providing feedback",Toasty.LENGTH_SHORT);
                 Navigation.findNavController(binding.getRoot()).navigate(R.id.action_feedbackFragment_to_ordersFragment);
             }
 

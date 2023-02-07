@@ -30,6 +30,7 @@ import com.avit.apnamzp.models.cart.CartItemData;
 import com.avit.apnamzp.models.pickanddrop.PickAndDropDetails;
 import com.avit.apnamzp.models.pickanddrop.PickAndDropViewModel;
 import com.avit.apnamzp.models.shop.ShopItemData;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.avit.apnamzp.utils.Validation;
 import com.bumptech.glide.Glide;
@@ -199,21 +200,18 @@ public class PickUpAndDropFragment extends Fragment {
                 if(!(Validation.validateNormalData(pickUpLocation)
                 && Validation.validateNormalData(dropOffLocation) && Validation.validatePhoneNo(pickUpPhoneNo)
                 && Validation.validatePhoneNo(dropOffPhoneNo))){
-                    Toasty.error(getContext(),"Please Enter All Data",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Please Enter All Data",Toasty.LENGTH_SHORT);
                     return;
                 }
 
                 if(selectedOption == 0 && !Validation.validateNormalData(shopName)){
-                    Toasty.error(getContext(),"Please Enter Shop Name",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Please Enter Shop Name",Toasty.LENGTH_SHORT);
                     binding.storeNameView.setError("Please Enter Valid ShopName");
                     return;
                 }
 
                 if(pickAndDropAdapter.getAllItems().size() == 0){
-                    Toasty.error(getContext(),"Please Enter At Least One Item",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Please Enter At Least One Item",Toasty.LENGTH_SHORT);
                     binding.menuItemInput.setError("Please Add / Press Submit On Keyboard");
                     return;
                 }

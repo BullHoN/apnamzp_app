@@ -24,6 +24,7 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.order.OrderItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.avit.apnamzp.utils.PrettyStrings;
@@ -333,8 +334,7 @@ public class OrderDetailsFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_LONG)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -344,8 +344,7 @@ public class OrderDetailsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_LONG)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.avit.apnamzp.auth.AuthActivity;
 import com.avit.apnamzp.localdb.User;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,8 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,MainActivity.this,APP_UPDATE_CODE);
                     } catch (IntentSender.SendIntentException e) {
                         e.printStackTrace();
-                        Toasty.error(getApplicationContext(),"Some Error Occurred While Updating Your App",Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.errorMessage(getApplicationContext(),"Some Error Occurred While Updating Your App",Toasty.LENGTH_SHORT);
                     }
                 }
                 else {
@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,MainActivity.this,APP_UPDATE_CODE);
                     } catch (IntentSender.SendIntentException e) {
                         e.printStackTrace();
-                        Toasty.error(getApplicationContext(),"Some Error Occurred While Updating Your App",Toasty.LENGTH_SHORT)
-                                .show();
+
+                        DisplayMessage.errorMessage(getApplicationContext(),"Some Error Occurred While Updating Your App",Toasty.LENGTH_SHORT);
                     }
                 }
             }
@@ -118,12 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode == APP_UPDATE_CODE){
             if(resultCode != RESULT_OK){
-                Toasty.error(getApplicationContext(),"Update Failed Please Try Again",Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getApplicationContext(),"Update Failed Please Try Again",Toasty.LENGTH_SHORT);
             }
             else if(requestCode == RESULT_OK){
-                Toasty.success(getApplicationContext(),"Update Was Successfull, Please Restart The App",Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.successMessage(getApplicationContext(),"Update Was Successfull, Please Restart The App",Toasty.LENGTH_SHORT);
                 moveToNextActivity();
 
             }

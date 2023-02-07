@@ -17,6 +17,7 @@ import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 
 import es.dmoral.toasty.Toasty;
@@ -50,22 +51,20 @@ public class AuthProfileFragment extends Fragment {
                 String conformPassword = binding.conformPasswordView.getText().toString();
 
                 if(name.length() <= 1){
-                    Toasty.error(getContext(),"Enter Valid Name",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Enter Valid Name",Toasty.LENGTH_SHORT);
+
                     binding.nameView.setError("Enter Valid Name");
                     return;
                 }
 
                 if(password.length() < 5){
-                    Toasty.error(getContext(),"Too Short Password",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Too Short Password",Toasty.LENGTH_SHORT);
                     binding.passwordView.setError("Too Short Message");
                     return;
                 }
 
                 if(!password.equals(conformPassword)){
-                    Toasty.error(getContext(),"Passwords Do Not Match",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Passwords Do Not Match",Toasty.LENGTH_SHORT);
                     binding.conformPasswordView.setError("Passwords Do Not Match");
                     return;
                 }
@@ -100,8 +99,7 @@ public class AuthProfileFragment extends Fragment {
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(), errorResponse.getDesc(), Toasty.LENGTH_SHORT);
                 }
 
             }
@@ -109,8 +107,7 @@ public class AuthProfileFragment extends Fragment {
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

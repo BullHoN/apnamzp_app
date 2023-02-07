@@ -20,6 +20,7 @@ import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.google.gson.Gson;
@@ -53,15 +54,13 @@ public class AuthHomeFragment extends Fragment {
                 String phoneNo = binding.phoneNo.getText().toString();
                 String password = binding.passwordView.getText().toString();
                 if(!isPhoneNoValid(phoneNo)){
-                    Toasty.error(getContext(),"Invalid Phone Number",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Invalid Phone Number",Toasty.LENGTH_SHORT);
                     return;
                 }
 
                 if(binding.passwordView.getVisibility() == View.VISIBLE){
                     if(password.length() == 0){
-                        Toasty.error(getContext(),"Enter Password",Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.errorMessage(getContext(),"Enter Password",Toasty.LENGTH_SHORT);
                         return;
                     }
                     loadingDialog.startLoadingDialog();
@@ -80,8 +79,7 @@ public class AuthHomeFragment extends Fragment {
             public void onClick(View view) {
                 String phoneNo = binding.phoneNo.getText().toString();
                 if(!isPhoneNoValid(phoneNo)){
-                    Toasty.error(getContext(),"Invalid Phone Number",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),"Invalid Phone Number",Toasty.LENGTH_SHORT);
                     return;
                 }
                 Bundle bundle = new Bundle();
@@ -116,21 +114,18 @@ public class AuthHomeFragment extends Fragment {
                 if(response.isSuccessful()){
                     NetworkResponse successResponse = response.body();
                     if(successResponse.isSuccess()){
-                        Toasty.normal(getContext(),"OTP Sended",Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.normalMessage(getContext(),"Otp Sended",Toasty.LENGTH_SHORT);
                     }
                 }
                 else {
                     NetworkResponse errorResponse = response.body();
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                 }
             }
 
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
     }
@@ -153,8 +148,7 @@ public class AuthHomeFragment extends Fragment {
                     }
 
                     if(networkResponse.isSuccess()){
-                        Toasty.success(getContext(),"Login Successfull",Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.successMessage(getContext(),"Login Successfull",Toasty.LENGTH_SHORT);
                         loadingDialog.dismissDialog();
 
                         String userName = networkResponse.getData();
@@ -170,23 +164,21 @@ public class AuthHomeFragment extends Fragment {
                     }
                     else {
                         loadingDialog.dismissDialog();
-                        Toasty.error(getContext(),networkResponse.getDesc(),Toasty.LENGTH_SHORT)
-                                .show();
+                        DisplayMessage.errorMessage(getContext(),networkResponse.getDesc(),Toasty.LENGTH_SHORT);
                     }
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
                     loadingDialog.dismissDialog();
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(), errorResponse.getDesc(), Toasty.LENGTH_SHORT);
+
                 }
 
             }
 
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 
@@ -219,8 +211,7 @@ public class AuthHomeFragment extends Fragment {
                 }
                 else {
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(getContext(),errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(getContext(), errorResponse.getDesc(), Toasty.LENGTH_SHORT);
                 }
 
             }
@@ -228,8 +219,7 @@ public class AuthHomeFragment extends Fragment {
             @Override
             public void onFailure(Call<NetworkResponse> call, Throwable t) {
                 loadingDialog.dismissDialog();
-                Toasty.error(getContext(),t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
 

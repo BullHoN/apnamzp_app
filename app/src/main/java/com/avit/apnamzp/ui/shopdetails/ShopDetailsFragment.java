@@ -29,6 +29,7 @@ import com.avit.apnamzp.models.shop.ShopCategoryData;
 import com.avit.apnamzp.models.shop.ShopData;
 import com.avit.apnamzp.models.shop.ShopItemData;
 import com.avit.apnamzp.models.shop.ShopPricingData;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.StallDelayShow;
 import com.bumptech.glide.Glide;
 import com.google.android.material.badge.BadgeDrawable;
@@ -283,8 +284,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
     public Boolean showDialog(ShopItemData shopItemData,int posOfShopItem) {
 
         if(!shopData.getOpen()){
-            Toasty.warning(getContext(),"Shop is Currently Closed!!",Toasty.LENGTH_SHORT)
-                    .show();
+            DisplayMessage.warningMessage(getContext(),"Shop is Currently Closed!!",Toasty.LENGTH_SHORT);
             return false;
         }
 
@@ -314,8 +314,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                     List<ShopItemData> cartItems = new ArrayList<>();
                     cartItems.add(cartItem);
                     cart = new Cart(getContext(),shopData.getShopName(),shopData.get_id(),shopData,cartItems);
-                    Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.successMessage(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT);
                 }
                 else if(!cart.insertToCart(getContext(), shopData.get_id(), cartItem)){
 
@@ -332,8 +331,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                             updateTheBatch(cart1.getCartSize());
                             shopDetailsAdapter.notifyItemChanged(posOfShopItem);
 
-                            Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
-                                    .show();
+                            DisplayMessage.successMessage(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT);
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -347,8 +345,7 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                 }
                 else {
                     cart.replaceCart(getContext(), shopData.getShopName(),shopData.get_id(),shopData);
-                    Toasty.success(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.successMessage(getContext(),cartItem.getName() + " is added to cart",Toasty.LENGTH_SHORT);
                 }
 
                 updateTheBatch(cart.getCartSize());

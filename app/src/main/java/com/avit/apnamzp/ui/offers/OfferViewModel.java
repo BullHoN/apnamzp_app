@@ -9,6 +9,7 @@ import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.models.offer.OfferItem;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
+import com.avit.apnamzp.utils.DisplayMessage;
 import com.avit.apnamzp.utils.ErrorUtils;
 
 import java.util.ArrayList;
@@ -39,8 +40,7 @@ public class OfferViewModel extends ViewModel {
 
                 if(!response.isSuccessful()){
                     NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
-                    Toasty.error(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT)
-                            .show();
+                    DisplayMessage.errorMessage(context,errorResponse.getDesc(),Toasty.LENGTH_SHORT);
                     return;
                 }
 
@@ -49,8 +49,7 @@ public class OfferViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<OfferItem>> call, Throwable t) {
-                Toasty.error(context,t.getMessage(),Toasty.LENGTH_SHORT)
-                        .show();
+                DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
     }
