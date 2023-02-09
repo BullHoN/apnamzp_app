@@ -2,7 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
-    app:cardElevation="4dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardBackgroundColor="@color/white"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
     android:id="@+id/offer_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -64,6 +67,8 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:id="@+id/code"
                         android:textColor="@color/primaryColor"
                         android:text="APNAMZP1310"

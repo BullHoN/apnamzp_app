@@ -180,4 +180,9 @@
         android:name="com.avit.apnamzp.ui.userdetails.UserDetailsFragment"
         android:label="fragment_user_details"
         tools:layout="@layout/fragment_user_details" />
+    <fragment
+        android:id="@+id/allOffersFragment"
+        android:name="com.avit.apnamzp.ui.alloffersFragment.AllOffersFragment"
+        android:label="fragment_all_offers"
+        tools:layout="@layout/fragment_all_offers" />
 </navigation>
