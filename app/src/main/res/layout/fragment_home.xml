@@ -43,7 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="3dp"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/open_sans_extrabold"
                         android:text="Home"
                         android:textColor="@color/white" />
 
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="9"
                         android:ellipsize="end"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/montserrat_medium"
                         android:maxLines="1"
                         android:text="Mirzapur, Uttar Pradesh, India"
                         android:textColor="@color/white"
@@ -92,20 +92,23 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="horizontal"
-                android:padding="8dp">
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ic_baseline_search_24" />
 
                 <TextView
+                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="8dp"
-                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat_medium"
                     android:gravity="center"
-                    android:text="@string/search_text" />
+                    android:text="@string/search_text"
+                    android:textColor="@color/secondaryTextColor" />
 
             </LinearLayout>
 
@@ -128,6 +131,7 @@
                             app:resource="@layout/image_carousel_item"
                             app:setAutoPlay="true"
                             app:setAutoPlayDelay="5000"
+                            app:indicatorRadius="0"
                             app:spacing="0" />
 
             <LinearLayout
@@ -137,9 +141,9 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:textColor="@color/primaryColor"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/open_sans_extrabold"
                     android:text="Trending Search 🔥🔥"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -164,9 +168,10 @@
 
                 </HorizontalScrollView>
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/offers_banner"
                     android:scaleType="centerCrop"
+                    app:shapeAppearance="@style/curvedImage"
                     android:src="@drawable/offers_banner"
                     android:layout_width="match_parent"
                     android:layout_height="120dp" />
@@ -178,6 +183,8 @@
                 android:layout_marginTop="8dp"
                 style="@style/shadow_theme"
                 app:cardUseCompatPadding="true"
+                app:cardPreventCornerOverlap="true"
+                app:cardCornerRadius="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -205,9 +212,10 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textSize="18sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
+                            android:fontFamily="@font/open_sans_extrabold"
                             android:text="Apna MZP Sathi"
                             android:textColor="@color/white" />
 
@@ -221,11 +229,11 @@
                         <TextView
                             android:layout_marginTop="8dp"
                             android:textSize="18sp"
-                            android:fontFamily="@font/roboto_bold"
+                            android:fontFamily="@font/open_sans_bold"
                             android:gravity="center"
                             android:text="Book Now"
                             android:textColor="@color/primaryColor"
-                            android:background="@color/white"
+                            android:background="@drawable/search_button_back"
                             android:padding="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
@@ -249,31 +257,39 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/veg_food"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_veg"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_pure_veg"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Pure Veg &#10;Resturants"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Pure Veg &#10;Resturants"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -282,31 +298,39 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/nonveg"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_non_veg"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_non_veg"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Veg &amp; Non-Veg&#10; Resturants"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Veg &amp; Non-Veg &#10;Resturants"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -315,31 +339,39 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/thelas"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_food_stall"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_strre_food"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Street Food"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Street Food &#10;"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -348,35 +380,44 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/bakery"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_sweets"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_sweets"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Sweets &amp; Resturants"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Sweets &amp; &#10; Resturants"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
 
                 </LinearLayout>
 
@@ -395,31 +436,39 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/dairyproducts"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_chef"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_cake"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Home Chefs \n &amp; Bakers"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Home Chefs \n &amp; Bakers"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -428,31 +477,39 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/groceries"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_grocery_cart"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_groceries"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Groceries"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Groceries &#10;"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -461,30 +518,39 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/medicines"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_medicine"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_medicines"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Medicines"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Medicines &#10;"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -493,34 +559,74 @@
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/parcels"
                         android:layout_width="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardElevation="3dp"
+                        style="@style/home_fragment_catgories_card"
                         android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:paddingVertical="8dp"
-                            android:layout_width="85dp"
-                            android:layout_height="100dp"
-                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <ImageView
-                                android:src="@drawable/ic_deliveryboy"
-                                android:layout_width="60dp"
-                                android:layout_height="50dp"/>
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_parcel"
+                                android:layout_width="120dp"
+                                android:layout_height="100dp"/>
 
-                            <TextView
-                                android:layout_marginTop="5dp"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/roboto_medium"
-                                android:text="Parcel"
-                                android:lines="2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Parcel&#10;"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
+
+<!--                    <com.google.android.material.card.MaterialCardView-->
+<!--                        android:id="@+id/parcels"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        style="@style/home_fragment_catgories_card"-->
+<!--                        android:layout_height="wrap_content">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:paddingVertical="8dp"-->
+<!--                            android:layout_width="85dp"-->
+<!--                            android:layout_height="100dp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <ImageView-->
+<!--                                android:src="@drawable/ic_deliveryboy"-->
+<!--                                android:layout_width="60dp"-->
+<!--                                android:layout_height="50dp"/>-->
+
+<!--                            <TextView-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:textSize="12sp"-->
+<!--                                android:fontFamily="@font/roboto_medium"-->
+<!--                                android:text="Parcel"-->
+<!--                                android:lines="2"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"/>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </com.google.android.material.card.MaterialCardView>-->
 
                 </LinearLayout>
 
@@ -554,7 +660,7 @@
                         android:layout_marginLeft="8dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/montserrat_medium"
                         android:text="Call Helpline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -584,7 +690,7 @@
                         android:layout_marginLeft="8dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/montserrat_medium"
                         android:text="Share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -606,9 +712,11 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:ellipsize="end"
+                        android:lines="1"
                         android:gravity="center_vertical"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/montserrat_medium"
                         android:text="View All Stores"
                         android:layout_width="wrap_content"
                         android:minHeight="25dp"
@@ -624,22 +732,19 @@
 
         </LinearLayout>
 
-        <com.airbnb.lottie.LottieAnimationView
-            app:lottie_loop="false"
+        <ImageView
             android:id="@+id/animation1"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            app:lottie_loop="false"
+        <ImageView
             android:id="@+id/animation2"
-            android:layout_centerInParent="true"
+            android:layout_below="@id/animation1"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_marginTop="200dp"
-            app:lottie_loop="false"
+        <ImageView
+            android:layout_below="@id/animation2"
             android:id="@+id/animation3"
             android:layout_width="match_parent"
             android:layout_height="400dp" />
