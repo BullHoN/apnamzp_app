@@ -114,8 +114,8 @@ public class AllItemsSearchFragment extends Fragment {
 
     private void setUpTrendingSearches(){
         List<Pair<String,Integer>>  trendingSearches = new ArrayList<>();
-        trendingSearches.add(new Pair<>("burger",R.drawable.ic_burger));
-        trendingSearches.add(new Pair<>("pizza",R.drawable.ic_pizza));
+        trendingSearches.add(new Pair<>("Burger",R.drawable.ic_burger));
+        trendingSearches.add(new Pair<>("Pizza",R.drawable.ic_pizza));
         trendingSearches.add(new Pair<>("Dosa",R.drawable.ic_dosa));
         trendingSearches.add(new Pair<>("Chaat",R.drawable.ic_chaat));
         trendingSearches.add(new Pair<>("Chowmein",R.drawable.ic_chowmein));

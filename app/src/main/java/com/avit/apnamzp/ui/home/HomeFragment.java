@@ -42,6 +42,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.datatransport.runtime.retries.Retries;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.jama.carouselview.CarouselView;
 import com.jama.carouselview.CarouselViewListener;
 
@@ -136,7 +137,7 @@ public class HomeFragment extends Fragment {
         binding.offersBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.offersFragment);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.allOffersFragment);
             }
         });
 
@@ -145,8 +146,8 @@ public class HomeFragment extends Fragment {
 
     private void setUpTrendingSearches(){
         List<Pair<String,Integer>>  trendingSearches = new ArrayList<>();
-        trendingSearches.add(new Pair<>("burger",R.drawable.ic_burger));
-        trendingSearches.add(new Pair<>("pizza",R.drawable.ic_pizza));
+        trendingSearches.add(new Pair<>("Burger",R.drawable.ic_burger));
+        trendingSearches.add(new Pair<>("Pizza",R.drawable.ic_pizza));
         trendingSearches.add(new Pair<>("Dosa",R.drawable.ic_dosa));
         trendingSearches.add(new Pair<>("Chaat",R.drawable.ic_chaat));
         trendingSearches.add(new Pair<>("Chowmein",R.drawable.ic_chowmein));
@@ -184,17 +185,20 @@ public class HomeFragment extends Fragment {
         if(!HomeDisplayAnimation.isDisplayed()){
             String url = NetworkApi.SERVER_URL + "user/banner-animation";
 
-            Log.i(TAG, "setUpAnimation: " + url);
+            Glide.with(getContext())
+                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/pink-hearts-1--unscreen.gif")
+                    .into(binding.animation1);
 
-            binding.animation1.setAnimationFromUrl(url);
-            binding.animation2.setAnimationFromUrl(url);
-            binding.animation3.setAnimationFromUrl(url);
+            Glide.with(getContext())
+                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/pink-hearts-1--unscreen.gif")
+                    .into(binding.animation2);
 
-            binding.animation1.playAnimation();
-            binding.animation2.playAnimation();
-            binding.animation3.playAnimation();
+            Glide.with(getContext())
+                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/pink-hearts-1--unscreen.gif")
+                    .into(binding.animation3);
 
-            new CountDownTimer(5000, 1000) {
+            new CountDownTimer(4000,2000){
+
                 @Override
                 public void onTick(long l) {
 
@@ -323,7 +327,7 @@ public class HomeFragment extends Fragment {
                 carouselView.setCarouselViewListener(new CarouselViewListener() {
                     @Override
                     public void onBindView(View view, int position) {
-                        ImageView imageView = view.findViewById(R.id.imageView);
+                        ShapeableImageView imageView = view.findViewById(R.id.imageView);
                         Glide.with(getContext())
                                 .load(bannerData.get(position).getImageURL())
                                 .into(imageView);

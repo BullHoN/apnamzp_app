@@ -51,4 +51,17 @@
         <item name="android:textColor">#DFDFDF</item>
     </style>
 
+    <style name="home_fragment_catgories_card" >
+        <item name="cardElevation">8dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="backgroundColor">@color/white</item>
+    </style>
+
+    <style name="curvedImage" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 </resources>
