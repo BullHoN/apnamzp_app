@@ -261,7 +261,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // Fruits
+        // Street Food
         binding.thelas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -286,27 +286,27 @@ public class HomeFragment extends Fragment {
         });
 
         // Grocieries
-        binding.groceries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Groceries");
-                bundle.putString("shopType","Groceries");
+//        binding.groceries.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("categoryName","Groceries");
+//                bundle.putString("shopType","Groceries");
+//
+//                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+//            }
+//        });
 
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
-            }
-        });
-
-        binding.medicines.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("categoryName","Medicines");
-                bundle.putString("shopType","Medicines");
-
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
-            }
-        });
+//        binding.medicines.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Bundle bundle = new Bundle();
+//                bundle.putString("categoryName","Medicines");
+//                bundle.putString("shopType","Medicines");
+//
+//                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_homeFragment_to_searchFragment,bundle);
+//            }
+//        });
 
         binding.parcels.setOnClickListener(new View.OnClickListener() {
             @Override

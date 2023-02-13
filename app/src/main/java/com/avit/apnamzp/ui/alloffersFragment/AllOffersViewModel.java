@@ -55,7 +55,6 @@ public class AllOffersViewModel extends ViewModel {
             }
 
             allOffersMutableData.setValue(response.body());
-            freeDeliveryShopsMutableData.setValue(response.body());
          }
 
          @Override
@@ -63,6 +62,32 @@ public class AllOffersViewModel extends ViewModel {
             DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
          }
       });
+   }
+
+   public void getFreeDeliveryOffers(Context context){
+      Retrofit retrofit = RetrofitClient.getInstance();
+      NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+      Call<List<OfferItem>> offerItemCall = networkApi.getFreeDeliveryOffers();
+      offerItemCall.enqueue(new Callback<List<OfferItem>>() {
+         @Override
+         public void onResponse(Call<List<OfferItem>> call, Response<List<OfferItem>> response) {
+            if(!response.isSuccessful()){
+               NetworkResponse errorResponse = ErrorUtils.parseErrorResponse(response);
+               DisplayMessage.errorMessage(context,errorResponse.getDesc(), Toasty.LENGTH_SHORT);
+               return;
+            }
+
+            freeDeliveryShopsMutableData.setValue(response.body());
+         }
+
+         @Override
+         public void onFailure(Call<List<OfferItem>> call, Throwable t) {
+            DisplayMessage.errorMessage(context,t.getMessage(),Toasty.LENGTH_SHORT);
+
+         }
+      });
+
    }
 
 }

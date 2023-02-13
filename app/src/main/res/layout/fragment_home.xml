@@ -268,8 +268,8 @@
                             <ImageView
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_real_pure_veg"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+                                android:layout_width="110dp"
+                                android:layout_height="80dp"/>
 
                             <LinearLayout
                                 android:layout_marginVertical="4dp"
@@ -309,8 +309,8 @@
                             <ImageView
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_real_non_veg"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+                                android:layout_width="110dp"
+                                android:layout_height="80dp"/>
 
                             <LinearLayout
                                 android:layout_marginVertical="4dp"
@@ -350,8 +350,8 @@
                             <ImageView
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_real_strre_food"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+                                android:layout_width="110dp"
+                                android:layout_height="80dp"/>
 
                             <LinearLayout
                                 android:layout_marginVertical="4dp"
@@ -367,47 +367,6 @@
                                     android:layout_marginTop="5dp"
                                     android:fontFamily="@font/montserrat_medium"
                                     android:text="Street Food &#10;"
-                                    android:maxLines="2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/bakery"
-                        android:layout_width="wrap_content"
-                        style="@style/home_fragment_catgories_card"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_real_sweets"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
-
-                            <LinearLayout
-                                android:layout_marginVertical="4dp"
-                                android:paddingHorizontal="8dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical" >
-
-                                <TextView
-                                    android:gravity="center"
-                                    android:textSize="12dp"
-                                    android:textColor="@color/secondaryTextColor"
-                                    android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/montserrat_medium"
-                                    android:text="Sweets &amp; &#10; Resturants"
                                     android:maxLines="2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"/>
@@ -434,6 +393,47 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/bakery"
+                        android:layout_width="wrap_content"
+                        style="@style/home_fragment_catgories_card"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_real_sweets"
+                                android:layout_width="110dp"
+                                android:layout_height="80dp"/>
+
+                            <LinearLayout
+                                android:layout_marginVertical="4dp"
+                                android:paddingHorizontal="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:gravity="center"
+                                    android:textSize="12dp"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="Sweets &amp; &#10; Resturants"
+                                    android:maxLines="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/dairyproducts"
                         android:layout_width="wrap_content"
                         style="@style/home_fragment_catgories_card"
@@ -447,8 +447,8 @@
                             <ImageView
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_real_cake"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+                                android:layout_width="110dp"
+                                android:layout_height="80dp"/>
 
                             <LinearLayout
                                 android:layout_marginVertical="4dp"
@@ -474,87 +474,87 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/groceries"
-                        android:layout_width="wrap_content"
-                        style="@style/home_fragment_catgories_card"
-                        android:layout_height="wrap_content">
+<!--                    <com.google.android.material.card.MaterialCardView-->
+<!--                        android:id="@+id/groceries"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        style="@style/home_fragment_catgories_card"-->
+<!--                        android:layout_height="wrap_content">-->
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical">-->
 
-                            <ImageView
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_real_groceries"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+<!--                            <ImageView-->
+<!--                                android:scaleType="centerCrop"-->
+<!--                                android:src="@drawable/ic_real_groceries"-->
+<!--                                android:layout_width="120dp"-->
+<!--                                android:layout_height="100dp"/>-->
 
-                            <LinearLayout
-                                android:layout_marginVertical="4dp"
-                                android:paddingHorizontal="8dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical" >
+<!--                            <LinearLayout-->
+<!--                                android:layout_marginVertical="4dp"-->
+<!--                                android:paddingHorizontal="8dp"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical" >-->
 
-                                <TextView
-                                    android:gravity="center"
-                                    android:textSize="12dp"
-                                    android:textColor="@color/secondaryTextColor"
-                                    android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/montserrat_medium"
-                                    android:text="Groceries &#10;"
-                                    android:maxLines="2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+<!--                                <TextView-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:textSize="12dp"-->
+<!--                                    android:textColor="@color/secondaryTextColor"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:fontFamily="@font/montserrat_medium"-->
+<!--                                    android:text="Groceries &#10;"-->
+<!--                                    android:maxLines="2"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"/>-->
 
-                            </LinearLayout>
+<!--                            </LinearLayout>-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                    </com.google.android.material.card.MaterialCardView>
+<!--                    </com.google.android.material.card.MaterialCardView>-->
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/medicines"
-                        android:layout_width="wrap_content"
-                        style="@style/home_fragment_catgories_card"
-                        android:layout_height="wrap_content">
+<!--                    <com.google.android.material.card.MaterialCardView-->
+<!--                        android:id="@+id/medicines"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        style="@style/home_fragment_catgories_card"-->
+<!--                        android:layout_height="wrap_content">-->
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical">-->
 
-                            <ImageView
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_real_medicines"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+<!--                            <ImageView-->
+<!--                                android:scaleType="centerCrop"-->
+<!--                                android:src="@drawable/ic_real_medicines"-->
+<!--                                android:layout_width="120dp"-->
+<!--                                android:layout_height="100dp"/>-->
 
-                            <LinearLayout
-                                android:layout_marginVertical="4dp"
-                                android:paddingHorizontal="8dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical" >
+<!--                            <LinearLayout-->
+<!--                                android:layout_marginVertical="4dp"-->
+<!--                                android:paddingHorizontal="8dp"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical" >-->
 
-                                <TextView
-                                    android:gravity="center"
-                                    android:textSize="12dp"
-                                    android:textColor="@color/secondaryTextColor"
-                                    android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/montserrat_medium"
-                                    android:text="Medicines &#10;"
-                                    android:maxLines="2"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
+<!--                                <TextView-->
+<!--                                    android:gravity="center"-->
+<!--                                    android:textSize="12dp"-->
+<!--                                    android:textColor="@color/secondaryTextColor"-->
+<!--                                    android:layout_marginTop="5dp"-->
+<!--                                    android:fontFamily="@font/montserrat_medium"-->
+<!--                                    android:text="Medicines &#10;"-->
+<!--                                    android:maxLines="2"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"/>-->
 
-                            </LinearLayout>
+<!--                            </LinearLayout>-->
 
-                        </LinearLayout>
+<!--                        </LinearLayout>-->
 
-                    </com.google.android.material.card.MaterialCardView>
+<!--                    </com.google.android.material.card.MaterialCardView>-->
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/parcels"
@@ -570,8 +570,8 @@
                             <ImageView
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/ic_real_parcel"
-                                android:layout_width="120dp"
-                                android:layout_height="100dp"/>
+                                android:layout_width="110dp"
+                                android:layout_height="80dp"/>
 
                             <LinearLayout
                                 android:layout_marginVertical="4dp"
