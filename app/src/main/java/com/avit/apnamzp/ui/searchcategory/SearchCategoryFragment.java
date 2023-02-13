@@ -1,5 +1,6 @@
 package com.avit.apnamzp.ui.searchcategory;
 
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentSearchBinding;

@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.models.shop.ShopData;
+import com.avit.apnamzp.utils.PrettyStrings;
 import com.bumptech.glide.Glide;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
@@ -55,39 +58,54 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             holder.shopCardView.setAlpha(1f);
         }
 
-        holder.nameView.setText(curr.getShopName());
+        holder.nameView.setText(curr.getShopName().trim());
         holder.tagLineView.setText(curr.getTagLine());
         holder.averageDeliveryTimeView.setText(curr.getAverageDeliveryTime());
-        holder.minOrderView.setText("₹" + curr.getPricingDetails().getMinOrderPrice());
+//        holder.minOrderView.setText("₹" + curr.getPricingDetails().getMinOrderPrice());
 
-        if(curr.getShopTimings() != null && curr.getShopTimings().length() > 1){
-            holder.shopTimingsView.setVisibility(View.VISIBLE);
-            holder.shopTimingsView.setText("Shop Timings: " + curr.getShopTimings());
-        }
+//        if(curr.getShopTimings() != null && curr.getShopTimings().length() > 1){
+//            holder.shopTimingsView.setVisibility(View.VISIBLE);
+//            holder.shopTimingsView.setText("Shop Timings: " + curr.getShopTimings());
+//        }
 
-        if(curr.getPricingDetails().getMinOrderPrice().equals("0")){
-            holder.minOrderContainer.setVisibility(View.GONE);
-            holder.minOrderDotView.setVisibility(View.GONE);
-        }
+//        if(curr.getPricingDetails().getMinOrderPrice().equals("0")){
+//            holder.minOrderContainer.setVisibility(View.GONE);
+//            holder.minOrderDotView.setVisibility(View.GONE);
+//        }
 
         Glide.with(context)
                 .load(curr.getBannerImage())
                 .into(holder.shopImageView);
 
         float rating = Float.parseFloat(curr.getAverageRatings());
-        holder.noOfRatingView.setText("⭐ "  + curr.getAverageRatings());
-        if(rating < 2){
-            holder.ratingBackground.setBackgroundColor(context.getResources().getColor(R.color.quantum_googred));
+        holder.noOfRatingView.setText(String.valueOf(rating));
+        if(rating >= 4){
+            holder.ratingBackground.setBackgroundResource(R.drawable.rating_background_good);
+        }
+        else if(rating >= 2){
+            holder.ratingBackground.setBackgroundResource(R.drawable.rating_back_average);
+        }
+        else {
+            holder.ratingBackground.setBackgroundResource(R.drawable.rating_back_bad);
         }
 
-        holder.reviewsView.setText(curr.getReviews());
+        int freeDeliveryPrice = Integer.parseInt(curr.getPricingDetails().getMinFreeDeliveryPrice());
+        if(freeDeliveryPrice < 2000){
+            holder.freeDeliveryChargeText.setVisibility(View.VISIBLE);
+            holder.freeDeliveryChargeText.setText("FREE Delivery On " + PrettyStrings.getPriceInRupees(freeDeliveryPrice));
+        }
+        else {
+            holder.freeDeliveryChargeText.setVisibility(View.GONE);
+        }
+//            curr.getPricingDetails().getMinFreeDeliveryPrice()
+//        holder.reviewsView.setText(curr.getReviews());
 
         if(!curr.getOpen()){
             holder.nameView.setTextColor(context.getResources().getColor(R.color.secondaryTextColor));
             holder.closedBackView.setVisibility(View.VISIBLE);
             holder.closedTextView.setVisibility(View.VISIBLE);
         }else {
-            holder.nameView.setTextColor(context.getResources().getColor(R.color.primaryColor));
+            holder.nameView.setTextColor(context.getResources().getColor(R.color.black));
             holder.closedBackView.setVisibility(View.INVISIBLE);
             holder.closedTextView.setVisibility(View.INVISIBLE);
         }
@@ -99,12 +117,14 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
             }
         });
 
-        if(curr.isNewShop()){
+        if(curr.isNewShop() && curr.getOpen()){
             holder.newTagView.setVisibility(View.VISIBLE);
+            holder.newTagShimmerLayout.startShimmer();
         }
-        else if(curr.getShopDiscountTag() != null && !curr.getShopDiscountTag().equals("0")){
-            holder.offerTagView.setVisibility(View.VISIBLE);
+        else if(curr.getShopDiscountTag() != null && !curr.getShopDiscountTag().equals("0") && curr.getOpen()){
+            holder.offerContainer.setVisibility(View.VISIBLE);
             holder.offerTagView.setText(curr.getShopDiscountTag());
+            holder.offerShimmerLayout.startShimmer();
         }
         else {
             holder.newTagView.setVisibility(View.GONE);
@@ -133,10 +153,11 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
 
     public TextView nameView,closedTextView,tagLineView,averageDeliveryTimeView,
-            minOrderView,noOfRatingView,reviewsView,notAcceptingOrders, shopTimingsView, offerTagView;
-    public ImageView closedBackView,shopImageView, minOrderDotView, newTagView;
-    public MaterialCardView shopCardView;
-    public LinearLayout ratingBackground,reviewsBackground, minOrderContainer;
+            noOfRatingView,reviewsView,notAcceptingOrders, shopTimingsView, offerTagView, freeDeliveryChargeText;
+    public ShapeableImageView shopImageView,closedBackView;
+    public LinearLayout shopCardView, newTagView;
+    public ShimmerFrameLayout newTagShimmerLayout, offerShimmerLayout;
+    public LinearLayout ratingBackground,reviewsBackground, offerContainer;
 
     public SearchCategoryViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -146,19 +167,25 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         shopCardView = itemView.findViewById(R.id.shop_card);
         tagLineView = itemView.findViewById(R.id.tagLine);
         averageDeliveryTimeView = itemView.findViewById(R.id.averageDeliveryTime);
-        minOrderView = itemView.findViewById(R.id.minOrder);
+//        minOrderView = itemView.findViewById(R.id.minOrder);
         noOfRatingView = itemView.findViewById(R.id.rating);
-        reviewsView = itemView.findViewById(R.id.reviews);
+//        reviewsView = itemView.findViewById(R.id.reviews);
         ratingBackground = itemView.findViewById(R.id.ratingBackground);
-        reviewsBackground = itemView.findViewById(R.id.reviewsBackground);
+//        reviewsBackground = itemView.findViewById(R.id.reviewsBackground);
         shopImageView = itemView.findViewById(R.id.shopImage);
         shopTimingsView = itemView.findViewById(R.id.shopTimings);
 
         notAcceptingOrders = itemView.findViewById(R.id.not_accepting_orders);
-        minOrderContainer = itemView.findViewById(R.id.minOrderContainer);
-        minOrderDotView = itemView.findViewById(R.id.minOrderDot);
+//        minOrderContainer = itemView.findViewById(R.id.minOrderContainer);
+//        minOrderDotView = itemView.findViewById(R.id.minOrderDot);
 
         newTagView = itemView.findViewById(R.id.shop_new_tag);
         offerTagView = itemView.findViewById(R.id.offer_tag);
+        newTagShimmerLayout = itemView.findViewById(R.id.new_tag_shimmer_view);
+
+        offerContainer = itemView.findViewById(R.id.offer_container);
+        offerShimmerLayout = itemView.findViewById(R.id.offer_shimmer_view);
+
+        freeDeliveryChargeText = itemView.findViewById(R.id.free_delivery_Charge_text);
     }
 }

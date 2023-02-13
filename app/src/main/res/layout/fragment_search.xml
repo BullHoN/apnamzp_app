@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/montserrat_medium"
                 android:text="Backery and Snacks Near You"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -43,6 +44,7 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"
+            style="@style/search_styles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/header"
@@ -51,7 +53,7 @@
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search Store"
-            style="@style/search_styles"
+            app:searchIcon="@drawable/ic_baseline_search_24"
             app:submitBackground="@android:color/transparent" />
 
             <LinearLayout
