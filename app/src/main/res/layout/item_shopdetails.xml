@@ -194,15 +194,32 @@
                         android:textSize="16sp"
                         android:text="45-60 Mins"
                         android:layout_width="wrap_content"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/free_delivery_Charge_text"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:text="FREE Delivery Above $200"
+                    <LinearLayout
+                        android:id="@+id/free_delivery_charge_container"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <View
+                            android:background="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp" />
+
+                        <TextView
+                            android:layout_marginTop="3dp"
+                            android:id="@+id/free_delivery_Charge_text"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:text="FREE Delivery Above $200"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+
 
 <!--                    <LinearLayout-->
 <!--                        android:visibility="gone"-->

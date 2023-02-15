@@ -92,10 +92,16 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
         int freeDeliveryPrice = Integer.parseInt(curr.getPricingDetails().getMinFreeDeliveryPrice());
         if(freeDeliveryPrice < 2000){
             holder.freeDeliveryChargeText.setVisibility(View.VISIBLE);
-            holder.freeDeliveryChargeText.setText("FREE Delivery On " + PrettyStrings.getPriceInRupees(freeDeliveryPrice));
+            if(freeDeliveryPrice == 0){
+                holder.freeDeliveryChargeText.setText("FREE Delivery !!");
+            }
+            else {
+                holder.freeDeliveryChargeText.setText("FREE Delivery On " + PrettyStrings.getPriceInRupees(freeDeliveryPrice));
+            }
         }
         else {
             holder.freeDeliveryChargeText.setVisibility(View.GONE);
+            holder.freeDeliveryChargeContainer.setVisibility(View.GONE);
         }
 //            curr.getPricingDetails().getMinFreeDeliveryPrice()
 //        holder.reviewsView.setText(curr.getReviews());
@@ -157,7 +163,7 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
     public ShapeableImageView shopImageView,closedBackView;
     public LinearLayout shopCardView, newTagView;
     public ShimmerFrameLayout newTagShimmerLayout, offerShimmerLayout;
-    public LinearLayout ratingBackground,reviewsBackground, offerContainer;
+    public LinearLayout ratingBackground,reviewsBackground, offerContainer, freeDeliveryChargeContainer;
 
     public SearchCategoryViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -187,5 +193,6 @@ class SearchCategoryViewHolder extends RecyclerView.ViewHolder{
         offerShimmerLayout = itemView.findViewById(R.id.offer_shimmer_view);
 
         freeDeliveryChargeText = itemView.findViewById(R.id.free_delivery_Charge_text);
+        freeDeliveryChargeContainer = itemView.findViewById(R.id.free_delivery_charge_container);
     }
 }

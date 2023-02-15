@@ -38,11 +38,11 @@ public class MiniReviewsAdapter extends RecyclerView.Adapter<MiniReviewsAdapter.
 
         if(curr.getOfferType().equals("flat")){
             holder.maxDiscountView.setText("Flat " + PrettyStrings.getPriceInRupees(curr.getDiscountAmount()) + " OFF");
-            holder.offerCodeView.setText("Use code " + curr.getCode());
+            holder.offerCodeView.setText("Use code " + curr.getCode().substring(0,Math.min(6,curr.getCode().length())));
         }
         else if(curr.getOfferType().equals("percent")){
             holder.maxDiscountView.setText("UPTO " + curr.getDiscountPercentage() + "% OFF");
-            holder.offerCodeView.setText("Use code " + curr.getCode());
+            holder.offerCodeView.setText("Use code " + curr.getCode().substring(0,Math.min(6,curr.getCode().length())));
         }
         else if(curr.getOfferType().equals("delivery")){
             holder.maxDiscountView.setText("FREE DELIVERY");
