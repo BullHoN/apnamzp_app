@@ -88,7 +88,12 @@ public class OnlinePaymentActivity extends AppCompatActivity implements PaymentR
     @Override
     public void onPaymentSuccess(String s) {
         DisplayMessage.successMessage(getApplicationContext(),"Payment is Successfull",Toasty.LENGTH_SHORT);
-        checkout(s);
+        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.putExtra("open_orders",true);
+
+        startActivity(intent);
     }
 
     @Override

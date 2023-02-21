@@ -93,6 +93,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         cart = Cart.getInstance(getContext());
         orderItem = new OrderItem();
         gson = new Gson();
+        Checkout.preload(getActivity().getApplicationContext());
 
         if(cart == null || cart.getCartSize() == 0){
             return root;
@@ -629,6 +630,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
             public void onClick(View view) {
                 Log.i(TAG, "onClick: checkout button");
                 dialog.dismiss();
+                setUpOrderItem(false);
                 checkout(false);
             }
         });
@@ -648,6 +650,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                     DisplayMessage.errorMessage(getContext(),"Online Payment Method Is Not Available In Items On The Way",Toasty.LENGTH_SHORT);
                     return;
                 }
+                setUpOrderItem(true);
                 getOrderPaymentId();
             }
         });
@@ -655,14 +658,12 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         dialog.show();
     }
 
-
-
     private void getOrderPaymentId(){
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
         OnlinePaymentOrderIdPostData postData = new OnlinePaymentOrderIdPostData(orderItem.getTotalPay() * 100,
-                User.getPhoneNumber(getContext()));
+                User.getPhoneNumber(getContext()),orderItem);
         Call<PaymentMetadata> call = networkApi.getOrderPaymentId(postData,cart.getShopData().get_id());
         call.enqueue(new Callback<PaymentMetadata>() {
             @Override
@@ -676,6 +677,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 //                payOnline(response.body().getPaymentId());
                 orderPaymentId = response.body().getPaymentId();
 //                Log.i(TAG, "onResponse: " + orderPaymentId);
+                orderItem.setPaymentId(orderPaymentId);
                 checkout(true);
 
             }
@@ -725,10 +727,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
     }
 
-    private void checkout(Boolean isPaid){
-        Retrofit retrofit = RetrofitClient.getInstance();
-        NetworkApi networkApi = retrofit.create(NetworkApi.class);
-
+    private void setUpOrderItem(Boolean isPaid){
         String specialInstructions = binding.specialInstruction.getText().toString();
 
         Cart cart = Cart.getInstance(getContext());
@@ -742,13 +741,19 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         orderItem.setOrderStatus(0);
         orderItem.setSpecialInstructions(specialInstructions);
         orderItem.setAdminShopService(cart.getShopData().isAdminShopService());
+    }
+
+    private void checkout(Boolean isPaid){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
         if(isPaid){
-            Intent onlinePaymentActivityIntent = new Intent(getContext(), OnlinePaymentActivity.class);
-            onlinePaymentActivityIntent.putExtra("orderItem",gson.toJson(orderItem));
-            onlinePaymentActivityIntent.putExtra("orderPaymentId", orderPaymentId);
-
-            startActivity(onlinePaymentActivityIntent);
+//            Intent onlinePaymentActivityIntent = new Intent(getContext(), OnlinePaymentActivity.class);
+//            onlinePaymentActivityIntent.putExtra("orderItem",gson.toJson(orderItem));
+//            onlinePaymentActivityIntent.putExtra("orderPaymentId", orderPaymentId);
+//
+//            startActivity(onlinePaymentActivityIntent);
+            payOnline(orderItem.getPaymentId());
             return;
         }
 
@@ -776,6 +781,37 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
                 DisplayMessage.errorMessage(getContext(),t.getMessage(),Toasty.LENGTH_SHORT);
             }
         });
+    }
+
+    private void payOnline(String orderPaymentId){
+        Checkout checkout = new Checkout();
+        checkout.setImage(R.drawable.main_icon);
+
+        try{
+
+            JSONObject options = new JSONObject();
+            options.put("name", "Apna MZP");
+            options.put("description", "Reference No. " + orderPaymentId);
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            options.put("order_id", orderPaymentId);//from response of step 3.
+            options.put("theme.color", "#3399cc");
+            options.put("currency", "INR");
+            options.put("amount", String.valueOf(orderItem.getTotalPay() * 100));//pass amount in currency subunits
+            options.put("prefill.contact",User.getPhoneNumber(getContext()));
+            options.put("prefill.email","");
+            options.put("readonly.email",true);
+
+            JSONObject retryObj = new JSONObject();
+            retryObj.put("enabled", true);
+            retryObj.put("max_count", 4);
+            options.put("retry", retryObj);
+
+            checkout.open(getActivity(),options);
+        }
+        catch(Exception e){
+            DisplayMessage.errorMessage(getContext(),"Error in Payment " + e.getMessage(),Toasty.LENGTH_SHORT);
+        }
+
     }
 
     private void calculateDistance(String originAddress,String destinationAddress){

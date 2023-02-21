@@ -45,11 +45,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class HomeActivity extends AppCompatActivity  {
+public class HomeActivity extends AppCompatActivity  implements PaymentResultListener{
 
     private String TAG = "HomeActivityToken";
     private BroadcastReceiver receiver;
     private IntentFilter intentFilter;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class HomeActivity extends AppCompatActivity  {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
-        NavController navController = Navigation.findNavController(this,R.id.fragmentContainerView);
+        navController = Navigation.findNavController(this,R.id.fragmentContainerView);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
         Log.i(TAG, "onCreate: " + User.getPhoneNumber(getApplicationContext()));
@@ -177,4 +178,20 @@ public class HomeActivity extends AppCompatActivity  {
         unregisterReceiver(receiver);
     }
 
+    @Override
+    public void onPaymentSuccess(String s) {
+        DisplayMessage.successMessage(getApplicationContext(),"Payment is Successfull",Toasty.LENGTH_SHORT);
+        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        intent.putExtra("open_orders",true);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.i(TAG, "onPaymentError: " + s + i);
+        DisplayMessage.errorMessage(getApplicationContext(),"Payment Failed",Toasty.LENGTH_SHORT);
+    }
 }
