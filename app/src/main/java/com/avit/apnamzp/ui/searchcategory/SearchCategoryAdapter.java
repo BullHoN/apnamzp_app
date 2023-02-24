@@ -141,6 +141,7 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
 
     @Override
     public int getItemCount() {
+        if(shopDataList == null) return 0;
         return shopDataList.size();
     }
 

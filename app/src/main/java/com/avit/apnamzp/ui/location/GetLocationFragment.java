@@ -167,6 +167,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
     private Address getStreetAddressFromLatlan(LatLng latLng) throws IOException {
         List<Address> addresses =  geocoder.getFromLocation(latLng.latitude,latLng.longitude,1);
+        if(addresses.size() == 0) return null;
         return addresses.get(0);
     }
 
@@ -245,6 +246,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
                     binding.rawAddress.setVisibility(View.GONE);
 
                     Address address = getStreetAddressFromLatlan(latlng);
+                    if(address == null) return;
 
                     if(bundle != null && bundle.containsKey("second_address")){
                         // Save The Location
@@ -299,7 +301,7 @@ public class GetLocationFragment extends Fragment implements OnMapReadyCallback{
 
                 for(Location location1 : locationResult.getLocations()){
                     
-                    if(location1.getAccuracy() < 200){
+                    if(location1.getAccuracy() < 500){
                         location = location1;
                         fusedLocationProviderClient.removeLocationUpdates(this);
                         binding.loading.setVisibility(View.GONE);

@@ -46,7 +46,12 @@ public class OfferFreeDeliveryAdapter extends RecyclerView.Adapter<OfferFreeDeli
         OfferItem curr = offerItemList.get(position);
 
         holder.shopNameView.setText(curr.getShopName());
-        holder.abovePriceView.setText("Above " + PrettyStrings.getPriceInRupees(curr.getDiscountAbove()));
+        if(Integer.parseInt(curr.getDiscountAbove()) == 0){
+            holder.abovePriceView.setText("FREE Delivery !!");
+        }
+        else {
+            holder.abovePriceView.setText("Above " + PrettyStrings.getPriceInRupees(curr.getDiscountAbove()));
+        }
 
         Glide.with(context)
                 .load(curr.getBannerImage())

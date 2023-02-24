@@ -299,6 +299,12 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
         mainAddressSelectButton = view.findViewById(R.id.main_address_select_button);
         mainAddressEditButton = view.findViewById(R.id.main_address_edit_button);
 
+        if(User.getGoogleMapStreetAddress(getContext()) == null || User.getGoogleMapStreetAddress(getContext()).length() == 0){
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_cartFragment_to_getLocationFragment);
+            bottomSheetDialog.dismiss();
+            return;
+        }
+
         mainAddressHouseNo.setText(User.getHomeDetails(getContext()));
         mainAddressrawAddress.setText(User.getGoogleMapStreetAddress(getContext()));
 

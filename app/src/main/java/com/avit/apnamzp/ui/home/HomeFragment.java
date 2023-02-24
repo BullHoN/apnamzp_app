@@ -39,6 +39,7 @@ import com.avit.apnamzp.utils.ErrorUtils;
 import com.avit.apnamzp.utils.HomeDisplayAnimation;
 import com.avit.apnamzp.utils.InfoConstats;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.datatransport.runtime.retries.Retries;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -186,15 +187,21 @@ public class HomeFragment extends Fragment {
             String url = NetworkApi.SERVER_URL + "user/banner-animation";
 
             Glide.with(getContext())
-                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/pink-hearts-1--unscreen.gif")
+                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/home_banner_animation1.gif")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(binding.animation1);
 
             Glide.with(getContext())
-                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/pink-hearts-1--unscreen.gif")
+                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/home_banner_animation1.gif")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(binding.animation2);
 
             Glide.with(getContext())
-                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/pink-hearts-1--unscreen.gif")
+                    .load("https://apna-mzp-assests.s3.ap-south-1.amazonaws.com/home_banner_animation1.gif")
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(binding.animation3);
 
             new CountDownTimer(4000,2000){
@@ -423,7 +430,7 @@ public class HomeFragment extends Fragment {
 
     private void showTheLocationDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setCancelable(false);
+//        builder.setCancelable(false);
 
         builder.setTitle("Please Select Your Location In Order To Use This App");
         builder.setPositiveButton("Select Location", new DialogInterface.OnClickListener() {
@@ -436,7 +443,7 @@ public class HomeFragment extends Fragment {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                getActivity().finish();
+                dialogInterface.dismiss();
             }
         });
 
@@ -448,9 +455,8 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         String address = User.getGoogleMapStreetAddress(getContext());
-        String houseNo = User.getHomeDetails(getContext());
 
-        if(address.length() == 0 || houseNo.length() == 0){
+        if(address.length() == 0){
             showTheLocationDialog();
         }
         else {

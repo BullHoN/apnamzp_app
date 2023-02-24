@@ -68,7 +68,7 @@ public class AllItemsSearchFragment extends Fragment {
                 String jsonString  = gson.toJson(shopData,ShopData.class);
                 shopDetailsBundle.putString("shopData",jsonString);
 
-                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_allItemsSearchFragment_to_shopDetailsFragment,shopDetailsBundle);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.shopDetailsFragment,shopDetailsBundle);
             }
         });
         binding.shopsList.setAdapter(adapter);
