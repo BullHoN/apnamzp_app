@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthOtpBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
+import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
@@ -131,8 +133,21 @@ public class AuthOtpFragment extends Fragment {
                     if(successResponse.isSuccess()){
 
                         DisplayMessage.successMessage(getContext(),"Successfully Verified",Toasty.LENGTH_SHORT);
+//                        Log.i(TAG, "onResponse: " + successResponse.getDesc() + " " + successResponse.getData());
+                        if(successResponse.getDesc() != null && successResponse.getDesc().contains("verfied")){
 
-                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_authOtpFragment_to_authProfileFragment,getArguments());
+                            User.setUsername(getContext(),successResponse.getData());
+                            User.setPhoneNumber(getContext(),phoneNo);
+                            User.setIsVerified(getContext(),true);
+
+                            Intent intent = new Intent(getContext(), HomeActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+
+                        }
+                        else {
+                            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_authOtpFragment_to_authProfileFragment,getArguments());
+                        }
                     }
                     else {
                         DisplayMessage.errorMessage(getContext(),"Incorrect OTP",Toasty.LENGTH_SHORT);

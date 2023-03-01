@@ -2,8 +2,10 @@ package com.avit.apnamzp.ui.home;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,6 +29,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentHomeBinding;
 import com.avit.apnamzp.localdb.Cart;
+import com.avit.apnamzp.localdb.SharedPrefNames;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.BannerData;
 import com.avit.apnamzp.models.ServiceStatus;
@@ -429,6 +432,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void showTheLocationDialog(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        if(!sharedPreferences.getBoolean(SharedPrefNames.LOCATION_DIALOG_MESSAGE,true)){
+            return;
+        }
+        editor.putBoolean(SharedPrefNames.LOCATION_DIALOG_MESSAGE,false);
+        editor.apply();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 //        builder.setCancelable(false);
 
@@ -440,7 +452,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Skip", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
@@ -455,6 +467,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         String address = User.getGoogleMapStreetAddress(getContext());
+
 
         if(address.length() == 0){
             showTheLocationDialog();

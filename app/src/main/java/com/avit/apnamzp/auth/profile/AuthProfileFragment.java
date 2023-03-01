@@ -47,8 +47,8 @@ public class AuthProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String name = binding.nameView.getText().toString();
-                String password = binding.passwordView.getText().toString();
-                String conformPassword = binding.conformPasswordView.getText().toString();
+//                String password = binding.passwordView.getText().toString();
+//                String conformPassword = binding.conformPasswordView.getText().toString();
 
                 if(name.length() <= 1){
                     DisplayMessage.errorMessage(getContext(),"Enter Valid Name",Toasty.LENGTH_SHORT);
@@ -57,19 +57,19 @@ public class AuthProfileFragment extends Fragment {
                     return;
                 }
 
-                if(password.length() < 5){
-                    DisplayMessage.errorMessage(getContext(),"Too Short Password",Toasty.LENGTH_SHORT);
-                    binding.passwordView.setError("Too Short Message");
-                    return;
-                }
+//                if(password.length() < 5){
+//                    DisplayMessage.errorMessage(getContext(),"Too Short Password",Toasty.LENGTH_SHORT);
+//                    binding.passwordView.setError("Too Short Message");
+//                    return;
+//                }
+//
+//                if(!password.equals(conformPassword)){
+//                    DisplayMessage.errorMessage(getContext(),"Passwords Do Not Match",Toasty.LENGTH_SHORT);
+//                    binding.conformPasswordView.setError("Passwords Do Not Match");
+//                    return;
+//                }
 
-                if(!password.equals(conformPassword)){
-                    DisplayMessage.errorMessage(getContext(),"Passwords Do Not Match",Toasty.LENGTH_SHORT);
-                    binding.conformPasswordView.setError("Passwords Do Not Match");
-                    return;
-                }
-
-                registerUser(new User(name,phoneNo,password));
+                registerUser(new User(name,phoneNo,null));
 
             }
         });

@@ -58,18 +58,23 @@ public class AuthHomeFragment extends Fragment {
                     return;
                 }
 
-                if(binding.passwordView.getVisibility() == View.VISIBLE){
-                    if(password.length() == 0){
-                        DisplayMessage.errorMessage(getContext(),"Enter Password",Toasty.LENGTH_SHORT);
-                        return;
-                    }
-                    loadingDialog.startLoadingDialog();
-                    login(phoneNo,password);
-                }
-                else {
-                    loadingDialog.startLoadingDialog();
-                    authorizeUser(phoneNo);
-                }
+                Bundle bundle = new Bundle();
+                bundle.putString("phoneNo",phoneNo);
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_authHomeFragment_to_authOtpFragment,bundle);
+                sendOtp(phoneNo);
+
+//                if(binding.passwordView.getVisibility() == View.VISIBLE){
+//                    if(password.length() == 0){
+//                        DisplayMessage.errorMessage(getContext(),"Enter Password",Toasty.LENGTH_SHORT);
+//                        return;
+//                    }
+//                    loadingDialog.startLoadingDialog();
+//                    login(phoneNo,password);
+//                }
+//                else {
+//                    loadingDialog.startLoadingDialog();
+//                    authorizeUser(phoneNo);
+//                }
 
             }
         });

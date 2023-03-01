@@ -18,4 +18,6 @@ public class SharedPrefNames {
     public static String USER_PHONE = "MYMZP_USER_PHONENO";
     public static String USER_FCM_TOKEN = "MYMZP_USER_FCMTOKEN";
 
+    public static String LOCATION_DIALOG_MESSAGE = "MYMZP_LOCATION_DIALOG";
+
 }
