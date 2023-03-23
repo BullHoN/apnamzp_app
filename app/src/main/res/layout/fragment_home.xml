@@ -171,7 +171,7 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/offers_banner"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/offer_zone"
+                    android:src="@drawable/offers_zone"
                     app:shapeAppearance="@style/curvedImage"
                     android:layout_width="match_parent"
                     android:layout_height="120dp" />

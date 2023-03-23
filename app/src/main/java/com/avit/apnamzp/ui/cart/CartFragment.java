@@ -16,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -428,6 +429,20 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
         AlertDialog dialog = builder.create();
         dialog.show();
+
+        new CountDownTimer(2000,1000){
+
+            @Override
+            public void onTick(long l) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                dialog.dismiss();
+            }
+
+        }.start();
 
     }
 

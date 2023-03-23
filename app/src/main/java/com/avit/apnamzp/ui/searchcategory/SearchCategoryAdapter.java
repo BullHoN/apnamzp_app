@@ -77,9 +77,15 @@ public class SearchCategoryAdapter extends RecyclerView.Adapter<SearchCategoryVi
                 .load(curr.getBannerImage())
                 .into(holder.shopImageView);
 
+        int total_reviews = Integer.parseInt(curr.getReviews());
         float rating = Float.parseFloat(curr.getAverageRatings());
         holder.noOfRatingView.setText(String.valueOf(rating));
-        if(rating >= 4){
+
+        if(total_reviews < 10){
+            holder.noOfRatingView.setText("- /");
+            holder.ratingBackground.setBackgroundResource(R.drawable.no_rating_back);
+        }
+        else if(rating >= 4){
             holder.ratingBackground.setBackgroundResource(R.drawable.rating_background_good);
         }
         else if(rating >= 2){
