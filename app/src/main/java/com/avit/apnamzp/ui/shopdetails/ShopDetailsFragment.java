@@ -101,6 +101,11 @@ public class ShopDetailsFragment extends Fragment implements ShopDetailsAdapter.
                     binding.notAcceptingOrdersContainer.setVisibility(View.GONE);
                 }
 
+                if(!shopData.isAllowCheckout()){
+                    binding.notAcceptingOrdersContainer.setVisibility(View.VISIBLE);
+                    binding.notAcceptingOrdersMessage.setText("Not Accepting Orders, Due To High Traffic \n Try After Sometime !!");
+                }
+
                 Glide.with(getContext())
                         .load(shopData.getBannerImage())
                         .into(binding.backImage);

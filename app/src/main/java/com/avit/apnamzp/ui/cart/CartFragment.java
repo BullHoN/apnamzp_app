@@ -444,7 +444,7 @@ public class CartFragment extends Fragment implements CartItemsAdapter.updateBad
 
     private void loadTheUI(){
 
-        binding.itemsOnTheWayHeading.setText("Add Item from each shop in a single line, every shop will have a " + PrettyStrings.getPriceInRupees(orderItem.getItemOnTheWaySingleCost()) + " Increment in the total price");
+        binding.itemsOnTheWayHeading.setText("Extra Charges of " + PrettyStrings.getPriceInRupees(orderItem.getItemOnTheWaySingleCost()) + " Will Be Applied");
 
         binding.itemsOnTheWay.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         orderItem.setItemsOnTheWay(cart.getItemsOnTheWay());

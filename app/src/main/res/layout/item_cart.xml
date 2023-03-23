@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardUseCompatPadding="true"
     app:cardElevation="4dp"
+    app:cardCornerRadius="4dp"
+    app:cardPreventCornerOverlap="true"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -57,7 +59,7 @@
                         <TextView
                             android:id="@+id/increasedPrice"
                             android:layout_marginTop="5dp"
-                            android:fontFamily="@font/roboto_medium"
+                            android:fontFamily="@font/montserrat_medium"
                             android:text="$100.00"
                             style="@style/second_text"
                             android:layout_width="wrap_content"
@@ -99,7 +101,7 @@
                 <LinearLayout
                     android:clickable="true"
                     android:id="@+id/increaseQuantity"
-                    android:background="@color/primaryColor"
+                    android:background="@drawable/selected_back"
                     android:layout_gravity="center"
                     android:layout_width="25dp"
                     android:layout_height="25dp">
@@ -122,7 +124,7 @@
 
                 <LinearLayout
                     android:id="@+id/decreaseQuantity"
-                    android:background="@color/primaryColor"
+                    android:background="@drawable/selected_back"
                     android:layout_gravity="center"
                     android:layout_width="25dp"
                     android:layout_height="25dp">

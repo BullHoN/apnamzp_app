@@ -102,7 +102,8 @@
                 android:elevation="24dp" >
 
                 <LinearLayout
-                    android:background="#68E46D"
+                    android:visibility="gone"
+                    android:background="@drawable/rating_background_good"
                     android:padding="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -150,10 +151,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/open_sans_extrabold"
                 android:text="Special Instructions"
                 style="@style/main_text"
-                android:textSize="18sp" />
+                android:textSize="22sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -167,7 +168,8 @@
                     android:id="@+id/specialInstruction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="If any special instructions for this order, &#10;please type here"
+                    android:fontFamily="@font/roboto_bold"
+                    android:hint="Add Instructions..."
                     android:imeOptions="actionSend"
                     android:inputType="text"
                     android:minLines="2" />
@@ -183,18 +185,19 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/roboto_medium"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/open_sans_extrabold"
                     android:text="Add Items On The Way"
                     style="@style/main_text"
-                    android:textSize="18sp" />
+                    android:textSize="22sp" />
 
 
                 <TextView
+                    android:fontFamily="@font/montserrat_medium"
                     android:id="@+id/items_on_the_way_heading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add Item from each shop in a single line, every shop will have a 10Rs Increment in the total price" />
+                    android:text="Extra Charges(10 Rs) Will Be Applied" />
 
 
                 <LinearLayout
@@ -297,6 +300,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -321,18 +326,22 @@
 
                         <com.facebook.shimmer.ShimmerFrameLayout
                             android:id="@+id/offer_shimmer_container"
-                            app:shimmer_intensity="1"
+                            app:shimmer_colored="true"
+                            app:shimmer_base_color="#18A3FF"
+                            app:shimmer_highlight_color="@color/black"
+                            app:shimmer_base_alpha="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" >
 
                             <TextView
+                                android:textAllCaps="true"
                                 android:textSize="20sp"
                                 android:id="@+id/availableOffers"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:fontFamily="@font/roboto_bold"
+                                android:fontFamily="@font/open_sans_extrabold"
                                 android:gravity="center"
-                                android:text="Apply Coupon"
+                                android:text="More Discount"
                                 android:textColor="@color/successColor" />
 
                         </com.facebook.shimmer.ShimmerFrameLayout>
@@ -398,6 +407,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -410,7 +421,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_medium"
+                        android:fontFamily="@font/open_sans_extrabold"
                         android:text="Delivery Address"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
@@ -473,6 +484,8 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:cardElevation="4dp"
+                app:cardCornerRadius="4dp"
+                app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -493,7 +506,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
+                            android:fontFamily="@font/open_sans_extrabold"
                             android:text="Pickup Address"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
@@ -531,7 +544,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/open_sans_extrabold"
                         android:text="Choose Service Type"
                         android:textColor="@color/primaryColor"
                         android:textSize="16sp" />
@@ -619,7 +632,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/open_sans_extrabold"
                     android:text="Bill Details"
                     style="@style/main_text"/>
 
@@ -865,6 +878,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="18dp"
+                    android:fontFamily="@font/open_sans_bold"
                     android:text="Proceed to pay $252.00" />
 
             </LinearLayout>

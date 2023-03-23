@@ -4,19 +4,25 @@ import java.util.List;
 
 public class ShopCategoryData {
     private String categoryName;
-    private List<ShopItemData> shopItemDataList;
+    private List<ShopItemData> shopItemDataList, allItemsDataList;
     public Boolean expanded;
 
     public ShopCategoryData(String categoryName, List<ShopItemData> shopItemDataList,boolean expanded) {
         this.categoryName = categoryName;
         this.shopItemDataList = shopItemDataList;
         this.expanded = expanded;
+        this.allItemsDataList = shopItemDataList;
     }
 
     public ShopCategoryData(String categoryName, List<ShopItemData> shopItemDataList) {
         this.categoryName = categoryName;
         this.shopItemDataList = shopItemDataList;
         this.expanded = true;
+        this.allItemsDataList = shopItemDataList;
+    }
+
+    public List<ShopItemData> getAllItemsDataList() {
+        return allItemsDataList;
     }
 
     public Boolean getExpanded() {
