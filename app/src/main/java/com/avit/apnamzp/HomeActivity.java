@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.avit.apnamzp.network.NetworkApi;
 import com.avit.apnamzp.network.RetrofitClient;
 import com.avit.apnamzp.utils.DisplayMessage;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.badge.BadgeDrawable;
@@ -35,6 +37,8 @@ import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.razorpay.PaymentResultListener;
 
@@ -122,6 +126,7 @@ public class HomeActivity extends AppCompatActivity  implements PaymentResultLis
         intentFilter = new IntentFilter();
         intentFilter.addAction("com.avit.apnamzp.ORDER_STATUS_UPDATE");
 
+        setUpFirebaseDeepLink();
     }
 
     private void updateFCMToken(String fcmToken){
@@ -164,6 +169,30 @@ public class HomeActivity extends AppCompatActivity  implements PaymentResultLis
         BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.cartFragment);
 
         badge.setNumber(cartSize);
+    }
+
+    private void setUpFirebaseDeepLink(){
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                        }
+
+                        if(deepLink != null) Log.i(TAG, "onSuccess: " + deepLink.toString());
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "getDynamicLink:onFailure", e);
+                    }
+                });
+
     }
 
     @Override
