@@ -192,5 +192,22 @@ public class User {
         return new DeliveryAddress(String.valueOf(latLng.latitude),String.valueOf(latLng.longitude),User.getSecondaryGoogleMapStreetAddress(context),User.getSecondaryHomeDetails(context),User.getSecondaryLandMark(context));
     }
 
+    public static String getReferAndEarnLink(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+
+        if(sharedPreferences.contains(SharedPrefNames.USER_REFER_AND_EARN_LINK)){
+            return sharedPreferences.getString(SharedPrefNames.USER_REFER_AND_EARN_LINK,"");
+        }
+
+        return null;
+    }
+
+    public static void setReferAndEarnLink(Context context,String link){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(SharedPrefNames.USER_REFER_AND_EARN_LINK,link);
+        editor.apply();
+    }
 
 }

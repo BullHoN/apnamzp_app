@@ -31,6 +31,7 @@
         app:navGraph="@navigation/nav_graph" />
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -38,7 +39,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/wallet_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +64,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:focusable="true"
+        android:clickable="true"
+        android:id="@+id/wallet_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/wallet_main_back"

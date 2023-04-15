@@ -70,6 +70,31 @@
 
         <LinearLayout
             android:padding="12dp"
+            android:id="@+id/referandearn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32sp"
+                android:layout_height="32sp"
+                android:src="@drawable/ic_baseline_diamond_24" />
+
+            <TextView
+                style="@style/item_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="24dp"
+                android:text="Refer And Earn" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="12dp"
             android:id="@+id/profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

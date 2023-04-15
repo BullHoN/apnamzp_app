@@ -16,6 +16,7 @@ import android.content.IntentSender;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.avit.apnamzp.localdb.Cart;
@@ -127,6 +128,14 @@ public class HomeActivity extends AppCompatActivity  implements PaymentResultLis
         intentFilter.addAction("com.avit.apnamzp.ORDER_STATUS_UPDATE");
 
         setUpFirebaseDeepLink();
+
+        findViewById(R.id.wallet_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick: Open Wallet");
+            }
+        });
+
     }
 
     private void updateFCMToken(String fcmToken){
