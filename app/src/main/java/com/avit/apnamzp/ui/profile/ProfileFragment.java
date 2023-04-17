@@ -132,7 +132,6 @@ public class ProfileFragment extends Fragment {
                 .setDomainUriPrefix("https://app.apnamzp.in")
                 .setAndroidParameters(
                         new DynamicLink.AndroidParameters.Builder("com.avit.apnamzp")
-                                .setMinimumVersion(125)
                                 .build())
                 .setSocialMetaTagParameters(
                         new DynamicLink.SocialMetaTagParameters.Builder()

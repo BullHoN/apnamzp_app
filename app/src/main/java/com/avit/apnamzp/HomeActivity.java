@@ -13,13 +13,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.avit.apnamzp.auth.AuthActivity;
 import com.avit.apnamzp.localdb.Cart;
+import com.avit.apnamzp.localdb.SharedPrefNames;
 import com.avit.apnamzp.localdb.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
@@ -62,6 +66,7 @@ public class HomeActivity extends AppCompatActivity  implements PaymentResultLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        setUpFirebaseDeepLink();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
         navController = Navigation.findNavController(this,R.id.fragmentContainerView);
@@ -127,7 +132,7 @@ public class HomeActivity extends AppCompatActivity  implements PaymentResultLis
         intentFilter = new IntentFilter();
         intentFilter.addAction("com.avit.apnamzp.ORDER_STATUS_UPDATE");
 
-        setUpFirebaseDeepLink();
+
 
         findViewById(R.id.wallet_container).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,16 +197,36 @@ public class HomeActivity extends AppCompatActivity  implements PaymentResultLis
                             deepLink = pendingDynamicLinkData.getLink();
                         }
 
-                        if(deepLink != null) Log.i(TAG, "onSuccess: " + deepLink.toString());
+                        if(deepLink != null) {
+                            Log.i(TAG, "onSuccess: " + deepLink.toString());
+                            SharedPreferences sharedPreferences = getSharedPreferences(SharedPrefNames.SHAREDDB_NAME,MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                            editor.putString(SharedPrefNames.USER_DEEP_LINK,deepLink.toString());
+                            editor.apply();
+                        }
+                        moveToNextActivity();
+
+
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "getDynamicLink:onFailure", e);
+                        moveToNextActivity();
                     }
                 });
 
+    }
+
+    private void moveToNextActivity(){
+        Intent intent;
+        if(!User.getIsVerified(getApplicationContext())){
+            intent = new Intent(getApplicationContext(), AuthActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

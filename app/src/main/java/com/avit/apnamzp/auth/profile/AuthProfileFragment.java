@@ -1,10 +1,13 @@
 package com.avit.apnamzp.auth.profile;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import com.avit.apnamzp.HomeActivity;
 import com.avit.apnamzp.R;
 import com.avit.apnamzp.databinding.FragmentAuthProfileBinding;
 import com.avit.apnamzp.dialogs.LoadingDialog;
+import com.avit.apnamzp.localdb.SharedPrefNames;
 import com.avit.apnamzp.models.User;
 import com.avit.apnamzp.models.network.NetworkResponse;
 import com.avit.apnamzp.network.NetworkApi;
@@ -30,6 +34,7 @@ public class AuthProfileFragment extends Fragment {
 
     private FragmentAuthProfileBinding binding;
     private LoadingDialog loadingDialog;
+    private String TAG = "AuthProfileFragmentTag";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +87,13 @@ public class AuthProfileFragment extends Fragment {
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);
 
-        Call<NetworkResponse> call = networkApi.registerUser(user);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.SHAREDDB_NAME, Context.MODE_PRIVATE);
+        String invitedBy = sharedPreferences.getString(SharedPrefNames.USER_DEEP_LINK,"");
+        if(invitedBy.length() > 0 && invitedBy.contains("invitedby")){
+            invitedBy = invitedBy.split("invitedby=")[1];
+        }
+
+        Call<NetworkResponse> call = networkApi.registerUser(user,invitedBy);
         call.enqueue(new Callback<NetworkResponse>() {
             @Override
             public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {

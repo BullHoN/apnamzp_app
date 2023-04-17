@@ -32,8 +32,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface NetworkApi {
-//     String SERVER_URL = "http://192.168.1.5:5000/";
-     String SERVER_URL = "https://apnamzp.in/";
+     String SERVER_URL = "http://192.168.1.4:5000/";
+//     String SERVER_URL = "https://apnamzp.in/";
 
      @GET("/user/bannerImages")
      Call<List<BannerData>> getBannerImages();
@@ -71,7 +71,7 @@ public interface NetworkApi {
      Call<NetworkResponse> sendOtp(@Query("phoneNo") String phoneNo);
 
      @POST("/registerUser")
-     Call<NetworkResponse> registerUser(@Body User userData);
+     Call<NetworkResponse> registerUser(@Body User userData,@Query("invitedBy") String invitedBy);
 
      @GET("/login")
      Call<NetworkResponse> login(@Query("phoneNo") String phoneNo, @Query("password") String password);
